@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPSC CCE-2026 · Mock Test 13</title>
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#1c2230;--mut:#667085;--line:#e2ddd0;--acc:#1f4e79;--acc2:#e7eef6;--ok:#1b7f4b;--okbg:#e3f4ea;--bad:#b3261e;--badbg:#fbe8e6;--warn:#a85f00;--warnbg:#fff2d9}
+@media (prefers-color-scheme:dark){:root{--bg:#13161b;--card:#1b1f26;--ink:#e8eaed;--mut:#98a2b3;--line:#2b313b;--acc:#86b8ea;--acc2:#202a37;--ok:#63d394;--okbg:#16301f;--bad:#ff8f85;--badbg:#3a1c1a;--warn:#f2b653;--warnbg:#382c12}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;margin:0 0 4px}
+h2{font:700 20px/1.2 Georgia,serif;margin:24px 0 10px}
+h3{font-size:15px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+ul{margin:0;padding-left:20px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+th{color:var(--mut);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:9px}
+button:hover{border-color:var(--acc)}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button.sm{padding:6px 12px;font-size:14px}
+button:disabled{opacity:.6;cursor:default}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center;padding:10px 16px;flex-wrap:wrap}
+.top .ti{font-weight:700;flex:1;min-width:140px}
+.tm{font:700 20px ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.tm.low{color:var(--bad)}
+.body{display:grid;grid-template-columns:1fr 300px;gap:16px;max-width:1100px;margin:0 auto;padding:16px}
+@media (max-width:860px){.body{grid-template-columns:1fr}}
+.meta{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--mut);margin-bottom:10px;flex-wrap:wrap}
+.tag{background:var(--acc2);color:var(--acc);padding:2px 9px;border-radius:99px;font-weight:600}
+.flag{color:var(--warn);font-weight:600}
+.q{font-size:19px;line-height:1.5;margin:0 0 14px;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;text-align:left;align-items:flex-start;width:100%}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:var(--acc2);color:var(--acc);display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:var(--acc);background:var(--acc2)}
+.opt.sel b{background:var(--acc);color:#fff}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.expl{margin-top:12px;padding:10px 12px;border-radius:9px;background:var(--acc2);font-size:15px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav .sp{flex:1}
+#pal{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto}
+@media (max-width:860px){#pal{position:static;max-height:none}}
+.ph{font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:5px}
+.pb{padding:5px 0;font-size:13px;text-align:center;border-radius:7px;font-variant-numeric:tabular-nums}
+.pb.a{background:var(--okbg);border-color:var(--ok)}
+.pb.m{box-shadow:inset 0 0 0 2px var(--warn)}
+.pb.c{outline:2px solid var(--acc);outline-offset:1px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:12px}
+.big{font:700 44px/1 Georgia,serif}
+.pass{color:var(--ok)}.fail{color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.stat{background:var(--acc2);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--mut)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.rv{border-left:4px solid var(--line)}
+.rv.ok{border-left-color:var(--ok)}.rv.bad{border-left-color:var(--bad)}.rv.un{border-left-color:var(--warn)}
+.rv .q{font-size:16px;margin-bottom:8px}
+.rv .ans{font-size:14px;margin:2px 0}
+.fc{min-height:260px;display:flex;flex-direction:column;justify-content:center}
+.fc .q{font-size:22px}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.warn{background:var(--warnbg);color:var(--warn);padding:8px 12px;border-radius:9px;font-size:14px;margin:8px 0}
+a{color:var(--acc)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TEST = {"id":13,"title":"Mock Test 13","sec":[{"k":"ENG","name":"English","n":40,"i0":0},{"k":"PA","name":"Pakistan Affairs & Sindh","n":26,"i0":40},{"k":"IS","name":"Islamic Studies","n":26,"i0":66},{"k":"CA","name":"Current Affairs","n":24,"i0":92},{"k":"ES","name":"Everyday Science","n":32,"i0":116},{"k":"WG","name":"World Geography","n":14,"i0":148},{"k":"MTH","name":"Mathematics","n":14,"i0":162},{"k":"RSN","name":"Reasoning","n":12,"i0":176},{"k":"IT","name":"Digital Literacy & IT","n":12,"i0":188}],"q":[{"s":"ENG","q":"Choose the word closest in meaning to: FORMIDABLE","o":["Daunting","Weak","Friendly","Easy"],"a":0,"e":""},{"s":"ENG","q":"Choose the correct preposition to fill the blank:\nThe match was cancelled ___ rain.","o":["due","since","because of","for"],"a":2,"e":""},{"s":"ENG","q":"Fill in the blank:\nThis is the house ___ I was born.","o":["where","who","whom","which"],"a":0,"e":""},{"s":"ENG","q":"Find the error: \"He did not came to school.\"","o":["to school","came","No error","He did not"],"a":1,"e":""},{"s":"ENG","q":"The word 'kindness' has the suffix:","o":["-ness","kind-","-ss","-ind"],"a":0,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: FLEXIBLE","o":["Pliable","Soft","Elastic","Rigid"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: SUBTLE","o":["Delicate","Crude","Loud","Obvious"],"a":0,"e":""},{"s":"ENG","q":"Choose the correct meaning of the idiom: \"Throw in the towel\"","o":["Give up","Start a fight","Clean up","None of these"],"a":0,"e":""},{"s":"ENG","q":"Choose the one word for: 'a person who walks in sleep':","o":["Pedestrian","Somnambulist","Insomniac","Narcissist"],"a":1,"e":""},{"s":"ENG","q":"Fill in the blank:\nI saw ___ elephant in the zoo.","o":["some","a","an","None of these"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: DEMAND","o":["Need","Claim","Supply","None of these"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: DECLINE","o":["Fall","Drop","Improve","Weaken"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: SHRINK","o":["Dwindle","Expand","Contract","Reduce"],"a":1,"e":""},{"s":"ENG","q":"Fill in the blank:\nThey ___ a house when I met them.","o":["have built","build","built","were building"],"a":3,"e":""},{"s":"ENG","q":"Choose the correctly spelled word.","o":["Surprice","Surprise","Surprize","Suprise"],"a":1,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: JOY","o":["Delight","Sorrow","Cheer","Pleasure"],"a":1,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"A person who loves his country\"","o":["Patriot","Traitor","Pedant","Cynic"],"a":0,"e":""},{"s":"ENG","q":"Choose the correct passive voice: Do you know him?","o":["Is he known to you?","Is he knew by you?","Was he known by you?","Does he known to you?"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: ACCLAIM","o":["Ignore","Condemn","Doubt","Praise"],"a":3,"e":""},{"s":"ENG","q":"Which of the following is a compound word?","o":["Happily","Kindness","Beautiful","Sunflower"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: DILEMMA","o":["Predicament","Advantage","Solution","Reward"],"a":0,"e":""},{"s":"ENG","q":"Choose the correct meaning of the idiom: \"Back to square one\"","o":["Back to the beginning","Making progress","Finishing a task","A winning move"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: BELLIGERENT","o":["Aggressive","Friendly","Calm","None of these"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: HOSTILE","o":["Unfriendly","Weak","Welcoming","Calm"],"a":0,"e":""},{"s":"ENG","q":"Choose the correctly spelled word.","o":["Goverment","Government","Govermnent","Governmant"],"a":1,"e":""},{"s":"ENG","q":"Choose the correct meaning of the idiom: \"Pull someone's leg\"","o":["Tease or joke with someone","Help someone walk","Trip someone","Hurt someone"],"a":0,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"One who looks on the dark side of things\"","o":["Idealist","Pessimist","Realist","Optimist"],"a":1,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"That which cannot be avoided\"","o":["Incredible","Inevitable","Impossible","Invisible"],"a":1,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: WRATH","o":["Anger","Calm","Joy","Pity"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: OBLIVION","o":["State of being forgotten","Memory","Fame","None of these"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: LACONIC","o":["Loud","Rude","Wordy","Brief"],"a":3,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"Study of birds\"","o":["Etymology","Ornithology","Ecology","Zoology"],"a":1,"e":""},{"s":"ENG","q":"Fill in the blank:\nPlease ___ the door.","o":["closed","closing","close","closes"],"a":2,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: COERCE","o":["Allow","Invite","Persuade gently","Force"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: PRODIGY","o":["Beginner","Average person","Fool","Genius"],"a":3,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: NEGLECT","o":["Overlook","Care","Ignore","Forget"],"a":1,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: MEDIOCRE","o":["Outstanding","Superb","Average","Excellent"],"a":2,"e":""},{"s":"ENG","q":"Fill in the blank:\nHe is the man ___ car was stolen.","o":["which","who","whom","whose"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: FALLACY","o":["Truth","Fact","Mistaken belief","Proof"],"a":2,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: RETICENT","o":["Reserved","Friendly","Boastful","Noisy"],"a":0,"e":""},{"s":"PA","q":"Objectives Resolution (1949) is associated with:","o":["Liaquat Ali Khan","Revolt against the East India Company","A. K. Fazlul Huq","Maulana Muhammad Ali Jauhar and Shaukat Ali"],"a":0,"e":""},{"s":"PA","q":"The Shah Jahan Mosque in Thatta was built during the reign of:","o":["Akbar","Aurangzeb","Humayun","Shah Jahan"],"a":3,"e":""},{"s":"PA","q":"The Wakhan Corridor separates Pakistan from:","o":["Iran","Uzbekistan","Tajikistan","China"],"a":2,"e":""},{"s":"PA","q":"The Third Round Table Conference was held in:","o":["1930","1932","1931","None of these"],"a":1,"e":""},{"s":"PA","q":"The 25th Amendment to the Constitution of Pakistan is best known for:","o":["Inserting Article 58(2)(b) and making the Objectives Resolution a substantive part (Article 2A)","Removing the President's power to dissolve the National Assembly","Restoring the President's power to dissolve the National Assembly","None of these"],"a":3,"e":"None of the options is correct; the right answer is Merging FATA with Khyber Pakhtunkhwa."},{"s":"PA","q":"The One Unit scheme was abolished in:","o":["1955","1973","1962","1970"],"a":3,"e":""},{"s":"PA","q":"Mohenjo-daro was discovered in:","o":["1900","1947","1960","1922"],"a":3,"e":""},{"s":"PA","q":"The Kirthar National Park is located in:","o":["Khyber Pakhtunkhwa","Sindh","Balochistan","Gilgit-Baltistan"],"a":1,"e":""},{"s":"PA","q":"Mazar-e-Quaid in Karachi was designed by:","o":["Yahya Merchant","Nayyar Ali Dada","Mimar Sinan","Sir Ganga Ram"],"a":0,"e":""},{"s":"PA","q":"Which province has the longest coastline of Pakistan?","o":["Balochistan","Punjab","Sindh","Khyber Pakhtunkhwa"],"a":0,"e":""},{"s":"PA","q":"Direct Action Day was observed by the Muslim League on:","o":["23 March 1940","14 August 1947","3 June 1947","16 August 1946"],"a":3,"e":""},{"s":"PA","q":"The Bolan Pass lies near:","o":["Gilgit","Lahore","Quetta","Peshawar"],"a":2,"e":""},{"s":"PA","q":"Allama Iqbal died in:","o":["1938","1948","1947","1930"],"a":0,"e":""},{"s":"PA","q":"Faisalabad is known as the:","o":["City of Wrestlers","Fruit Garden of Pakistan","Manchester of Pakistan","City of cutlery"],"a":2,"e":""},{"s":"PA","q":"Satpara Lake is near:","o":["Swat","Gilgit","Chitral","Skardu"],"a":3,"e":""},{"s":"PA","q":"The Government of India Act, which introduced provincial autonomy, was passed in:","o":["1919","1935","1909","1947"],"a":1,"e":""},{"s":"PA","q":"The Takht-i-Bahi Buddhist monastery is in:","o":["Peshawar","Taxila","Swat","None of these"],"a":3,"e":"None of the options is correct; the right answer is Mardan."},{"s":"PA","q":"Operation Gibraltar (1965) was a plan to infiltrate:","o":["Rajasthan","East Pakistan","Indian-held Kashmir","Punjab"],"a":2,"e":""},{"s":"PA","q":"Pakistan International Airlines was founded in:","o":["1947","1971","1962","1955"],"a":3,"e":""},{"s":"PA","q":"The Constitution of 1962 was introduced by:","o":["Zia-ul-Haq","Ayub Khan","Iskander Mirza","Yahya Khan"],"a":1,"e":""},{"s":"PA","q":"The 'Decade of Development' was celebrated during the rule of:","o":["Yahya Khan","Pervez Musharraf","Zia-ul-Haq","Ayub Khan"],"a":3,"e":""},{"s":"PA","q":"The annual Urs of Lal Shahbaz Qalandar is held at:","o":["Hyderabad","Thatta","Sehwan Sharif","Karachi"],"a":2,"e":""},{"s":"PA","q":"The President of Pakistan from 1973 to 1978 was:","o":["Ghulam Ishaq Khan","Zia-ul-Haq","Fazal Elahi Chaudhry","Farooq Leghari"],"a":2,"e":""},{"s":"PA","q":"Which of these took place in 2005?","o":["Pakistan became a member of the United Nations","Completion of Tarbela Dam","Pakistan became an Islamic Republic under the 1956 Constitution","Earthquake in Azad Kashmir and Khyber Pakhtunkhwa"],"a":3,"e":""},{"s":"PA","q":"The Pakistan Military Academy is located at:","o":["Kohat","Quetta","Kakul (Abbottabad)","Risalpur"],"a":2,"e":""},{"s":"PA","q":"The Aligarh Movement was led by:","o":["Maulana Abul Kalam Azad","Maulana Muhammad Ali Jauhar","Sir Syed Ahmad Khan","Allama Iqbal"],"a":2,"e":""},{"s":"IS","q":"Which wife of the Prophet (PBUH) was the last wife the Prophet (PBUH) married?","o":["Sawda bint Zam'a (RA)","Aisha bint Abu Bakr (RA)","Maymuna bint al-Harith (RA)","Umm Habiba (RA)"],"a":2,"e":""},{"s":"IS","q":"The house of Arqam in Makkah served as the first:","o":["Marketplace","Centre for Islamic teaching","Hospital","Prison for Muslims"],"a":1,"e":""},{"s":"IS","q":"Darul Uloom Deoband was founded in:","o":["1875","1894","1857","1866"],"a":3,"e":""},{"s":"IS","q":"The English meaning of the name of Surah Ar-Ra'd is:","o":["The Spoils of War","The Cave","The Bee","None of these"],"a":3,"e":"None of the options is correct; the right answer is The Thunder."},{"s":"IS","q":"The surah that is said to intercede for its reciter against the punishment of the grave is:","o":["Al-Mulk","Al-Kahf","Al-Fil","Al-Waqiah"],"a":0,"e":""},{"s":"IS","q":"The House of Wisdom (Bayt al-Hikma) flourished under:","o":["Al-Mu'tasim","Al-Mamun","Al-Mutawakkil","Al-Mansur"],"a":1,"e":""},{"s":"IS","q":"Khalid ibn Walid (RA) received the title 'Saifullah' after the Battle of:","o":["Uhud","Mu'ta","Hunayn","Badr"],"a":1,"e":""},{"s":"IS","q":"The Prophet (PBUH) performed the Farewell Hajj in:","o":["10 AH","3 AH","2 AH","9 AH"],"a":0,"e":""},{"s":"IS","q":"The surah whose name means 'The Moon' is:","o":["Al-Hadid","An-Nahl","Al-Qamar","An-Nas"],"a":2,"e":""},{"s":"IS","q":"Ibn al-Haytham is credited with:","o":["Early chemistry","Pioneering the science of optics","Founding Al-Qarawiyyin in Fez","Drawing a world map for King Roger II"],"a":1,"e":""},{"s":"IS","q":"Kashf al-Mahjub, a classic Persian treatise on Sufism, was written by:","o":["Ali Hujwiri (Data Ganj Bakhsh)","Shah Waliullah","Sheikh Ahmad Sirhindi","Imam Ghazali"],"a":0,"e":""},{"s":"IS","q":"The Great Mosque of Damascus was built by:","o":["Walid I","Umar II","Muawiya","Abdul Malik"],"a":0,"e":""},{"s":"IS","q":"Article 227 of the Constitution of Pakistan provides that all laws shall be brought in conformity with:","o":["The Injunctions of Islam","The Charter of the United Nations","The Objectives Resolution","The Government of India Act 1935"],"a":0,"e":""},{"s":"IS","q":"The pre-Islamic name of Madinah was:","o":["Taif","Bakkah","Najran","Yathrib"],"a":3,"e":""},{"s":"IS","q":"Makkah was conquered peacefully in:","o":["6 AH","8 AH","10 AH","None of these"],"a":1,"e":""},{"s":"IS","q":"The Prophet's companion during the Hijrah journey was:","o":["Umar (RA)","Uthman (RA)","Abu Bakr (RA)","Ali (RA)"],"a":2,"e":""},{"s":"IS","q":"The pact for justice in which the young Muhammad (PBUH) participated before Prophethood was:","o":["Misaq-e-Madina","Treaty of Hudaybiyyah","Hilf al-Fudul","Bay'at al-Ridwan"],"a":2,"e":""},{"s":"IS","q":"The famous disciple of Nizamuddin Auliya, known as the 'Parrot of India', was:","o":["Bahauddin Zakariya","Baba Farid","Amir Khusrau","Moinuddin Chishti"],"a":2,"e":""},{"s":"IS","q":"The last expedition led personally by the Prophet (PBUH) was:","o":["Khaybar","Badr","Hunayn","Tabuk"],"a":3,"e":""},{"s":"IS","q":"The year of the deaths of Khadijah (RA) and Abu Talib is called:","o":["Aam al-Jama'ah","Aam al-Wufud","Aam al-Fil","Aam al-Huzn (Year of Sorrow)"],"a":3,"e":""},{"s":"IS","q":"Ibn Sina's encyclopedia of philosophy and science is called:","o":["Rihla","Al-Tasrif","Kitab al-Hawi","Kitab al-Shifa"],"a":3,"e":""},{"s":"IS","q":"The political theory book 'Al-Ahkam as-Sultaniyyah' was written by:","o":["Ibn Khaldun","Al-Farabi","Al-Ghazali","Al-Mawardi"],"a":3,"e":""},{"s":"IS","q":"Makki surahs mainly deal with:","o":["Rules of divorce","Laws of inheritance","Belief in Tawhid and the Hereafter","Rules of war"],"a":2,"e":""},{"s":"IS","q":"Abu Bakr (RA) ruled as caliph for about:","o":["Twenty years","Five years","Ten years","Two years"],"a":3,"e":""},{"s":"IS","q":"The migration of Muslims to Abyssinia took place under the ruler:","o":["Heraclius","Muqawqis","Najashi (Negus)","None of these"],"a":2,"e":""},{"s":"IS","q":"The caliphate was abolished in 1924 by:","o":["Reza Shah","Mustafa Kemal Ataturk","Sultan Abdul Hamid II","King Faisal"],"a":1,"e":""},{"s":"CA","q":"The T20 World Cup 2026 was co-hosted by India and:","o":["UAE","Sri Lanka","Bangladesh","Pakistan"],"a":1,"e":""},{"s":"CA","q":"Which team finished third at the FIFA World Cup 2026?","o":["Morocco","England","France","Belgium"],"a":1,"e":""},{"s":"CA","q":"Punjab's population in the 2023 census was about:","o":["98 million","141 million","127.7 million","110 million"],"a":2,"e":""},{"s":"CA","q":"The Karachi Green Line BRT runs between Surjani Town and:","o":["Korangi","Numaish","Saddar","Clifton"],"a":1,"e":""},{"s":"CA","q":"The Nobel Prize in Chemistry (2025) was awarded for work on:","o":["Metal-organic frameworks","Macroscopic quantum tunnelling in electric circuits","Peripheral immune tolerance (regulatory T cells)","Optogenetics (light-gated ion channels)"],"a":0,"e":""},{"s":"CA","q":"The Nobel Prize in Physics for 2021 was awarded for work on:","o":["Attosecond pulses of light","Complex physical systems and climate modelling","Foundational discoveries enabling machine learning with neural networks","Quantum entanglement experiments"],"a":1,"e":""},{"s":"CA","q":"In November 2024 the ICC issued arrest warrants for Netanyahu and:","o":["Benny Gantz","Yoav Gallant","Naftali Bennett","Isaac Herzog"],"a":1,"e":""},{"s":"CA","q":"The G20 leaders' summit of 2018 was hosted in:","o":["Rio de Janeiro","Rome","Osaka","Buenos Aires"],"a":3,"e":""},{"s":"CA","q":"In April 2023 the UN said which country became the world's most populous?","o":["China","United States","Indonesia","India"],"a":3,"e":""},{"s":"CA","q":"India became the first team to win the men's T20 World Cup how many times?","o":["Five","Four","Two","Three"],"a":3,"e":""},{"s":"CA","q":"Which former President of Senegal is among the candidates for UN Secretary-General in 2026?","o":["Leopold Senghor","Macky Sall","Abdoulaye Wade","Ousmane Sonko"],"a":1,"e":""},{"s":"CA","q":"The first woman Chief Minister of Punjab, elected in February 2024, is:","o":["Fehmida Mirza","Azma Bokhari","Hina Rabbani Khar","None of these"],"a":3,"e":"None of the options is correct; the right answer is Maryam Nawaz."},{"s":"CA","q":"The runner-up in PSL 11 (2026) was the debutant team:","o":["Hyderabad Kingsmen","Multan Sultans","Rawalpindiz","Quetta Gladiators"],"a":0,"e":""},{"s":"CA","q":"Balochistan's population in the 2023 census was about:","o":["9.8 million","20.4 million","25 million","14.9 million"],"a":3,"e":""},{"s":"CA","q":"The US announced a reciprocal tariff of what rate on Pakistani goods in July 2025?","o":["25%","10%","29%","19%"],"a":3,"e":""},{"s":"CA","q":"The 'Islamabad Talks' of 11-12 April 2026 were held between:","o":["India and Pakistan","Russia and Ukraine","The United States and Iran","Israel and Lebanon"],"a":2,"e":""},{"s":"CA","q":"Player of the Tournament at the T20 World Cup 2026 was:","o":["Suryakumar Yadav","Jasprit Bumrah","Sanju Samson","Abhishek Sharma"],"a":2,"e":""},{"s":"CA","q":"The men's ice hockey gold at the 2026 Winter Olympics was won by the USA after beating:","o":["Finland","Sweden","Canada","Russia"],"a":2,"e":""},{"s":"CA","q":"Pakistan's first silver medal at the Asian Games 2026 came in:","o":["Men's team squash","Cricket","Hockey","None of these"],"a":0,"e":""},{"s":"CA","q":"PSL 10 (2025) was won by:","o":["Islamabad United","Multan Sultans","Lahore Qalandars","Quetta Gladiators"],"a":2,"e":""},{"s":"CA","q":"The UN Secretary-General is appointed by the General Assembly on the recommendation of the:","o":["Security Council","Secretariat","International Court of Justice","Economic and Social Council"],"a":0,"e":""},{"s":"CA","q":"The next men's T20 World Cup (2028) will be hosted by:","o":["Australia and New Zealand","USA and West Indies","India and Sri Lanka","England and Wales"],"a":0,"e":""},{"s":"CA","q":"The military coup in Myanmar took place on:","o":["15 August 2021","1 February 2021","7 October 2020","None of these"],"a":1,"e":""},{"s":"CA","q":"The UN General Assembly has how many member states?","o":["188","195","193","201"],"a":2,"e":""},{"s":"ES","q":"The unit of loudness of sound is the:","o":["Watt","Pascal","Hertz","Decibel"],"a":3,"e":""},{"s":"ES","q":"Rayon is also known as:","o":["Artificial silk","Natural cotton","Wool","Synthetic rubber"],"a":0,"e":""},{"s":"ES","q":"The printing press was invented by:","o":["Frank Whittle","John Logie Baird","Thomas Edison","Johannes Gutenberg"],"a":3,"e":""},{"s":"ES","q":"The study of Animals is called:","o":["Zoology","Palaeontology","Mycology","None of these"],"a":0,"e":""},{"s":"ES","q":"The atomic number of Sulphur is:","o":["30","16","12","79"],"a":1,"e":""},{"s":"ES","q":"The ratio of chest compressions to breaths in adult CPR is:","o":["30 to 2","10 to 1","5 to 1","15 to 2"],"a":0,"e":""},{"s":"ES","q":"The process of heating milk to kill germs is:","o":["Pasteurisation","Sterilisation only","Fermentation","Homogenisation"],"a":0,"e":""},{"s":"ES","q":"Regulating metabolism is the function of the:","o":["Liver","Pancreas","Thyroid gland","Large intestine"],"a":2,"e":""},{"s":"ES","q":"MRI stands for:","o":["Chlorofluorocarbon","Magnetic Resonance Imaging","Oral Rehydration Solution","Acquired Immunodeficiency Syndrome"],"a":1,"e":""},{"s":"ES","q":"The element with atomic number 6 is:","o":["Iron","Sodium","Carbon","Gold"],"a":2,"e":""},{"s":"ES","q":"Glycolysis takes place in the:","o":["Chloroplast","Cytoplasm","Nucleus","None of these"],"a":1,"e":""},{"s":"ES","q":"BMI stands for:","o":["Compressed Natural Gas","Ribonucleic acid","Light Emitting Diode","Body Mass Index"],"a":3,"e":""},{"s":"ES","q":"The Small intestine is responsible for:","o":["Producing bile and detoxifying the blood","Breathing movements","Absorption of digested nutrients","Exchange of oxygen and carbon dioxide"],"a":2,"e":""},{"s":"ES","q":"The pH of lemon juice is:","o":["More than 7 (basic)","14","Exactly 7","Less than 7 (acidic)"],"a":3,"e":""},{"s":"ES","q":"Solder is an alloy of:","o":["Copper and zinc","Lead and tin","Iron and carbon","Copper, zinc and nickel"],"a":1,"e":""},{"s":"ES","q":"The element with atomic number 7 is:","o":["Calcium","Nitrogen","Neon","Sulphur"],"a":1,"e":""},{"s":"ES","q":"RADAR stands for:","o":["Sound Navigation and Ranging","Magnetic Resonance Imaging","Electrocardiogram","Radio Detection and Ranging"],"a":3,"e":""},{"s":"ES","q":"Carbohydrates and proteins each give about how many kilocalories per gram?","o":["2","7","9","4"],"a":3,"e":""},{"s":"ES","q":"Compressed Natural Gas is the full form of:","o":["ORS","CNG","ATP","None of these"],"a":1,"e":""},{"s":"ES","q":"The Jhimpir wind corridor lies in:","o":["Khyber Pakhtunkhwa","Punjab","Balochistan","Sindh"],"a":3,"e":""},{"s":"ES","q":"Magnesium hydroxide is commonly known as:","o":["Laughing gas","Quicklime","Marsh gas","Milk of magnesia"],"a":3,"e":""},{"s":"ES","q":"Which is the only mammal capable of true flight?","o":["Bat","Sugar glider","Colugo","Flying squirrel"],"a":0,"e":""},{"s":"ES","q":"Amoebic dysentery is caused by a:","o":["Virus","Fungus","Protozoan","Bacterium"],"a":2,"e":""},{"s":"ES","q":"Pressure is force per unit:","o":["Time","Area","Length","Volume"],"a":1,"e":""},{"s":"ES","q":"The study of Insects is called:","o":["Mycology","Botany","Entomology","None of these"],"a":2,"e":""},{"s":"ES","q":"Hard water contains dissolved salts of calcium and:","o":["Potassium","Iron only","Magnesium","Sodium"],"a":2,"e":""},{"s":"ES","q":"H2SO4 is the chemical formula of:","o":["Washing soda","Carbon dioxide","Sulphuric acid","Quicklime"],"a":2,"e":""},{"s":"ES","q":"The ore Cinnabar is the main source of:","o":["Copper","Mercury","Zinc","Lead"],"a":1,"e":""},{"s":"ES","q":"Silicosis is mainly caused by:","o":["Cadmium poisoning","Inhaling silica dust","Mercury poisoning","Chlorofluorocarbons (CFCs)"],"a":1,"e":""},{"s":"ES","q":"The device used to see over obstacles, as in submarines, is the:","o":["Periscope","Telescope","Spectroscope","Stethoscope"],"a":0,"e":""},{"s":"ES","q":"The household electricity supply in Pakistan is:","o":["220 V and 50 Hz","110 V and 60 Hz","120 V and 50 Hz","240 V and 60 Hz"],"a":0,"e":""},{"s":"ES","q":"Plague is transmitted by:","o":["Contaminated food and water","The Aedes mosquito","The rat flea","Airborne droplets"],"a":2,"e":""},{"s":"WG","q":"The river Volga empties into the:","o":["Caspian Sea","East China Sea","North Sea","Arabian Sea"],"a":0,"e":""},{"s":"WG","q":"The Gulf Stream is a:","o":["Warm ocean current","Wind belt","Tidal wave","Cold ocean current"],"a":0,"e":""},{"s":"WG","q":"The Pampas is a:","o":["Grassland of South Africa","Tropical grassland with scattered trees","Temperate grassland of Argentina","None of these"],"a":2,"e":""},{"s":"WG","q":"The Humboldt (Peru) Current is a:","o":["Warm ocean current","Monsoon","Cold ocean current","Jet stream"],"a":2,"e":""},{"s":"WG","q":"The country Canada lies in the continent of:","o":["North America","Oceania","Africa","Europe"],"a":0,"e":""},{"s":"WG","q":"Which is the smallest planet in the solar system?","o":["Mercury","Venus","Mars","Pluto"],"a":0,"e":""},{"s":"WG","q":"The Monsoon is a:","o":["Hot dry wind of the northern Indian plains","Hot wind from the Sahara toward the Mediterranean","Cold wind of southern France","Seasonal reversing wind"],"a":3,"e":""},{"s":"WG","q":"The River Ganges originates from the:","o":["Gangotri Glacier","Siachen Glacier","Fedchenko Glacier","Baltoro Glacier"],"a":0,"e":""},{"s":"WG","q":"The Kremlin is located in:","o":["Sydney","Rio de Janeiro","Moscow","Paris"],"a":2,"e":""},{"s":"WG","q":"The country Nigeria lies in the continent of:","o":["North America","Oceania","Asia","Africa"],"a":3,"e":""},{"s":"WG","q":"The visible surface of the Sun is called the:","o":["Core","Photosphere","Corona","Mantle"],"a":1,"e":""},{"s":"WG","q":"The island of Hawaii lies in the:","o":["Atlantic Ocean","Indian Ocean","Caribbean Sea","None of these"],"a":3,"e":"None of the options is correct; the right answer is Pacific Ocean."},{"s":"WG","q":"Which is the densest planet in the solar system?","o":["Mercury","Venus","Earth","Jupiter"],"a":2,"e":""},{"s":"WG","q":"The Mediterranean climate has:","o":["Hot dry summers and mild wet winters","Rain throughout the year","Hot wet summers","Cold dry summers"],"a":0,"e":""},{"s":"MTH","q":"If x + y = 11 and xy = 15, then x² + y² = ?","o":["91","106","121","151"],"a":0,"e":"x² + y² = (x+y)² − 2xy = 121 − 30 = 91"},{"s":"MTH","q":"If 2 : 8 = 6 : x, then x = ?","o":["12","16","18","24"],"a":3,"e":"x = 8 × 6 / 2 = 24"},{"s":"MTH","q":"The roots of x² + 10x + 24 = 0 are:","o":["-4 and -6","-3 and -7","4 and -6","4 and 6"],"a":0,"e":"Sum of roots = -10, product = 24: roots are -4 and -6"},{"s":"MTH","q":"The base and height of a triangle are 16 cm and 8 cm. What is its area?","o":["24 cm²","42 cm²","64 cm²","128 cm²"],"a":2,"e":"½ × 16 × 8 = 64 cm²"},{"s":"MTH","q":"If 2 : 5 = 10 : x, then x = ?","o":["10","13","25","33"],"a":2,"e":"x = 5 × 10 / 2 = 25"},{"s":"MTH","q":"Two angles of a triangle are 74° and 70°. The third angle is:","o":["16°","36°","106°","216°"],"a":1,"e":"180 − (74 + 70) = 36°"},{"s":"MTH","q":"The two perpendicular sides of a right triangle are 5 cm and 12 cm. What is the hypotenuse?","o":["12 cm","13 cm","14 cm","17 cm"],"a":1,"e":"√(5² + 12²) = 13 cm"},{"s":"MTH","q":"If 3 : 5 = 9 : x, then x = ?","o":["11","15","17","18"],"a":1,"e":"x = 5 × 9 / 3 = 15"},{"s":"MTH","q":"Find the average of: 15, 32, 25, 19, 39.","o":["25","26","28","130"],"a":1,"e":"Sum = 130; 130/5 = 26"},{"s":"MTH","q":"What is the area of a circle of radius 28 cm? (π = 22/7)","o":["176 cm²","352 cm²","2464 cm²","4928 cm²"],"a":2,"e":"πr² = 22/7 × 28² = 2464 cm²"},{"s":"MTH","q":"If 5 : 5 = 20 : x, then x = ?","o":["12","20","25","50"],"a":1,"e":"x = 5 × 20 / 5 = 20"},{"s":"MTH","q":"A number is first increased by 30% and then decreased by 30%. The net change is:","o":["No change","30% decrease","9% increase","9% decrease"],"a":3,"e":"Net = 30 − 30 − (30×30)/100 = −9%"},{"s":"MTH","q":"The volume of a cuboid 9 cm × 5 cm × 4 cm is:","o":["18 cm³","180 cm³","189 cm³","202 cm³"],"a":1,"e":"9×5×4 = 180 cm³"},{"s":"MTH","q":"What is 30% of 400?","o":["12","120","280","1200"],"a":1,"e":"400 × 30/100 = 120"},{"s":"RSN","q":"What is the angle between the hands of a clock at 9:00?","o":["60°","90°","105°","120°"],"a":1,"e":"|30×9 − 5.5×0| = 270°; take 360° minus it if greater than 180°"},{"s":"RSN","q":"Statements: No animals are pets.\nConclusions: I. No pets are animals.  II. Some animals are pets.\nWhich of the following follows?","o":["Neither I nor II follows","Only I follows","Only II follows","Both I and II follow"],"a":1,"e":""},{"s":"RSN","q":"Ali is taller than Mehwish. Asad is taller than Kamran. Mehwish is taller than Asad. Who is the tallest?","o":["Mehwish","Kamran","Ali","Asad"],"a":2,"e":"Chain: Ali > Mehwish > Asad > Kamran"},{"s":"RSN","q":"Hina's father's sister is Farah. How is Farah related to Hina?","o":["Uncle","Grandfather","Grandmother","Aunt"],"a":3,"e":""},{"s":"RSN","q":"Ali's mother's mother is Rabia. How is Rabia related to Ali?","o":["Mother","Grandmother","Mother-in-law","Nephew"],"a":1,"e":""},{"s":"RSN","q":"In a certain code, SUN is written as TVO. How is MAP written in that code?","o":["OCR","MAP","LZO","NBQ"],"a":3,"e":"Each letter is shifted forward by 1."},{"s":"RSN","q":"Find the next number in the series: 4, 9, 16, 25, 36, ?","o":["49","50","51","98"],"a":0,"e":"Pattern: squares (with offset). Answer 49."},{"s":"RSN","q":"If A = 1, B = 2, C = 3, and so on, what is the sum of the letter values of FADE?","o":["15","16","17","18"],"a":1,"e":"6 + 1 + 4 + 5 = 16"},{"s":"RSN","q":"Mehwish's mother's brother is Asad. How is Asad related to Mehwish?","o":["Father","Uncle","Father-in-law","Cousin"],"a":1,"e":""},{"s":"RSN","q":"Find the missing number: 6 : 216 :: 5 : ?","o":["124","125","130","216"],"a":1,"e":"Rule: n³. For 5: 125."},{"s":"RSN","q":"On which day of the week did 12 October 1999 fall?","o":["Wednesday","Friday","Sunday","Tuesday"],"a":3,"e":"Day-of-week calculation gives Tuesday."},{"s":"RSN","q":"Find the next term: HS, IR, JQ, ?","o":["LP","KP","KQ","JP"],"a":1,"e":"First letter moves forward, second moves backward."},{"s":"IT","q":"A VPN is mainly used to:","o":["Remove viruses","Store files in the cloud","Increase the processor speed","Create a secure, encrypted connection over the internet"],"a":3,"e":""},{"s":"IT","q":"Tricking people into giving up confidential information through psychological manipulation is:","o":["Encryption","Social engineering","Debugging","Brute force"],"a":1,"e":""},{"s":"IT","q":"A file with the extension .zip is a:","o":["Video file","Compressed file","Image file","None of these"],"a":1,"e":""},{"s":"IT","q":"Regular software updates are important because they:","o":["Fix security vulnerabilities","Delete files","Increase RAM","Slow the computer"],"a":0,"e":""},{"s":"IT","q":"Windows was developed by:","o":["Apple","Linus Torvalds","Microsoft","Google"],"a":2,"e":""},{"s":"IT","q":"The HTML tag <table> is used to:","o":["Create a table","Define a paragraph","Insert an image","None of these"],"a":0,"e":""},{"s":"IT","q":"WAN stands for:","o":["Portable Document Format","Central Processing Unit","Wide Area Network","None of these"],"a":2,"e":""},{"s":"IT","q":"Fibre optic cables transmit data using:","o":["Sound waves","Light signals","Radio waves","Electric current"],"a":1,"e":""},{"s":"IT","q":"The smallest element of a digital image is a:","o":["Vector","Pixel","Byte","Dot pitch"],"a":1,"e":""},{"s":"IT","q":"A software update that fixes a known problem is called a:","o":["Plug-in","Virus","Patch","Cookie"],"a":2,"e":""},{"s":"IT","q":"In a database, a row is also called a:","o":["Index","Record","Field","Key"],"a":1,"e":""},{"s":"IT","q":"The process of copying a file from the internet to your computer is:","o":["Downloading","Syncing","Uploading","Streaming only"],"a":0,"e":""}]};
+(function(){
+"use strict";
+const T = TEST, N = T.q.length;
+const R = {min:200, plus:1, minus:0.25, pass:66};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const L = 'ABCDE';
+const KEY = 'spsc26v2_t' + T.id, HKEY = 'spsc26v2_hist';
+const secOf = k => T.sec.find(s => s.k === k);
+const app = $('#app');
+let S, tick = null, filt = 'wrong', FS = null;
+
+function fresh(){ return {mode:null, ans:Array(N).fill(-1), mk:Array(N).fill(0), cur:0, t0:0, endAt:0, done:false, used:0}; }
+function load(){ try{ const x = JSON.parse(localStorage.getItem(KEY)); if(x && x.ans && x.ans.length === N) return x; }catch(e){} return null; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function pushHist(r){ try{ const h = JSON.parse(localStorage.getItem(HKEY) || '[]'); h.push({id:T.id, ts:Date.now(), net:r.net, c:r.c, w:r.w, u:r.u}); localStorage.setItem(HKEY, JSON.stringify(h)); }catch(e){} }
+S = load() || fresh();
+
+function score(){
+  let c = 0, w = 0, u = 0; const sec = {};
+  T.sec.forEach(s => sec[s.k] = {n:0, c:0, w:0, u:0});
+  T.q.forEach((q, i) => { const z = sec[q.s]; z.n++;
+    if(S.ans[i] < 0){ u++; z.u++; } else if(S.ans[i] === q.a){ c++; z.c++; } else { w++; z.w++; } });
+  return {c, w, u, net: c - R.minus * w, sec};
+}
+const f2 = x => (Math.round(x * 100) / 100).toString();
+function view(h){ app.innerHTML = h; window.scrollTo(0, 0); }
+
+/* ---------- start ---------- */
+function showStart(){
+  clearInterval(tick); FS = null;
+  const inprog = S.mode && S.mode !== 'flash' && !S.done;
+  const rows = T.sec.map(s => `<tr><td>${esc(s.name)}</td><td class="n">${s.n}</td></tr>`).join('');
+  view(`<div class="wrap"><p class="mut"><a href="index.html">← All tests</a></p>
+  <h1>${esc(T.title)}</h1><p class="mut">SPSC CCE-2026 screening test · mock pattern · ${N} MCQs</p>
+  <div class="grid2">
+   <div class="card"><h3>Marking (as per Adv. 06/2026)</h3><ul>
+    <li>${N} MCQs, one mark each</li><li>Wrong answer: −0.25</li><li>Unanswered: 0</li>
+    <li>Pass mark: <b>66</b> net (33%)</li><li>Time: ${R.min} minutes</li></ul></div>
+   <div class="card"><h3>Sections</h3><table>${rows}</table></div></div>
+  <div class="card actions">
+   ${inprog ? `<button class="pri" data-a="resume">Resume ${S.mode === 'exam' ? 'exam' : 'study session'}</button>` : `<button class="pri" data-a="start-exam">Start timed exam</button>`}
+   ${S.done ? `<button data-a="view-result">View last result</button>` : ''}
+   <button data-a="start-study">Study mode (no timer, instant answers)</button>
+   <button data-a="start-flash">Flashcards</button>
+   ${(S.mode || S.done) ? `<button data-a="reset">Reset this test</button>` : ''}
+  </div>
+  <p class="mut" style="font-size:14px">Exam mode runs on the clock: closing this page does not pause the timer. Your answers are saved in this browser. Net score = correct − 0.25 × wrong.</p></div>`);
+}
+
+/* ---------- test screen ---------- */
+function startTest(mode){
+  S = fresh(); S.mode = mode; S.t0 = Date.now();
+  if(mode === 'exam') S.endAt = S.t0 + R.min * 60000;
+  save(); showTest();
+}
+function showTest(){
+  view(`<div class="top"><div class="ti">${esc(T.title)}${S.mode === 'study' ? ' · study mode' : ''}</div><div id="prog" class="mut"></div>
+    ${S.mode === 'exam' ? '<div id="tm" class="tm"></div>' : ''}<button class="pri sm" data-a="submit">${S.mode === 'exam' ? 'Submit' : 'Finish'}</button></div>
+    <div class="body"><div><div id="qc" class="card"></div><div class="nav" id="nv"></div></div><aside id="pal" class="card"></aside></div>`);
+  renderQ(); renderPal(); clearInterval(tick);
+  if(S.mode === 'exam'){ tickFn(); tick = setInterval(tickFn, 1000); }
+}
+function tickFn(){
+  const rem = Math.max(0, S.endAt - Date.now()), el = $('#tm');
+  if(el){ el.textContent = Math.floor(rem / 60000) + ':' + String(Math.floor(rem % 60000 / 1000)).padStart(2, '0'); el.classList.toggle('low', rem < 600000); }
+  if(rem <= 0) finish(true);
+}
+function renderQ(){
+  const i = S.cur, q = T.q[i], sec = secOf(q.s), picked = S.ans[i], study = S.mode === 'study', lock = study && picked >= 0;
+  let h = `<div class="meta"><span class="tag">${esc(sec.name)}</span><span>Question ${i + 1} of ${N}</span>${S.mk[i] ? '<span class="flag">★ marked for review</span>' : ''}</div><div class="q">${esc(q.q)}</div><div class="opts">`;
+  q.o.forEach((o, k) => {
+    let c = 'opt'; if(picked === k) c += ' sel';
+    if(lock){ if(k === q.a) c += ' ok'; else if(picked === k) c += ' bad'; }
+    h += `<button class="${c}" data-a="opt" data-k="${k}"${lock ? ' disabled' : ''}><b>${L[k]}</b><span>${esc(o)}</span></button>`;
+  });
+  h += '</div>';
+  if(lock) h += `<div class="expl"><b>${picked === q.a ? 'Correct.' : 'Correct answer: ' + L[q.a] + '.'}</b> ${esc(q.e || '')}</div>`;
+  $('#qc').innerHTML = h;
+  $('#nv').innerHTML = `<button data-a="prev"${i === 0 ? ' disabled' : ''}>← Previous</button>
+    ${study ? '' : `<button data-a="clear">Clear answer</button><button data-a="mark">${S.mk[i] ? 'Unmark' : '★ Mark for review'}</button>`}
+    <span class="sp"></span><button class="pri" data-a="next"${i === N - 1 ? ' disabled' : ''}>Next →</button>`;
+}
+function renderPal(){
+  let h = '', a = 0;
+  S.ans.forEach(x => { if(x >= 0) a++; });
+  T.sec.forEach(s => {
+    h += `<div class="ph">${esc(s.name)}</div><div class="pg">`;
+    for(let i = s.i0; i < s.i0 + s.n; i++){
+      let c = 'pb'; if(S.ans[i] >= 0) c += ' a'; if(S.mk[i]) c += ' m'; if(i === S.cur) c += ' c';
+      h += `<button class="${c}" data-a="go" data-i="${i}">${i + 1}</button>`;
+    }
+    h += '</div>';
+  });
+  h += '<div class="leg"><span>■ green = answered</span><span>▢ amber ring = marked</span></div>';
+  $('#pal').innerHTML = h;
+  $('#prog').textContent = `Answered ${a}/${N}`;
+}
+function pick(k){
+  const i = S.cur, q = T.q[i];
+  if(S.mode === 'study' && S.ans[i] >= 0) return;
+  S.ans[i] = (S.mode === 'exam' && S.ans[i] === k) ? -1 : k;
+  save(); renderQ(); renderPal();
+}
+function go(i){ S.cur = Math.max(0, Math.min(N - 1, i)); save(); renderQ(); renderPal(); }
+
+/* ---------- finish + result ---------- */
+function finish(auto){
+  if(!auto){
+    const r = score();
+    if(!confirm(`${r.u} question(s) unanswered. Submit now?`)) return;
+  }
+  clearInterval(tick);
+  S.done = true;
+  S.used = Math.round((Math.min(Date.now(), S.endAt || Date.now()) - S.t0) / 1000);
+  save();
+  if(S.mode === 'exam') pushHist(score());
+  showResult();
+}
+function showResult(){
+  clearInterval(tick);
+  const r = score(), pass = r.net >= R.pass, att = r.c + r.w;
+  const rows = T.sec.map(s => { const z = r.sec[s.k], a = z.c + z.w;
+    return `<tr><td>${esc(s.name)}</td><td class="n">${z.n}</td><td class="n">${z.c}</td><td class="n">${z.w}</td><td class="n">${z.u}</td><td class="n">${f2(z.c - R.minus * z.w)}</td><td class="n">${a ? Math.round(100 * z.c / a) + '%' : '–'}</td></tr>`; }).join('');
+  const mm = Math.floor(S.used / 60);
+  view(`<div class="wrap"><p class="mut"><a href="index.html">← All tests</a></p>
+  <h1>${esc(T.title)} · result</h1>
+  <div class="card"><div class="big ${pass ? 'pass' : 'fail'}">${f2(r.net)} <span style="font-size:20px">/ ${N}</span></div>
+   <p><b class="${pass ? 'pass' : 'fail'}">${pass ? 'Above the pass mark' : 'Below the pass mark'}</b> (pass = ${R.pass} net, ${pass ? 'margin +' : 'short by '}${f2(Math.abs(r.net - R.pass))})</p>
+   <div class="stats"><div class="stat"><b>${r.c}</b><span>correct (+${r.c})</span></div><div class="stat"><b>${r.w}</b><span>wrong (−${f2(r.w * R.minus)})</span></div><div class="stat"><b>${r.u}</b><span>unanswered</span></div><div class="stat"><b>${att ? Math.round(100 * r.c / att) : 0}%</b><span>accuracy on attempted</span></div><div class="stat"><b>${mm} min</b><span>time used</span></div></div>
+   <div class="warn">Guess audit: your wrong answers cost ${f2(r.w * R.minus)} marks. Skipping every one of them would have scored ${r.c}. Guess only after eliminating at least one option.</div></div>
+  <div class="card"><h3>By section</h3><table><tr><th>Section</th><th class="n">Qs</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th class="n">Accuracy</th></tr>${rows}</table></div>
+  <div class="card actions"><button class="pri" data-a="flash-missed">Flashcards: missed + skipped (${r.w + r.u})</button><button data-a="rev-top">Jump to review</button><button data-a="home">Back to start</button></div>
+  <h2 id="rev">Review</h2><div class="tabs" id="tabs"></div><div id="rl"></div></div>`);
+  renderReview();
+}
+function renderReview(){
+  const tabs = [['wrong', 'Wrong'], ['skip', 'Skipped'], ['mark', 'Marked'], ['ok', 'Correct'], ['all', 'All']];
+  $('#tabs').innerHTML = tabs.map(t => `<button class="${filt === t[0] ? 'on' : ''}" data-a="filt" data-f="${t[0]}">${t[1]}</button>`).join('');
+  let h = '', n = 0;
+  T.q.forEach((q, i) => {
+    const a = S.ans[i], st = a < 0 ? 'un' : (a === q.a ? 'ok' : 'bad');
+    const show = filt === 'all' || (filt === 'wrong' && st === 'bad') || (filt === 'skip' && st === 'un') || (filt === 'ok' && st === 'ok') || (filt === 'mark' && S.mk[i]);
+    if(!show) return; n++;
+    h += `<div class="card rv ${st}"><div class="meta"><span class="tag">${esc(secOf(q.s).name)}</span><span>Q${i + 1}</span></div><div class="q">${esc(q.q)}</div>
+      <div class="ans">Your answer: <b>${a < 0 ? 'skipped' : L[a] + '. ' + esc(q.o[a])}</b></div>
+      <div class="ans">Correct: <b class="pass">${L[q.a]}. ${esc(q.o[q.a])}</b></div>${q.e ? `<div class="expl">${esc(q.e)}</div>` : ''}</div>`;
+  });
+  $('#rl').innerHTML = h || '<p class="mut">Nothing in this view.</p>';
+}
+
+/* ---------- flashcards ---------- */
+function startFlash(idx, label){
+  FS = {deck: idx, pos: 0, show: false, know: 0, miss: [], label: label || 'All questions'};
+  renderFlash();
+}
+function renderFlash(){
+  clearInterval(tick);
+  if(!FS.deck.length){ view(`<div class="wrap"><div class="card"><p>Nothing to review.</p><button data-a="home">Back</button></div></div>`); return; }
+  if(FS.pos >= FS.deck.length){
+    view(`<div class="wrap"><h1>Deck finished</h1><div class="card"><p>${FS.know} known · ${FS.miss.length} missed (${FS.label}).</p>
+      <div class="actions">${FS.miss.length ? '<button class="pri" data-a="flash-redo">Redo missed</button>' : ''}<button data-a="home">Back to start</button></div></div></div>`);
+    return;
+  }
+  const i = FS.deck[FS.pos], q = T.q[i];
+  view(`<div class="wrap"><p class="mut"><a href="#" data-a="home">← Back</a> · ${esc(FS.label)}</p>
+   <div class="bar"><i style="width:${100 * FS.pos / FS.deck.length}%"></i></div>
+   <div class="card fc"><div class="meta"><span class="tag">${esc(secOf(q.s).name)}</span><span>Card ${FS.pos + 1} of ${FS.deck.length}</span></div>
+   <div class="q">${esc(q.q)}</div>
+   ${FS.show ? `<div class="expl"><b>${L[q.a]}. ${esc(q.o[q.a])}</b>${q.e ? '<br>' + esc(q.e) : ''}</div>
+     <div class="actions" style="margin-top:14px"><button class="pri" data-a="fk">I knew it</button><button data-a="fm">Missed it</button></div>`
+   : `<div class="opts">${q.o.map((o, k) => `<div class="mut">${L[k]}. ${esc(o)}</div>`).join('')}</div><div class="actions" style="margin-top:14px"><button class="pri" data-a="fshow">Show answer</button></div>`}
+   </div></div>`);
+}
+
+/* ---------- events ---------- */
+app.addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if(!b) return;
+  const a = b.dataset.a;
+  if(a === 'home'){ e.preventDefault(); showStart(); }
+  else if(a === 'start-exam') startTest('exam');
+  else if(a === 'start-study') startTest('study');
+  else if(a === 'start-flash') startFlash(T.q.map((_, i) => i), 'All questions');
+  else if(a === 'resume') showTest();
+  else if(a === 'reset'){ if(confirm('Erase answers and result for this test?')){ S = fresh(); save(); showStart(); } }
+  else if(a === 'view-result') showResult();
+  else if(a === 'opt') pick(+b.dataset.k);
+  else if(a === 'go') go(+b.dataset.i);
+  else if(a === 'prev') go(S.cur - 1);
+  else if(a === 'next') go(S.cur + 1);
+  else if(a === 'clear'){ S.ans[S.cur] = -1; save(); renderQ(); renderPal(); }
+  else if(a === 'mark'){ S.mk[S.cur] = S.mk[S.cur] ? 0 : 1; save(); renderQ(); renderPal(); }
+  else if(a === 'submit') finish(false);
+  else if(a === 'filt'){ filt = b.dataset.f; renderReview(); }
+  else if(a === 'rev-top') $('#rev').scrollIntoView();
+  else if(a === 'flash-missed'){ const d = []; T.q.forEach((q, i) => { if(S.ans[i] !== q.a) d.push(i); }); startFlash(d, 'Missed + skipped'); }
+  else if(a === 'fshow'){ FS.show = true; renderFlash(); }
+  else if(a === 'fk'){ FS.know++; FS.pos++; FS.show = false; renderFlash(); }
+  else if(a === 'fm'){ FS.miss.push(FS.deck[FS.pos]); FS.pos++; FS.show = false; renderFlash(); }
+  else if(a === 'flash-redo') startFlash(FS.miss.slice(), 'Redo missed');
+});
+document.addEventListener('keydown', e => {
+  if(!$('#qc') || !S.mode || S.done || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if('1234'.includes(k) && k) pick(+k - 1);
+  else if('abcd'.includes(k) && k.length === 1) pick('abcd'.indexOf(k));
+  else if(k === 'arrowright' || k === 'n') go(S.cur + 1);
+  else if(k === 'arrowleft' || k === 'p') go(S.cur - 1);
+  else if(k === 'm' && S.mode === 'exam'){ S.mk[S.cur] = S.mk[S.cur] ? 0 : 1; save(); renderQ(); renderPal(); }
+});
+
+if(S.done) showResult(); else if(S.mode && S.mode !== 'flash') showTest(); else showStart();
+})();
+</script>
+</body>
+</html>

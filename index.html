@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPSC CCE-2026 · 21 Mock Screening Tests</title>
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#1c2230;--mut:#667085;--line:#e2ddd0;--acc:#1f4e79;--acc2:#e7eef6;--ok:#1b7f4b;--bad:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#13161b;--card:#1b1f26;--ink:#e8eaed;--mut:#98a2b3;--line:#2b313b;--acc:#86b8ea;--acc2:#202a37;--ok:#63d394;--bad:#ff8f85}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:28px 16px 80px}
+h1{font:700 28px/1.2 Georgia,"Times New Roman",serif;margin:0 0 6px}
+.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.t{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.t:hover{border-color:var(--acc)}
+.t b{font-size:18px}
+.t .s{font-size:13px;color:var(--mut);margin-top:4px}
+.t .r{margin-top:8px;font-size:14px;font-variant-numeric:tabular-nums}
+.pass{color:var(--ok);font-weight:600}.fail{color:var(--bad);font-weight:600}
+ul{margin:6px 0 0;padding-left:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>SPSC CCE-2026 · 21 Mock Screening Tests</h1>
+<p class="mut">200 MCQs each · 200 minutes · +1 per correct · −0.25 per wrong · pass at 66 net</p>
+<div class="card"><b>Each test has:</b>
+<ul><li><b>Timed exam mode</b> with a question palette, mark-for-review and an automatic result with section breakdown</li>
+<li><b>Study mode</b>: no timer, answer and explanation after each question</li>
+<li><b>Flashcards</b>, including a deck built from your missed and skipped questions</li></ul>
+<p class="mut" style="margin:10px 0 0;font-size:14px">Paper blueprint (per test): English 40 · Pakistan Affairs &amp; Sindh 26 · Islamic Studies 26 · Current Affairs 24 · Everyday Science 32 · World Geography 14 · Maths 14 · Reasoning 12 · IT 12.<br>
+Questions are original, written to the SPSC syllabus and the pattern of recent papers. Current-affairs answers are as of 7 Nov 2026.</p></div>
+<div class="grid" id="g"></div>
+</div>
+<script>
+const TESTS = [{"id": 1, "file": "SPSC_CCE_Mock_01.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 2, "file": "SPSC_CCE_Mock_02.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 3, "file": "SPSC_CCE_Mock_03.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 4, "file": "SPSC_CCE_Mock_04.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 5, "file": "SPSC_CCE_Mock_05.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 6, "file": "SPSC_CCE_Mock_06.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 7, "file": "SPSC_CCE_Mock_07.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 8, "file": "SPSC_CCE_Mock_08.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 9, "file": "SPSC_CCE_Mock_09.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 10, "file": "SPSC_CCE_Mock_10.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 11, "file": "SPSC_CCE_Mock_11.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 12, "file": "SPSC_CCE_Mock_12.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 13, "file": "SPSC_CCE_Mock_13.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 14, "file": "SPSC_CCE_Mock_14.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 15, "file": "SPSC_CCE_Mock_15.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 16, "file": "SPSC_CCE_Mock_16.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 17, "file": "SPSC_CCE_Mock_17.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 18, "file": "SPSC_CCE_Mock_18.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 19, "file": "SPSC_CCE_Mock_19.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 20, "file": "SPSC_CCE_Mock_20.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 21, "file": "SPSC_CCE_Mock_21.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}];
+let hist = [];
+try{ hist = JSON.parse(localStorage.getItem('spsc26v2_hist') || '[]'); }catch(e){}
+document.getElementById('g').innerHTML = TESTS.map(t => {
+  const h = hist.filter(x => x.id === t.id);
+  const last = h[h.length - 1], best = h.reduce((m, x) => Math.max(m, x.net), -999);
+  const r = last ? `<div class="r">Last <b class="${last.net >= 66 ? 'pass' : 'fail'}">${last.net.toFixed(2)}</b> · best ${best.toFixed(2)} · ${h.length} attempt${h.length > 1 ? 's' : ''}</div>` : '<div class="r mut">Not attempted</div>';
+  return `<a class="t" href="${t.file}"><b>Mock Test ${String(t.id).padStart(2, '0')}</b><div class="s">${t.n} questions · ${t.note}</div>${r}</a>`;
+}).join('');
+</script>
+</body>
+</html>

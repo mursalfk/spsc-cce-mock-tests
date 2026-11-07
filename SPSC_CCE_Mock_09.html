@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPSC CCE-2026 · Mock Test 09</title>
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#1c2230;--mut:#667085;--line:#e2ddd0;--acc:#1f4e79;--acc2:#e7eef6;--ok:#1b7f4b;--okbg:#e3f4ea;--bad:#b3261e;--badbg:#fbe8e6;--warn:#a85f00;--warnbg:#fff2d9}
+@media (prefers-color-scheme:dark){:root{--bg:#13161b;--card:#1b1f26;--ink:#e8eaed;--mut:#98a2b3;--line:#2b313b;--acc:#86b8ea;--acc2:#202a37;--ok:#63d394;--okbg:#16301f;--bad:#ff8f85;--badbg:#3a1c1a;--warn:#f2b653;--warnbg:#382c12}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;margin:0 0 4px}
+h2{font:700 20px/1.2 Georgia,serif;margin:24px 0 10px}
+h3{font-size:15px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.wrap{max-width:900px;margin:0 auto;padding:24px 16px 80px}
+.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+ul{margin:0;padding-left:20px}
+table{border-collapse:collapse;width:100%}
+td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+th{color:var(--mut);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:9px}
+button:hover{border-color:var(--acc)}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+button.sm{padding:6px 12px;font-size:14px}
+button:disabled{opacity:.6;cursor:default}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center;padding:10px 16px;flex-wrap:wrap}
+.top .ti{font-weight:700;flex:1;min-width:140px}
+.tm{font:700 20px ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.tm.low{color:var(--bad)}
+.body{display:grid;grid-template-columns:1fr 300px;gap:16px;max-width:1100px;margin:0 auto;padding:16px}
+@media (max-width:860px){.body{grid-template-columns:1fr}}
+.meta{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--mut);margin-bottom:10px;flex-wrap:wrap}
+.tag{background:var(--acc2);color:var(--acc);padding:2px 9px;border-radius:99px;font-weight:600}
+.flag{color:var(--warn);font-weight:600}
+.q{font-size:19px;line-height:1.5;margin:0 0 14px;white-space:pre-wrap}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:12px;text-align:left;align-items:flex-start;width:100%}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:var(--acc2);color:var(--acc);display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:var(--acc);background:var(--acc2)}
+.opt.sel b{background:var(--acc);color:#fff}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.expl{margin-top:12px;padding:10px 12px;border-radius:9px;background:var(--acc2);font-size:15px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav .sp{flex:1}
+#pal{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto}
+@media (max-width:860px){#pal{position:static;max-height:none}}
+.ph{font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 6px}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:5px}
+.pb{padding:5px 0;font-size:13px;text-align:center;border-radius:7px;font-variant-numeric:tabular-nums}
+.pb.a{background:var(--okbg);border-color:var(--ok)}
+.pb.m{box-shadow:inset 0 0 0 2px var(--warn)}
+.pb.c{outline:2px solid var(--acc);outline-offset:1px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:12px}
+.big{font:700 44px/1 Georgia,serif}
+.pass{color:var(--ok)}.fail{color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.stat{background:var(--acc2);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--mut)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.rv{border-left:4px solid var(--line)}
+.rv.ok{border-left-color:var(--ok)}.rv.bad{border-left-color:var(--bad)}.rv.un{border-left-color:var(--warn)}
+.rv .q{font-size:16px;margin-bottom:8px}
+.rv .ans{font-size:14px;margin:2px 0}
+.fc{min-height:260px;display:flex;flex-direction:column;justify-content:center}
+.fc .q{font-size:22px}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.warn{background:var(--warnbg);color:var(--warn);padding:8px 12px;border-radius:9px;font-size:14px;margin:8px 0}
+a{color:var(--acc)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const TEST = {"id":9,"title":"Mock Test 09","sec":[{"k":"ENG","name":"English","n":40,"i0":0},{"k":"PA","name":"Pakistan Affairs & Sindh","n":26,"i0":40},{"k":"IS","name":"Islamic Studies","n":26,"i0":66},{"k":"CA","name":"Current Affairs","n":24,"i0":92},{"k":"ES","name":"Everyday Science","n":32,"i0":116},{"k":"WG","name":"World Geography","n":14,"i0":148},{"k":"MTH","name":"Mathematics","n":14,"i0":162},{"k":"RSN","name":"Reasoning","n":12,"i0":176},{"k":"IT","name":"Digital Literacy & IT","n":12,"i0":188}],"q":[{"s":"ENG","q":"Choose the word closest in meaning to: JOVIAL","o":["Cheerful","Sad","Lazy","Strict"],"a":0,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: LOYAL","o":["Devoted","Treacherous","Honest","Faithful"],"a":1,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: UNITE","o":["Divide","Merge","Combine","Join"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: AUSTERE","o":["Severe and plain","Luxurious","Loud","None of these"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: NONCHALANT","o":["Excited","Casual and unconcerned","Alert","Anxious"],"a":1,"e":""},{"s":"ENG","q":"Choose the correct meaning of the proverb: \"Where there is a will, there is a way.\"","o":["Ways need wills","Roads lead everywhere","Determination finds a path to success","Wills are legal documents"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: JUNIOR","o":["Younger","Minor","Senior","Smaller"],"a":2,"e":""},{"s":"ENG","q":"Find the error: \"The news were broadcast at nine.\"","o":["The news","were","broadcast","at nine"],"a":1,"e":""},{"s":"ENG","q":"Choose the correct passive voice: Open the door.","o":["Let the door be opened.","Door must open.","The door be opened.","The door is opened."],"a":0,"e":""},{"s":"ENG","q":"Choose the one word for: 'a person who loves mankind and helps others':","o":["Misanthrope","Pessimist","Optimist","None of these"],"a":3,"e":"None of the options is correct; the right answer is Philanthropist."},{"s":"ENG","q":"Choose the correct word: Ali is the ___ of the two brothers.","o":["most old","eldest","oldest of all","elder"],"a":3,"e":""},{"s":"ENG","q":"In the sentence 'He ran quickly', the word 'quickly' is a(n):","o":["preposition","adjective","adverb","None of these"],"a":2,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"A handwriting that cannot be read\"","o":["Invisible","Illegible","Incredible","Inaudible"],"a":1,"e":""},{"s":"ENG","q":"Fill in the blank:\nI ___ him since 2010.","o":["knew","have known","know","am knowing"],"a":1,"e":""},{"s":"ENG","q":"Choose the correct preposition to fill the blank:\nThey are proud ___ their achievements.","o":["at","for","of","about"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: INCREASE","o":["Decrease","Grow","Expand","Rise"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: MEAGRE","o":["Heavy","Delicious","Scanty","Abundant"],"a":2,"e":""},{"s":"ENG","q":"Find the error: \"Neither of the answers are correct.\"","o":["Neither of","correct","the answers","are"],"a":3,"e":""},{"s":"ENG","q":"Choose the correct meaning of the proverb: \"All that glitters is not gold.\"","o":["Gold glitters","Everything shiny is valuable","Appearances can be deceptive","Gold is cheap"],"a":2,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: WANE","o":["Rise","Decline","Shine","Grow"],"a":1,"e":""},{"s":"ENG","q":"In the sentence 'The brave soldier won', the word 'brave' is a(n):","o":["adverb","noun","verb","adjective"],"a":3,"e":""},{"s":"ENG","q":"Fill in the blank:\nI ___ my keys. Can you help me look for them?","o":["will lose","lose","am losing","have lost"],"a":3,"e":""},{"s":"ENG","q":"Choose the correct spelling:","o":["Begining","Beginnig","Beginning","Beggining"],"a":2,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: TRIVIAL","o":["Vital","Unimportant","Complex","Serious"],"a":1,"e":""},{"s":"ENG","q":"Choose the correct meaning of the idiom: \"Rain cats and dogs\"","o":["Fight noisily","Rain lightly","Rain with thunder","Rain heavily"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: PLACID","o":["Stormy","Calm","Noisy","Angry"],"a":1,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: EXPORT","o":["Sell","Send","Import","Ship"],"a":2,"e":""},{"s":"ENG","q":"Choose the word opposite in meaning to: WEALTHY","o":["Affluent","Prosperous","Rich","None of these"],"a":3,"e":"None of the options is correct; the right answer is Poor."},{"s":"ENG","q":"Choose the word closest in meaning to: NOVICE","o":["Beginner","Leader","Expert","Teacher"],"a":0,"e":""},{"s":"ENG","q":"Choose the one word for: 'fear of water':","o":["Hydrophobia","Acrophobia","Claustrophobia","Xenophobia"],"a":0,"e":""},{"s":"ENG","q":"Choose the correctly spelled word.","o":["Privilege","Priviledge","Privelege","Previlege"],"a":0,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: LAMENT","o":["Ignore","Mourn","Praise","Celebrate"],"a":1,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: CONCISE","o":["Lengthy","Confusing","Detailed","Brief"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: HINDER","o":["Assist","Obstruct","Allow","None of these"],"a":1,"e":""},{"s":"ENG","q":"Fill in the blank:\nI would rather ___ at home than go out.","o":["staying","stayed","to stay","stay"],"a":3,"e":""},{"s":"ENG","q":"Fill in the blank:\nIt is high time you ___ studying.","o":["are starting","will start","start","started"],"a":3,"e":""},{"s":"ENG","q":"Choose the word closest in meaning to: ARDENT","o":["Cold","Indifferent","Hesitant","Passionate"],"a":3,"e":""},{"s":"ENG","q":"Choose the one word that best replaces the phrase:\n\"A person who lives alone away from society\"","o":["Pioneer","Recluse","Pedestrian","Nomad"],"a":1,"e":""},{"s":"ENG","q":"Choose the sentence that is grammatically correct.","o":["The children playing in the garden.","The children plays in the garden.","The children are playing in the garden.","The children is playing in the garden."],"a":2,"e":""},{"s":"ENG","q":"Fill in the blank:\nShe would have come if she ___ the news.","o":["had known","would know","knew","has known"],"a":0,"e":""},{"s":"PA","q":"The national language of Pakistan is:","o":["Urdu","Allama Muhammad Iqbal","Field hockey","Chukar"],"a":0,"e":""},{"s":"PA","q":"Pakistan's Ghauri missile is also known as:","o":["Hatf-IX","Hatf-I","Hatf-III","Hatf-V"],"a":3,"e":""},{"s":"PA","q":"The first woman Foreign Minister of Pakistan was:","o":["Hina Rabbani Khar","Sherry Rehman","Benazir Bhutto","None of these"],"a":0,"e":""},{"s":"PA","q":"Which pass connects Peshawar with Kabul?","o":["Bolan Pass","Lowari Pass","Khunjerab Pass","Khyber Pass"],"a":3,"e":""},{"s":"PA","q":"The Faisal Mosque in Islamabad is named after:","o":["King Faisal of Saudi Arabia","Faisal Khan","Allama Faisal","Faisalabad"],"a":0,"e":""},{"s":"PA","q":"Sheikh Ahmad Sirhindi is known by the title:","o":["Mujaddid Alf-e-Sani","Shair-e-Mashriq (Poet of the East)","Madar-e-Millat","None of these"],"a":0,"e":""},{"s":"PA","q":"The Wagah border connects Pakistan with:","o":["Iran","Afghanistan","India","China"],"a":2,"e":""},{"s":"PA","q":"Which of these took place in 1955?","o":["General Zia-ul-Haq died in an air crash","Benazir Bhutto was assassinated","Pakistan joined the Baghdad Pact (later CENTO)","SAARC was founded"],"a":2,"e":""},{"s":"PA","q":"Jahangir Khan, the squash legend, remained unbeaten for:","o":["250 matches","100 matches","555 matches","1000 matches"],"a":2,"e":""},{"s":"PA","q":"Sachal Sarmast was born in:","o":["Bhit Shah","Thatta","Daraza (Khairpur)","Sehwan"],"a":2,"e":""},{"s":"PA","q":"Freedom to profess religion is dealt with in Article:","o":["25","20","1","10A"],"a":1,"e":""},{"s":"PA","q":"Sachal Sarmast's real name was:","o":["Qalandar Shahbaz","Abdul Latif","Abdul Wahab Farooqi","Shah Inayat"],"a":2,"e":""},{"s":"PA","q":"The Thar Desert is mainly located in:","o":["Khyber Pakhtunkhwa","Sindh","Punjab","Balochistan"],"a":1,"e":""},{"s":"PA","q":"The Federation of Pakistan is dealt with in Article:","o":["19A","1","91","199"],"a":1,"e":""},{"s":"PA","q":"The Sukkur Barrage was originally named after Lord Lloyd as the:","o":["Curzon Barrage","Napier Barrage","Lloyd Barrage","Marshall Barrage"],"a":2,"e":""},{"s":"PA","q":"Which of these took place in 1951?","o":["Benazir Bhutto was assassinated","Liaquat Ali Khan was assassinated","Completion of Mangla Dam","None of these"],"a":1,"e":""},{"s":"PA","q":"The Muhammadan Anglo-Oriental College was founded in:","o":["1857","1920","1875","1906"],"a":2,"e":""},{"s":"PA","q":"Shandur Pass is famous for its:","o":["Polo festival","Kite festival","Skiing championship","Camel race"],"a":0,"e":""},{"s":"PA","q":"The Kabul River joins the Indus near:","o":["Sukkur","Mithankot","Kotri","Attock"],"a":3,"e":""},{"s":"PA","q":"Article 14 of the Constitution of Pakistan deals with:","o":["Right to education","The Supreme Judicial Council","Inviolability of the dignity of man","Freedom of speech"],"a":2,"e":""},{"s":"PA","q":"Each province has how many members in the Senate?","o":["20","26","23","22"],"a":2,"e":""},{"s":"PA","q":"The first Governor General of Pakistan after the Quaid-e-Azam was:","o":["Khawaja Nazimuddin","Ghulam Muhammad","Iskander Mirza","Malik Firoz Khan Noon"],"a":0,"e":""},{"s":"PA","q":"Article 243 of the Constitution of Pakistan deals with:","o":["Disqualification on the ground of defection","Command of the Armed Forces","The Supreme Judicial Council","Composition of the Senate"],"a":1,"e":""},{"s":"PA","q":"Rawal Lake is located in:","o":["Abbottabad","Islamabad","Murree","Taxila"],"a":1,"e":""},{"s":"PA","q":"The University of Karachi was established in:","o":["1951","1962","1975","1947"],"a":0,"e":""},{"s":"PA","q":"Which of these took place in 1979?","o":["Benazir Bhutto was assassinated","Earthquake in Azad Kashmir and Khyber Pakhtunkhwa","Pakistan joined the Baghdad Pact (later CENTO)","None of these"],"a":3,"e":"None of the options is correct; the right answer is Zulfikar Ali Bhutto was executed."},{"s":"IS","q":"Which of the following is true of Prophet Hud (AS)?","o":["built the Ark before the Great Flood","was sent to the people of 'Aad","was thrown into a fire which became cool and safe","showed exemplary patience in illness"],"a":1,"e":""},{"s":"IS","q":"Eid Milad-un-Nabi is observed on:","o":["15 Shaban","12 Rabi-ul-Awwal","27 Rajab","10 Muharram"],"a":1,"e":""},{"s":"IS","q":"Allama Iqbal's famous lectures were published as:","o":["Zarb-e-Kalim","The Reconstruction of Religious Thought in Islam","Asrar-e-Khudi","Bang-e-Dra"],"a":1,"e":""},{"s":"IS","q":"Which surah is number 67 in the Quran?","o":["An-Nas","Al-Kawthar","Al-Mulk","Yusuf"],"a":2,"e":""},{"s":"IS","q":"The five daily prayers were made obligatory during:","o":["Battle of Badr","Conquest of Makkah","Hijrah","Miraj"],"a":3,"e":""},{"s":"IS","q":"The Ark of Prophet Nuh (AS) settled on Mount:","o":["Hira","Sinai","Judi","Uhud"],"a":2,"e":""},{"s":"IS","q":"The angel who brought revelation to the Prophets was:","o":["Israfil (AS)","Jibreel (AS)","Mikail (AS)","Izrail (AS)"],"a":1,"e":""},{"s":"IS","q":"The founder of the Abbasid dynasty was:","o":["Abu al-Abbas al-Saffah","Harun al-Rashid","Al-Mansur","Al-Mamun"],"a":0,"e":""},{"s":"IS","q":"The Prophet (PBUH) wrote letters to the kings and rulers inviting them to Islam in:","o":["3 AH","10 AH","1 AH","7 AH"],"a":3,"e":""},{"s":"IS","q":"A joint venture in which all partners contribute capital and share profit and loss is called:","o":["Qard","Musharakah","Murabaha","Ijarah"],"a":1,"e":""},{"s":"IS","q":"The scripture revealed to Prophet Ibrahim (AS) was:","o":["Injeel","Torah (Tawrat)","Zabur","Suhuf (Scrolls)"],"a":3,"e":""},{"s":"IS","q":"Tariq ibn Ziyad conquered Spain in:","o":["1258 CE","632 CE","711 CE","750 CE"],"a":2,"e":""},{"s":"IS","q":"What is the number of Surah Al-Ma'idah in the Quran?","o":["6","18","103","5"],"a":3,"e":""},{"s":"IS","q":"The Muslims of Madinah who helped the migrants are called:","o":["Munafiqun","Tabi'un","Ansar","Muhajirun"],"a":2,"e":""},{"s":"IS","q":"What is the number of Surah Al-Ikhlas in the Quran?","o":["67","19","112","12"],"a":2,"e":""},{"s":"IS","q":"The boycott of the Muslims in Shi'b Abi Talib lasted about:","o":["Ten years","One year","Three years","Six months"],"a":2,"e":""},{"s":"IS","q":"Islamic insurance is known as:","o":["Waqf","Sukuk","Takaful","Sadaqah"],"a":2,"e":""},{"s":"IS","q":"Zakat becomes due when the wealth has been held for:","o":["Six months","Two years","One month","One lunar year"],"a":3,"e":""},{"s":"IS","q":"How many prophets are mentioned by name in the Quran?","o":["114","17","29","25"],"a":3,"e":""},{"s":"IS","q":"The Prophet known for his patience in illness is:","o":["Yahya (AS)","Yunus (AS)","Ilyas (AS)","Ayyub (AS)"],"a":3,"e":""},{"s":"IS","q":"The angel responsible for rain and sustenance is:","o":["Jibreel (AS)","Mikail (AS)","Israfil (AS)","Izrail (AS)"],"a":1,"e":""},{"s":"IS","q":"The Mahabat Khan Mosque is in:","o":["Thatta","Multan","Lahore","Peshawar"],"a":3,"e":""},{"s":"IS","q":"The surah recommended for recitation on Fridays is:","o":["Al-Mulk","Al-Kahf","Ar-Rahman","Yaseen"],"a":1,"e":""},{"s":"IS","q":"The first pillar of Islam is:","o":["Salah","Zakat","Sawm","Shahadah"],"a":3,"e":""},{"s":"IS","q":"Dhul-Qadah is the ___ month of the Islamic calendar:","o":["eighth","fourth","ninth","None of these"],"a":3,"e":"None of the options is correct; the right answer is eleventh."},{"s":"IS","q":"The mosque in Madinah where the Qibla was changed is:","o":["Masjid Quba","Masjid al-Jinn","Masjid al-Qiblatayn","Masjid al-Nabawi"],"a":2,"e":""},{"s":"CA","q":"21 February is observed as:","o":["International Women's Day","International Mother Language Day","World Oceans Day","Human Rights Day"],"a":1,"e":""},{"s":"CA","q":"The first British Asian Prime Minister of the UK, from October 2022, is:","o":["Sajid Javid","Rishi Sunak","Keir Starmer","Boris Johnson"],"a":1,"e":""},{"s":"CA","q":"10 December is observed as:","o":["Universal Children's Day","Human Rights Day","World Tourism Day","World Press Freedom Day"],"a":1,"e":""},{"s":"CA","q":"Asif Ali Zardari was elected President of Pakistan for the second time in:","o":["June 2022","August 2018","September 2008","None of these"],"a":3,"e":"None of the options is correct; the right answer is March 2024."},{"s":"CA","q":"The 2014 FIFA World Cup was won by:","o":["Italy","Argentina","Germany","Brazil"],"a":2,"e":""},{"s":"CA","q":"South Africa brought a genocide case against Israel to the:","o":["International Criminal Court","International Court of Justice","UN Security Council","Permanent Court of Arbitration"],"a":1,"e":""},{"s":"CA","q":"Giorgia Meloni currently serves as the:","o":["Chancellor of Germany","President of the USA","President of South Africa","Prime Minister of Italy"],"a":3,"e":""},{"s":"CA","q":"The space mission Artemis I was launched by:","o":["India","United States","Japan","Russia"],"a":1,"e":""},{"s":"CA","q":"Which franchise won its first IPL title in 2025?","o":["Royal Challengers Bengaluru","Punjab Kings","Gujarat Titans","Delhi Capitals"],"a":0,"e":""},{"s":"CA","q":"United Nations Day is observed on:","o":["24 March","24 October","7 April","20 November"],"a":1,"e":""},{"s":"CA","q":"The space mission Hope (Al-Amal) Mars probe was launched by:","o":["India","Japan","Russia","United Arab Emirates"],"a":3,"e":""},{"s":"CA","q":"Recep Tayyip Erdogan was re-elected President of Turkey in:","o":["May 2023","June 2018","March 2021","August 2014"],"a":0,"e":""},{"s":"CA","q":"Who currently serves as the President of China?","o":["Abdel Fattah el-Sisi","Anthony Albanese","Cyril Ramaphosa","Xi Jinping"],"a":3,"e":""},{"s":"CA","q":"The Oscar for Best Picture at the 2024 ceremony went to:","o":["Everything Everywhere All at Once","CODA","Anora","Oppenheimer"],"a":3,"e":""},{"s":"CA","q":"20 June is observed as:","o":["World Diabetes Day","International Day of Peace","World Mental Health Day","World Refugee Day"],"a":3,"e":""},{"s":"CA","q":"Abdel Fattah el-Sisi currently serves as the:","o":["Crown Prince and Prime Minister of Saudi Arabia","President of France","President of South Africa","President of Egypt"],"a":3,"e":""},{"s":"CA","q":"Which was the first female judge of the Supreme Court of Pakistan?","o":["Justice Tahira Safdar","Justice Majida Rizvi","Justice Ayesha Malik","Justice Khalida Rashid"],"a":2,"e":""},{"s":"CA","q":"1920 saw the founding of:","o":["The League of Nations","SAARC","The D-8 Organization for Economic Cooperation","The Organisation of Islamic Cooperation (OIC)"],"a":0,"e":""},{"s":"CA","q":"Who is the Vice President of the USA in Trump's second term?","o":["Marco Rubio","J. D. Vance","Mike Pence","Tim Walz"],"a":1,"e":""},{"s":"CA","q":"International Literacy Day is observed on:","o":["8 September","22 April","3 December","5 October"],"a":0,"e":""},{"s":"CA","q":"World Blood Donor Day is observed on:","o":["22 April","14 June","8 September","14 November"],"a":1,"e":""},{"s":"CA","q":"Mohammed bin Salman currently serves as the:","o":["Crown Prince and Prime Minister of Saudi Arabia","King of the United Kingdom","President of South Africa","Prime Minister of Australia"],"a":0,"e":""},{"s":"CA","q":"Pakistan recorded how many polio cases in 2024?","o":["31","147","12","74"],"a":3,"e":""},{"s":"CA","q":"The SBP policy rate reached its peak of 22 percent in:","o":["June 2023","April 2022","January 2025","March 2020"],"a":0,"e":""},{"s":"ES","q":"The powerhouse of the cell is the:","o":["Mitochondria","Golgi body","Ribosome","Lysosome"],"a":0,"e":""},{"s":"ES","q":"The tissue in plants that transports food is the:","o":["Cortex","Xylem","Phloem","Cambium"],"a":2,"e":""},{"s":"ES","q":"The theory of natural selection was proposed by:","o":["Gregor Mendel","Charles Darwin","Louis Pasteur","Lamarck"],"a":1,"e":""},{"s":"ES","q":"A thermos flask keeps liquids hot or cold by reducing:","o":["Gravity","Heat transfer using a vacuum","Light","Pressure"],"a":1,"e":""},{"s":"ES","q":"Which form of carbon conducts electricity?","o":["Fullerene only","Graphite","Diamond","Charcoal only"],"a":1,"e":""},{"s":"ES","q":"Which cells lack a nucleus when mature in humans?","o":["Nerve cells","Muscle cells","Red blood cells","White blood cells"],"a":2,"e":""},{"s":"ES","q":"Growth hormone is secreted by the:","o":["Adrenal gland","Pituitary gland","Pancreas","Thyroid gland"],"a":1,"e":""},{"s":"ES","q":"The process of treating rubber with sulphur to harden it is called:","o":["Polymerisation","Hydrogenation","Vulcanisation","Galvanisation"],"a":2,"e":""},{"s":"ES","q":"Tetanus is caused by a:","o":["Protozoan","Fungus","Bacterium","Virus"],"a":2,"e":""},{"s":"ES","q":"The natural pacemaker of the heart is the:","o":["Aorta","AV node","Vena cava","SA node"],"a":3,"e":""},{"s":"ES","q":"The principle of floating and sinking of objects was given by:","o":["Archimedes","Galileo","Newton","Pascal"],"a":0,"e":""},{"s":"ES","q":"In nuclear power plants, energy is obtained by:","o":["Photosynthesis","Burning coal","Nuclear fusion","Nuclear fission"],"a":3,"e":""},{"s":"ES","q":"Methanol is:","o":["The alcohol in drinks","A vitamin","Used as cooking oil","Poisonous to humans"],"a":3,"e":""},{"s":"ES","q":"Who is credited with building the first successful aeroplane?","o":["William Harvey","Robert Hooke","Alexander Graham Bell","The Wright brothers"],"a":3,"e":""},{"s":"ES","q":"Which gas is the most abundant in Earth's atmosphere?","o":["Carbon dioxide","Oxygen","Nitrogen","Argon"],"a":2,"e":""},{"s":"ES","q":"Light from the Sun takes about how long to reach the Earth?","o":["30 minutes","1 hour","1 minute","8 minutes"],"a":3,"e":""},{"s":"ES","q":"The Indus river dolphin, found in Pakistan, is:","o":["Blind and nearly sightless","A freshwater fish","Able to fly","Colourful"],"a":0,"e":""},{"s":"ES","q":"The momentum of an object is the product of its mass and:","o":["Time","Velocity","Force","Acceleration"],"a":1,"e":""},{"s":"ES","q":"The master gland of the endocrine system is the:","o":["Pituitary gland","Pancreas","Adrenal gland","Thyroid gland"],"a":0,"e":""},{"s":"ES","q":"Water molecules are held together mainly by:","o":["Hydrogen bonds","Nuclear forces","Metallic bonds","Ionic bonds"],"a":0,"e":""},{"s":"ES","q":"The chemical symbol of Tin is:","o":["Sn","Hg","Fe","None of these"],"a":0,"e":""},{"s":"ES","q":"The bacterium that causes tuberculosis is:","o":["Salmonella typhi","Mycobacterium tuberculosis","Streptococcus","Vibrio cholerae"],"a":1,"e":""},{"s":"ES","q":"The fertiliser with the highest nitrogen content is:","o":["Urea","Potash","DAP","Superphosphate"],"a":0,"e":""},{"s":"ES","q":"COVID-19 is caused by the virus:","o":["SARS-CoV-2","Ebola","Influenza A","HIV"],"a":0,"e":""},{"s":"ES","q":"Acids turn blue litmus paper:","o":["Colourless","Red","Green","Yellow"],"a":1,"e":""},{"s":"ES","q":"Karl Landsteiner is credited with the discovery of:","o":["Penicillin","Neutron","Atomic nucleus","ABO blood groups"],"a":3,"e":""},{"s":"ES","q":"Plaster of Paris is made from:","o":["Limestone","Marble","Gypsum","Chalk"],"a":2,"e":""},{"s":"ES","q":"One horsepower is approximately equal to:","o":["500 watts","1000 watts","746 watts","100 watts"],"a":2,"e":""},{"s":"ES","q":"The acceleration due to gravity on Earth is approximately:","o":["1.6 m/s squared","0.98 m/s squared","9.8 m/s squared","98 m/s squared"],"a":2,"e":""},{"s":"ES","q":"Which is the lightest element?","o":["Lithium","Helium","Oxygen","Hydrogen"],"a":3,"e":""},{"s":"ES","q":"The finger-like projections in the small intestine that increase absorption are:","o":["Cilia","Alveoli","Villi","Nephrons"],"a":2,"e":""},{"s":"ES","q":"The airplane was invented by:","o":["The Wright brothers","John Logie Baird","Johannes Gutenberg","Thomas Edison"],"a":0,"e":""},{"s":"WG","q":"Which is the longest river in Asia?","o":["Yellow River","Yangtze","Ganges","Mekong"],"a":1,"e":""},{"s":"WG","q":"The capital of Libya is:","o":["Harare","Dodoma","Algiers","Tripoli"],"a":3,"e":""},{"s":"WG","q":"Which is the highest mountain in Antarctica?","o":["Mount Erebus","Mount Kosciuszko","Vinson Massif","Mount Cook"],"a":2,"e":""},{"s":"WG","q":"The equinoxes occur around:","o":["1 January and 1 July","21 June and 21 December","1 May and 1 November","21 March and 23 September"],"a":3,"e":""},{"s":"WG","q":"The capital of Austria is:","o":["Berlin","Vienna","Amsterdam","Dublin"],"a":1,"e":""},{"s":"WG","q":"The capital of Tunisia is:","o":["Algiers","Khartoum","Tunis","Tripoli"],"a":2,"e":""},{"s":"WG","q":"The currency of Israel is the:","o":["Dinar","Shekel","Kyat","Pound"],"a":1,"e":""},{"s":"WG","q":"The river Volga flows through:","o":["Vienna","Jhelum city","Phnom Penh","Volgograd"],"a":3,"e":""},{"s":"WG","q":"Which is the highest mountain in South America?","o":["Chimborazo","Aconcagua","Illimani","Huascaran"],"a":1,"e":""},{"s":"WG","q":"The capital of Netherlands is:","o":["Berlin","Copenhagen","Vienna","Amsterdam"],"a":3,"e":""},{"s":"WG","q":"The currency of India is the:","o":["Pound","Forint","Shekel","Rupee"],"a":3,"e":""},{"s":"WG","q":"The currency of Nepal is the:","o":["Rupiah","Pound","Dong","Rupee"],"a":3,"e":""},{"s":"WG","q":"Which country has the most islands?","o":["Philippines","Indonesia","Sweden","Japan"],"a":2,"e":""},{"s":"WG","q":"The Gulf of Aqaba is an arm of the:","o":["Sea of Japan","Sri Lanka","Russia","Red Sea"],"a":3,"e":""},{"s":"MTH","q":"An article bought for Rs 400 is sold at a loss of 20%. Find the selling price.","o":["Rs 80","Rs 320","Rs 380","Rs 480"],"a":1,"e":"SP = 400 × (100 − 20)/100 = 320"},{"s":"MTH","q":"A car covers 120 km in 2 hours. What is its average speed?","o":["40 km/h","60 km/h","70 km/h","240 km/h"],"a":1,"e":"Speed = 120/2 = 60 km/h"},{"s":"MTH","q":"What is each interior angle of a regular polygon with 12 sides?","o":["30°","75°","150°","165°"],"a":2,"e":"(n − 2) × 180 / n = 150°"},{"s":"MTH","q":"Simplify: 1/2 − 1/3","o":["1/6","2/5","5/6","3/2"],"a":0,"e":"= 1/6 in lowest terms"},{"s":"MTH","q":"A man buys an article for Rs 200 and sells it for Rs 250. What is his profit percent?","o":["17%","20%","25%","30%"],"a":2,"e":"Profit = 50; 50/200 × 100 = 25%"},{"s":"MTH","q":"The volume of a cuboid 6 cm × 5 cm × 2 cm is:","o":["13 cm³","60 cm³","66 cm³","104 cm³"],"a":1,"e":"6×5×2 = 60 cm³"},{"s":"MTH","q":"An article bought for Rs 1200 is sold at a loss of 20%. Find the selling price.","o":["Rs 240","Rs 960","Rs 1180","Rs 1440"],"a":1,"e":"SP = 1200 × (100 − 20)/100 = 960"},{"s":"MTH","q":"Two cars 255 km apart move towards each other at 45 km/h and 40 km/h. After how many hours do they meet?","o":["3 hours","4 hours","5.67 hours","51 hours"],"a":0,"e":"Relative speed = 85; time = 255/85 = 3 h"},{"s":"MTH","q":"Simplify: 1/2 ÷ 1/8","o":["1/16","3/8","5/8","4"],"a":3,"e":"= 4 in lowest terms"},{"s":"MTH","q":"What is each interior angle of a regular polygon with 8 sides?","o":["45°","67°","135°","157°"],"a":2,"e":"(n − 2) × 180 / n = 135°"},{"s":"MTH","q":"If 4 : 9 = 16 : x, then x = ?","o":["21","24","36","72"],"a":2,"e":"x = 9 × 16 / 4 = 36"},{"s":"MTH","q":"What is the simple interest on Rs 20000 at 5% per annum for 5 years?","o":["Rs 500","Rs 1000","Rs 5000","Rs 25000"],"a":2,"e":"SI = P×R×T/100 = 5000"},{"s":"MTH","q":"The price of an article rises from Rs 400 to Rs 500. What is the percentage increase?","o":["19%","20%","25%","35%"],"a":2,"e":"Increase = 100; 100/400 × 100 = 25%"},{"s":"MTH","q":"The two perpendicular sides of a right triangle are 10 cm and 24 cm. What is the hypotenuse?","o":["24 cm","26 cm","28 cm","34 cm"],"a":1,"e":"√(10² + 24²) = 26 cm"},{"s":"RSN","q":"Find the next number in the series: 3, 5, 7, 11, 13, ?","o":["17","18","19","34"],"a":0,"e":"Pattern: consecutive primes. Answer 17."},{"s":"RSN","q":"Find the next number in the series: 5, 4, 9, 13, 22, ?","o":["35","36","37","70"],"a":0,"e":"Pattern: each term is the sum of the previous two. Answer 35."},{"s":"RSN","q":"In a certain code, FISH is written as ILVK. How is MAP written in that code?","o":["JXM","PDS","QET","OCR"],"a":1,"e":"Each letter is shifted forward by 3."},{"s":"RSN","q":"Asad ranks 15th from the top in a class of 32 students. What is Asad's rank from the bottom?","o":["17","18","19","47"],"a":1,"e":"32 − 15 + 1 = 18"},{"s":"RSN","q":"Find the next letter in the series: F, I, L, O, R, ?","o":["U","W","V","T"],"a":0,"e":"Each letter moves forward by 3."},{"s":"RSN","q":"Statements: All roses are flowers. Some flowers are plants.\nConclusions: I. Some plants are flowers.  II. Some roses are plants.\nWhich of the following follows?","o":["Neither I nor II follows","Both I and II follow","Only I follows","Only II follows"],"a":2,"e":""},{"s":"RSN","q":"Faraz is taller than Hina. Ali is taller than Faraz. Omar is taller than Ali. Who is the tallest?","o":["Hina","Ali","Faraz","Omar"],"a":3,"e":"Chain: Omar > Ali > Faraz > Hina"},{"s":"RSN","q":"Statements: No engineers are graduates.\nConclusions: I. Some engineers are graduates.  II. No graduates are engineers.\nWhich of the following follows?","o":["Only II follows","Neither I nor II follows","Only I follows","Both I and II follow"],"a":0,"e":""},{"s":"RSN","q":"Find the next number in the series: 12, 29, 17, 34, 22, ?","o":["38","39","40","41"],"a":1,"e":"Pattern: two interleaved series. Answer 39."},{"s":"RSN","q":"In a row of boys, Danish is 10th from the left and 13th from the right. How many boys are in the row?","o":["21","22","23","24"],"a":1,"e":"10 + 13 − 1 = 22"},{"s":"RSN","q":"On which day of the week did 6 September 1965 fall?","o":["Sunday","Thursday","Monday","Tuesday"],"a":2,"e":"Day-of-week calculation gives Monday."},{"s":"RSN","q":"Find the missing number: 3 : 27 :: 9 : ?","o":["729","731","738","1000"],"a":0,"e":"Rule: n³. For 9: 729."},{"s":"IT","q":"A virtual assistant developed by Amazon is:","o":["Bixby","Alexa","Cortana","Siri"],"a":1,"e":""},{"s":"IT","q":"HTTPS stands for:","o":["Arithmetic Logic Unit","Completely Automated Public Turing test to tell Computers and Humans Apart","Operating System","HyperText Transfer Protocol Secure"],"a":3,"e":""},{"s":"IT","q":"Moving a phone number from one network to another in Pakistan is called:","o":["Mobile Number Portability","SIM swap","Call forwarding","None of these"],"a":0,"e":""},{"s":"IT","q":"The first email was sent by:","o":["Bill Gates","Ray Tomlinson","Tim Berners-Lee","Mark Zuckerberg"],"a":1,"e":""},{"s":"IT","q":"A compiler is an example of:","o":["Presentation software","System software","Spreadsheet software","Application software"],"a":1,"e":""},{"s":"IT","q":"Electronic Transactions Ordinance in Pakistan was enacted in:","o":["1990","2016","2010","2002"],"a":3,"e":""},{"s":"IT","q":"Optical Mark Recognition is the full form of:","o":["GB","WWW","OMR","SMTP"],"a":2,"e":""},{"s":"IT","q":"In MS Excel, which function key toggles absolute/relative reference while editing?","o":["F4","F7","F2","F5"],"a":0,"e":""},{"s":"IT","q":"The MS Excel function that is used to 'Perform a logical test and return one of two values' is:","o":["MIN","MAX","TODAY","IF"],"a":3,"e":""},{"s":"IT","q":"Trying every possible password until the right one is found is a:","o":["Brute force attack","Phishing attack","DDoS attack","SQL injection"],"a":0,"e":""},{"s":"IT","q":"One gigabyte (GB) is equal to about:","o":["1000 KB","1024 TB","8 MB","1024 MB"],"a":3,"e":""},{"s":"IT","q":"ALU stands for:","o":["Artificial Intelligence","Internet Protocol","Simple Mail Transfer Protocol","Arithmetic Logic Unit"],"a":3,"e":""}]};
+(function(){
+"use strict";
+const T = TEST, N = T.q.length;
+const R = {min:200, plus:1, minus:0.25, pass:66};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const L = 'ABCDE';
+const KEY = 'spsc26v2_t' + T.id, HKEY = 'spsc26v2_hist';
+const secOf = k => T.sec.find(s => s.k === k);
+const app = $('#app');
+let S, tick = null, filt = 'wrong', FS = null;
+
+function fresh(){ return {mode:null, ans:Array(N).fill(-1), mk:Array(N).fill(0), cur:0, t0:0, endAt:0, done:false, used:0}; }
+function load(){ try{ const x = JSON.parse(localStorage.getItem(KEY)); if(x && x.ans && x.ans.length === N) return x; }catch(e){} return null; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function pushHist(r){ try{ const h = JSON.parse(localStorage.getItem(HKEY) || '[]'); h.push({id:T.id, ts:Date.now(), net:r.net, c:r.c, w:r.w, u:r.u}); localStorage.setItem(HKEY, JSON.stringify(h)); }catch(e){} }
+S = load() || fresh();
+
+function score(){
+  let c = 0, w = 0, u = 0; const sec = {};
+  T.sec.forEach(s => sec[s.k] = {n:0, c:0, w:0, u:0});
+  T.q.forEach((q, i) => { const z = sec[q.s]; z.n++;
+    if(S.ans[i] < 0){ u++; z.u++; } else if(S.ans[i] === q.a){ c++; z.c++; } else { w++; z.w++; } });
+  return {c, w, u, net: c - R.minus * w, sec};
+}
+const f2 = x => (Math.round(x * 100) / 100).toString();
+function view(h){ app.innerHTML = h; window.scrollTo(0, 0); }
+
+/* ---------- start ---------- */
+function showStart(){
+  clearInterval(tick); FS = null;
+  const inprog = S.mode && S.mode !== 'flash' && !S.done;
+  const rows = T.sec.map(s => `<tr><td>${esc(s.name)}</td><td class="n">${s.n}</td></tr>`).join('');
+  view(`<div class="wrap"><p class="mut"><a href="index.html">← All tests</a></p>
+  <h1>${esc(T.title)}</h1><p class="mut">SPSC CCE-2026 screening test · mock pattern · ${N} MCQs</p>
+  <div class="grid2">
+   <div class="card"><h3>Marking (as per Adv. 06/2026)</h3><ul>
+    <li>${N} MCQs, one mark each</li><li>Wrong answer: −0.25</li><li>Unanswered: 0</li>
+    <li>Pass mark: <b>66</b> net (33%)</li><li>Time: ${R.min} minutes</li></ul></div>
+   <div class="card"><h3>Sections</h3><table>${rows}</table></div></div>
+  <div class="card actions">
+   ${inprog ? `<button class="pri" data-a="resume">Resume ${S.mode === 'exam' ? 'exam' : 'study session'}</button>` : `<button class="pri" data-a="start-exam">Start timed exam</button>`}
+   ${S.done ? `<button data-a="view-result">View last result</button>` : ''}
+   <button data-a="start-study">Study mode (no timer, instant answers)</button>
+   <button data-a="start-flash">Flashcards</button>
+   ${(S.mode || S.done) ? `<button data-a="reset">Reset this test</button>` : ''}
+  </div>
+  <p class="mut" style="font-size:14px">Exam mode runs on the clock: closing this page does not pause the timer. Your answers are saved in this browser. Net score = correct − 0.25 × wrong.</p></div>`);
+}
+
+/* ---------- test screen ---------- */
+function startTest(mode){
+  S = fresh(); S.mode = mode; S.t0 = Date.now();
+  if(mode === 'exam') S.endAt = S.t0 + R.min * 60000;
+  save(); showTest();
+}
+function showTest(){
+  view(`<div class="top"><div class="ti">${esc(T.title)}${S.mode === 'study' ? ' · study mode' : ''}</div><div id="prog" class="mut"></div>
+    ${S.mode === 'exam' ? '<div id="tm" class="tm"></div>' : ''}<button class="pri sm" data-a="submit">${S.mode === 'exam' ? 'Submit' : 'Finish'}</button></div>
+    <div class="body"><div><div id="qc" class="card"></div><div class="nav" id="nv"></div></div><aside id="pal" class="card"></aside></div>`);
+  renderQ(); renderPal(); clearInterval(tick);
+  if(S.mode === 'exam'){ tickFn(); tick = setInterval(tickFn, 1000); }
+}
+function tickFn(){
+  const rem = Math.max(0, S.endAt - Date.now()), el = $('#tm');
+  if(el){ el.textContent = Math.floor(rem / 60000) + ':' + String(Math.floor(rem % 60000 / 1000)).padStart(2, '0'); el.classList.toggle('low', rem < 600000); }
+  if(rem <= 0) finish(true);
+}
+function renderQ(){
+  const i = S.cur, q = T.q[i], sec = secOf(q.s), picked = S.ans[i], study = S.mode === 'study', lock = study && picked >= 0;
+  let h = `<div class="meta"><span class="tag">${esc(sec.name)}</span><span>Question ${i + 1} of ${N}</span>${S.mk[i] ? '<span class="flag">★ marked for review</span>' : ''}</div><div class="q">${esc(q.q)}</div><div class="opts">`;
+  q.o.forEach((o, k) => {
+    let c = 'opt'; if(picked === k) c += ' sel';
+    if(lock){ if(k === q.a) c += ' ok'; else if(picked === k) c += ' bad'; }
+    h += `<button class="${c}" data-a="opt" data-k="${k}"${lock ? ' disabled' : ''}><b>${L[k]}</b><span>${esc(o)}</span></button>`;
+  });
+  h += '</div>';
+  if(lock) h += `<div class="expl"><b>${picked === q.a ? 'Correct.' : 'Correct answer: ' + L[q.a] + '.'}</b> ${esc(q.e || '')}</div>`;
+  $('#qc').innerHTML = h;
+  $('#nv').innerHTML = `<button data-a="prev"${i === 0 ? ' disabled' : ''}>← Previous</button>
+    ${study ? '' : `<button data-a="clear">Clear answer</button><button data-a="mark">${S.mk[i] ? 'Unmark' : '★ Mark for review'}</button>`}
+    <span class="sp"></span><button class="pri" data-a="next"${i === N - 1 ? ' disabled' : ''}>Next →</button>`;
+}
+function renderPal(){
+  let h = '', a = 0;
+  S.ans.forEach(x => { if(x >= 0) a++; });
+  T.sec.forEach(s => {
+    h += `<div class="ph">${esc(s.name)}</div><div class="pg">`;
+    for(let i = s.i0; i < s.i0 + s.n; i++){
+      let c = 'pb'; if(S.ans[i] >= 0) c += ' a'; if(S.mk[i]) c += ' m'; if(i === S.cur) c += ' c';
+      h += `<button class="${c}" data-a="go" data-i="${i}">${i + 1}</button>`;
+    }
+    h += '</div>';
+  });
+  h += '<div class="leg"><span>■ green = answered</span><span>▢ amber ring = marked</span></div>';
+  $('#pal').innerHTML = h;
+  $('#prog').textContent = `Answered ${a}/${N}`;
+}
+function pick(k){
+  const i = S.cur, q = T.q[i];
+  if(S.mode === 'study' && S.ans[i] >= 0) return;
+  S.ans[i] = (S.mode === 'exam' && S.ans[i] === k) ? -1 : k;
+  save(); renderQ(); renderPal();
+}
+function go(i){ S.cur = Math.max(0, Math.min(N - 1, i)); save(); renderQ(); renderPal(); }
+
+/* ---------- finish + result ---------- */
+function finish(auto){
+  if(!auto){
+    const r = score();
+    if(!confirm(`${r.u} question(s) unanswered. Submit now?`)) return;
+  }
+  clearInterval(tick);
+  S.done = true;
+  S.used = Math.round((Math.min(Date.now(), S.endAt || Date.now()) - S.t0) / 1000);
+  save();
+  if(S.mode === 'exam') pushHist(score());
+  showResult();
+}
+function showResult(){
+  clearInterval(tick);
+  const r = score(), pass = r.net >= R.pass, att = r.c + r.w;
+  const rows = T.sec.map(s => { const z = r.sec[s.k], a = z.c + z.w;
+    return `<tr><td>${esc(s.name)}</td><td class="n">${z.n}</td><td class="n">${z.c}</td><td class="n">${z.w}</td><td class="n">${z.u}</td><td class="n">${f2(z.c - R.minus * z.w)}</td><td class="n">${a ? Math.round(100 * z.c / a) + '%' : '–'}</td></tr>`; }).join('');
+  const mm = Math.floor(S.used / 60);
+  view(`<div class="wrap"><p class="mut"><a href="index.html">← All tests</a></p>
+  <h1>${esc(T.title)} · result</h1>
+  <div class="card"><div class="big ${pass ? 'pass' : 'fail'}">${f2(r.net)} <span style="font-size:20px">/ ${N}</span></div>
+   <p><b class="${pass ? 'pass' : 'fail'}">${pass ? 'Above the pass mark' : 'Below the pass mark'}</b> (pass = ${R.pass} net, ${pass ? 'margin +' : 'short by '}${f2(Math.abs(r.net - R.pass))})</p>
+   <div class="stats"><div class="stat"><b>${r.c}</b><span>correct (+${r.c})</span></div><div class="stat"><b>${r.w}</b><span>wrong (−${f2(r.w * R.minus)})</span></div><div class="stat"><b>${r.u}</b><span>unanswered</span></div><div class="stat"><b>${att ? Math.round(100 * r.c / att) : 0}%</b><span>accuracy on attempted</span></div><div class="stat"><b>${mm} min</b><span>time used</span></div></div>
+   <div class="warn">Guess audit: your wrong answers cost ${f2(r.w * R.minus)} marks. Skipping every one of them would have scored ${r.c}. Guess only after eliminating at least one option.</div></div>
+  <div class="card"><h3>By section</h3><table><tr><th>Section</th><th class="n">Qs</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th class="n">Accuracy</th></tr>${rows}</table></div>
+  <div class="card actions"><button class="pri" data-a="flash-missed">Flashcards: missed + skipped (${r.w + r.u})</button><button data-a="rev-top">Jump to review</button><button data-a="home">Back to start</button></div>
+  <h2 id="rev">Review</h2><div class="tabs" id="tabs"></div><div id="rl"></div></div>`);
+  renderReview();
+}
+function renderReview(){
+  const tabs = [['wrong', 'Wrong'], ['skip', 'Skipped'], ['mark', 'Marked'], ['ok', 'Correct'], ['all', 'All']];
+  $('#tabs').innerHTML = tabs.map(t => `<button class="${filt === t[0] ? 'on' : ''}" data-a="filt" data-f="${t[0]}">${t[1]}</button>`).join('');
+  let h = '', n = 0;
+  T.q.forEach((q, i) => {
+    const a = S.ans[i], st = a < 0 ? 'un' : (a === q.a ? 'ok' : 'bad');
+    const show = filt === 'all' || (filt === 'wrong' && st === 'bad') || (filt === 'skip' && st === 'un') || (filt === 'ok' && st === 'ok') || (filt === 'mark' && S.mk[i]);
+    if(!show) return; n++;
+    h += `<div class="card rv ${st}"><div class="meta"><span class="tag">${esc(secOf(q.s).name)}</span><span>Q${i + 1}</span></div><div class="q">${esc(q.q)}</div>
+      <div class="ans">Your answer: <b>${a < 0 ? 'skipped' : L[a] + '. ' + esc(q.o[a])}</b></div>
+      <div class="ans">Correct: <b class="pass">${L[q.a]}. ${esc(q.o[q.a])}</b></div>${q.e ? `<div class="expl">${esc(q.e)}</div>` : ''}</div>`;
+  });
+  $('#rl').innerHTML = h || '<p class="mut">Nothing in this view.</p>';
+}
+
+/* ---------- flashcards ---------- */
+function startFlash(idx, label){
+  FS = {deck: idx, pos: 0, show: false, know: 0, miss: [], label: label || 'All questions'};
+  renderFlash();
+}
+function renderFlash(){
+  clearInterval(tick);
+  if(!FS.deck.length){ view(`<div class="wrap"><div class="card"><p>Nothing to review.</p><button data-a="home">Back</button></div></div>`); return; }
+  if(FS.pos >= FS.deck.length){
+    view(`<div class="wrap"><h1>Deck finished</h1><div class="card"><p>${FS.know} known · ${FS.miss.length} missed (${FS.label}).</p>
+      <div class="actions">${FS.miss.length ? '<button class="pri" data-a="flash-redo">Redo missed</button>' : ''}<button data-a="home">Back to start</button></div></div></div>`);
+    return;
+  }
+  const i = FS.deck[FS.pos], q = T.q[i];
+  view(`<div class="wrap"><p class="mut"><a href="#" data-a="home">← Back</a> · ${esc(FS.label)}</p>
+   <div class="bar"><i style="width:${100 * FS.pos / FS.deck.length}%"></i></div>
+   <div class="card fc"><div class="meta"><span class="tag">${esc(secOf(q.s).name)}</span><span>Card ${FS.pos + 1} of ${FS.deck.length}</span></div>
+   <div class="q">${esc(q.q)}</div>
+   ${FS.show ? `<div class="expl"><b>${L[q.a]}. ${esc(q.o[q.a])}</b>${q.e ? '<br>' + esc(q.e) : ''}</div>
+     <div class="actions" style="margin-top:14px"><button class="pri" data-a="fk">I knew it</button><button data-a="fm">Missed it</button></div>`
+   : `<div class="opts">${q.o.map((o, k) => `<div class="mut">${L[k]}. ${esc(o)}</div>`).join('')}</div><div class="actions" style="margin-top:14px"><button class="pri" data-a="fshow">Show answer</button></div>`}
+   </div></div>`);
+}
+
+/* ---------- events ---------- */
+app.addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if(!b) return;
+  const a = b.dataset.a;
+  if(a === 'home'){ e.preventDefault(); showStart(); }
+  else if(a === 'start-exam') startTest('exam');
+  else if(a === 'start-study') startTest('study');
+  else if(a === 'start-flash') startFlash(T.q.map((_, i) => i), 'All questions');
+  else if(a === 'resume') showTest();
+  else if(a === 'reset'){ if(confirm('Erase answers and result for this test?')){ S = fresh(); save(); showStart(); } }
+  else if(a === 'view-result') showResult();
+  else if(a === 'opt') pick(+b.dataset.k);
+  else if(a === 'go') go(+b.dataset.i);
+  else if(a === 'prev') go(S.cur - 1);
+  else if(a === 'next') go(S.cur + 1);
+  else if(a === 'clear'){ S.ans[S.cur] = -1; save(); renderQ(); renderPal(); }
+  else if(a === 'mark'){ S.mk[S.cur] = S.mk[S.cur] ? 0 : 1; save(); renderQ(); renderPal(); }
+  else if(a === 'submit') finish(false);
+  else if(a === 'filt'){ filt = b.dataset.f; renderReview(); }
+  else if(a === 'rev-top') $('#rev').scrollIntoView();
+  else if(a === 'flash-missed'){ const d = []; T.q.forEach((q, i) => { if(S.ans[i] !== q.a) d.push(i); }); startFlash(d, 'Missed + skipped'); }
+  else if(a === 'fshow'){ FS.show = true; renderFlash(); }
+  else if(a === 'fk'){ FS.know++; FS.pos++; FS.show = false; renderFlash(); }
+  else if(a === 'fm'){ FS.miss.push(FS.deck[FS.pos]); FS.pos++; FS.show = false; renderFlash(); }
+  else if(a === 'flash-redo') startFlash(FS.miss.slice(), 'Redo missed');
+});
+document.addEventListener('keydown', e => {
+  if(!$('#qc') || !S.mode || S.done || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if('1234'.includes(k) && k) pick(+k - 1);
+  else if('abcd'.includes(k) && k.length === 1) pick('abcd'.indexOf(k));
+  else if(k === 'arrowright' || k === 'n') go(S.cur + 1);
+  else if(k === 'arrowleft' || k === 'p') go(S.cur - 1);
+  else if(k === 'm' && S.mode === 'exam'){ S.mk[S.cur] = S.mk[S.cur] ? 0 : 1; save(); renderQ(); renderPal(); }
+});
+
+if(S.done) showResult(); else if(S.mode && S.mode !== 'flash') showTest(); else showStart();
+})();
+</script>
+</body>
+</html>
