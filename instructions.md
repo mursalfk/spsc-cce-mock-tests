@@ -1,78 +1,189 @@
-# SPSC CCE-2026 Screening Test: Mock Test Pack
+# Setup: login, per-user scores and emailed PDF reports
 
-21 full-length mock tests, 200 MCQs each (4,200 different questions), written to the SPSC marking scheme. Companion to the 21-day plan.
+Everything here is free. No credit card, no Blaze plan, no Cloud Functions. Time needed: about 30 minutes.
 
-## No repeated questions (version 2 of this pack)
+What you set up:
 
-The first version of this pack reused the same facts across tests. This version fixes that. Every test has its own 200 questions, and no fact is asked twice anywhere in the 21 tests, not even re-worded or reversed (for example, "capital of X" in one test and "which country has the capital Y" in another).
+| Part | Does | Where |
+|---|---|---|
+| Firebase Auth | sign-up, login, email verification, Google login | Firebase console |
+| Firestore | each user's own score history | Firebase console |
+| Apps Script mailer | emails the PDF report after an exam | script.google.com |
+| GitHub Pages | hosts the site | github.com |
 
-- **Delete the old files.** Do not mix old and new tests. Test numbers are the same, but the questions are different.
-- **Progress from the old files does not carry over.** The new files use separate browser storage, so old scores will not appear and cannot clash with the new tests.
-- **How it was checked:** exact repeats are zero. A fuzzy check for re-worded repeats also ran across all 4,200 questions. The checker may still miss an unusual re-wording, and it flags look-alike template questions (two countries and their continents, say) that are in fact different facts. Spelling and grammar stems such as "Choose the correctly spelled word" recur by design, with different words each time.
-- If you spot the same fact twice, tell me the two test and question numbers and I will replace one.
+Your live address: `https://mursalfk.github.io/spsc-cce-mock-tests/`
 
-## Open and run
+---
 
-1. Unzip the whole folder. Keep `index.html` and all 21 test files together.
-2. Open `index.html` in Chrome, Edge, Firefox or Safari (desktop or phone). No internet, install or login needed.
-3. Pick a test. Each test is one self-contained file.
+## 1. Firebase
 
-## Marking (same as the advertisement)
+### 1.1 Create the project
+1. Go to <https://console.firebase.google.com> and sign in with your Google account.
+2. **Create a project**. Name it `spsc-cce-mock-tests`. Turn Google Analytics **off**.
+3. Stay on the **Spark (free)** plan. Never click Upgrade. Spark has no billing account, so it cannot charge you; if a free limit is hit the feature just stops.
 
-| Rule | Value |
+### 1.2 Add a web app and copy the config
+1. Project overview > **Add app** > the web icon `</>`.
+2. Nickname `web`. Do **not** tick Firebase Hosting. Click **Register app**.
+3. Copy the `firebaseConfig` values: `apiKey`, `authDomain`, `projectId`, `appId`.
+4. Open `assets/firebase-config.js` and replace the four `PASTE_...` values. Leave `mailEndpoint` for step 2.
+
+```js
+window.SPSC_CONFIG = {
+  firebase: {
+    apiKey: "AIza...",
+    authDomain: "spsc-cce-mock-tests.firebaseapp.com",
+    projectId: "spsc-cce-mock-tests",
+    appId: "1:1234567890:web:abcdef"
+  },
+  mailEndpoint: "PASTE_YOUR_APPS_SCRIPT_EXEC_URL",
+  passMark: 66
+};
+```
+
+These values are not secrets. They only name your project. What protects your data is login plus the Firestore rules (1.5).
+
+### 1.3 Turn on sign-in methods
+**Build > Authentication > Get started > Sign-in method**
+- **Email/Password**: enable (leave "Email link" off).
+- **Google**: enable, choose a support email, save.
+
+### 1.4 Create the database
+**Build > Firestore Database > Create database**
+- Edition: **Standard** (if asked).
+- Location: nearest to you, for example `asia-south1` (Mumbai). It cannot be changed later.
+- Mode: **Production**.
+
+### 1.5 Publish the rules
+1. Firestore Database > **Rules** tab.
+2. Delete everything, paste the contents of `firestore.rules` from this folder.
+3. **Publish**.
+
+The rules let a logged-in, email-verified user read and write only their own records.
+
+### 1.6 Authorize your website address
+**Authentication > Settings > Authorized domains > Add domain**: `mursalfk.github.io`
+
+`localhost` is already there (needed for step 3). Without this, login shows "This website address is not authorised".
+
+### 1.7 Optional: verification email wording
+**Authentication > Templates > Email address verification > edit**: set a sender name and subject you like. Firebase sends these from its own address, so they can land in spam the first time. Tell your users to check the spam folder.
+
+---
+
+## 2. The email sender (Google Apps Script)
+
+This sends the PDF from your own Gmail account for free. Each user gets the report only at the address on their verified account.
+
+1. Go to <https://script.google.com> > **New project**. Name it `SPSC mailer`.
+2. Delete the sample code. Paste all of `backend/Code.gs`. Save.
+3. **Project Settings** (gear) > **Script properties** > **Add script property**:
+
+| Property | Value |
 |---|---|
-| Questions | 200 MCQs, one mark each |
-| Wrong answer | −0.25 |
-| Unanswered | 0 |
-| Pass mark | 66 net (33% of 200) |
-| Time | 200 minutes |
-| Net score | correct − 0.25 × wrong |
+| `FIREBASE_API_KEY` | the same `apiKey` as in step 1.2 |
+| `SITE_URL` | `https://mursalfk.github.io/spsc-cce-mock-tests/` |
+| `SENDER_NAME` | optional, for example `SPSC CCE Mock Tests` |
 
-A blind guess among 4 options is worth +0.06 on average, so guessing pays only after you eliminate at least one option. A random guess on all 200 questions will not get you near 66.
+4. In the editor, pick the function `setup` and click **Run**. Google asks for permission. If it says "Google hasn't verified this app", click **Advanced > Go to SPSC mailer (unsafe)**. It is your own script. Allow. The log should end with "Permissions granted".
+5. **Deploy > New deployment** > gear > **Web app**:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+   - Click **Deploy** and copy the **Web app URL** (ends in `/exec`).
+6. Paste that URL into `mailEndpoint` in `assets/firebase-config.js`.
 
-## Paper blueprint (identical in every test)
+"Anyone" is required because a browser cannot log in to Google on your behalf. The script itself rejects every request that does not carry a valid Firebase login token for a verified email.
 
-| Section | Qs |
+**If you edit Code.gs later:** Deploy > **Manage deployments** > pencil > Version: **New version** > Deploy. The URL stays the same.
+
+**Sender account:** mails go out from the Google account that owns the script. If you would rather not use your personal Gmail, create a separate Gmail, do step 2 there.
+
+---
+
+## 3. Test on your computer first
+
+Login does not work from a file opened by double-click. Use a local web server:
+
+```bash
+cd spsc-cce-mock-tests
+python3 -m http.server 8000
+```
+
+Open <http://localhost:8000>. Then follow the checklist in section 5.
+
+---
+
+## 4. Put it on GitHub Pages
+
+The repo must be **public** (Pages on private repos needs a paid plan).
+
+**New repo:**
+```bash
+cd spsc-cce-mock-tests
+git init -b main
+git add .
+git commit -m "Add SPSC CCE-2026 mock test pack with login and emailed PDF reports"
+gh repo create spsc-cce-mock-tests --public --source=. --push \
+  --description "21 timed mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
+gh repo edit --add-topic spsc --add-topic spsc-cce --add-topic cce-2026 --add-topic sindh --add-topic pakistan --add-topic mock-test --add-topic mcq --add-topic quiz --add-topic flashcards --add-topic exam-prep --add-topic vanilla-javascript --add-topic static-site --add-topic firebase --add-topic firebase-auth --add-topic firestore --add-topic google-apps-script --add-topic pdf-report --add-topic github-pages
+gh api -X POST repos/mursalfk/spsc-cce-mock-tests/pages -f "source[branch]=main" -f "source[path]=/"
+```
+
+**Repo already exists (you pushed the old pack):** copy everything from this folder over your repo folder (replace files), then:
+```bash
+git add -A
+git commit -m "Add login, per-user score history and emailed PDF reports"
+git push
+gh repo edit --description "21 timed mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
+gh repo edit --remove-topic offline-first
+```
+
+Wait 1 to 2 minutes, then open `https://mursalfk.github.io/spsc-cce-mock-tests/`. If it is not live, check Settings > Pages: Source = Deploy from a branch, `main`, `/ (root)`.
+
+Without `gh`: create the repo on github.com, upload the files, then Settings > Pages as above.
+
+---
+
+## 5. Test checklist (do this once, on the live site)
+
+1. Open the site while logged out. You should see all 21 tests with lock icons and a "Browse freely" banner.
+2. Click a test. The login box opens. Choose **Create account**, enter name, email, password.
+3. Open the verification email (check spam), click the link. The page notices by itself within a few seconds and takes you to the test.
+4. Start a **timed exam**, answer 3 questions, **Submit**. The result page says "Report emailed to ...". Check your inbox (and spam) for the PDF.
+5. Click **Download PDF** and **Email it to me again**.
+6. Go back to the home page. "Your progress" and "Recent timed exams" show the attempt.
+7. Sign out. Create a second account (another email). Confirm it starts with no history.
+8. Firebase console > Firestore Database > Data: `users > (user id) > attempts` shows the records. You can see every user's scores here.
+9. Try Google login once.
+
+---
+
+## 6. What to know (honest limits)
+
+- **The login gate is a front-end gate.** The questions are inside the page files, so someone who knows how to view page source could read them without an account. The gate controls the normal user experience, scores and emails. It is not DRM. Real protection would need a paid server.
+- **Records and emails are for timed exams only.** Study mode and flashcards are not scored. The result page offers a PDF download for study mode.
+- **Quotas (free):**
+  - Gmail from Apps Script: about **100 emails a day in total** across all users. The script also caps each user at 25 per day. When the day's limit is used up, users see a message and can still download the PDF.
+  - Firestore Spark: 50,000 reads and 20,000 writes a day. Far above what a study group needs.
+- **Email can be slow or land in spam** the first time. The Download button always works.
+- **Old progress does not carry over.** Earlier versions stored scores in the browser only.
+- Scores are stored under the user's own Firebase account and can be seen by you (project owner) in the console. Mention that to the people you invite.
+- To remove a user: Authentication > Users > delete. Their records stay in Firestore until you delete `users/(id)` there.
+- Google login uses a pop-up. If the browser blocks it, allow pop-ups for the site.
+
+---
+
+## 7. Troubleshooting
+
+| You see | Cause and fix |
 |---|---|
-| English | 40 |
-| Pakistan Affairs and Sindh | 26 |
-| Islamic Studies | 26 |
-| Current Affairs | 24 |
-| Everyday Science | 32 |
-| World Geography and Celestial Bodies | 14 |
-| Mathematics | 14 |
-| Reasoning | 12 |
-| Digital Literacy and IT | 12 |
-
-## Three modes in every test
-
-- **Timed exam**: 200-minute countdown, question palette, mark for review, clear answer, auto-submit at zero. The clock keeps running if you close the page. Submit gives the net score, a pass or fail line, a section-wise table, a guess audit, and a full review (wrong, skipped, all).
-- **Study mode**: no timer. You see the right answer and explanation straight after each pick.
-- **Flashcards**: question on the front, answer and note on the back. After an exam, "Flashcards: missed + skipped" builds a deck from your errors.
-
-## How to use it with the 21-day plan
-
-1. One test per day, as an exam, in one sitting. Treat it as the real thing: no phone, no looking things up.
-2. Straight after: read the section table, then review every wrong and skipped item. Run the missed-and-skipped flashcards once.
-3. Next morning: 15 minutes of flashcards on yesterday's misses before the new test.
-4. Watch the guess audit. If wrong answers cost you more than 10 marks, you are guessing too freely.
-5. Target a rising net score, not one lucky day. Aim for 90 or more net before 28 Nov to leave a margin over 66.
-
-## Your progress
-
-Answers, marks and results are stored in this browser on this device (localStorage). They do not sync. Clearing browser data, using another browser or using private mode loses them. "Reset this test" on the start screen wipes that one test. Scores from the last exams are kept separately in the same storage.
-
-## Caveats you should know about
-
-- **Option count**: I assumed 4 options (A to D) per question. The exact 2026 paper layout is not confirmed. If the real paper shows 5 options, the arithmetic of guessing changes slightly; the marking rule does not.
-- **Section split is an estimate**: it is based on recalled past papers and third-party reports, not an official SPSC blueprint. Treat the proportions as a guide.
-- **Original questions**: all questions were written for this pack. None are copied from past papers or books.
-- **"None of these" options**: from Test 4 onward, about 10% of items replace an option with "None of these" (sometimes it is the right answer, which the explanation then states). Real papers do this. Tests 1 to 3 have none, so the format starts gentle.
-- **Current Affairs is dated**: facts are as of about 7 Nov 2026. Office-holders, sports results and anything with "currently" in the stem can change. Re-check the current-affairs sections of your notes in the last week before 28 Nov 2026. Facts on which sources disagreed were left out.
-- **Errors**: with 4,200 questions, a few will be wrong or arguable. Tell me the test number and question number and I will fix it and re-issue the file.
-
-## Files
-
-- `index.html`: test list, with your recent exam scores
-- `SPSC_CCE_Mock_01.html` to `SPSC_CCE_Mock_21.html`: the tests
-- `instructions.md`: this file
+| "Login is not set up yet" | `assets/firebase-config.js` still has `PASTE_` values, or the file was not pushed. |
+| "This website address is not authorised" | Step 1.6. Add the exact domain, no `https://`, no path. |
+| "This sign-in method is not switched on" | Step 1.3. |
+| Login does nothing on a local file | Use `python3 -m http.server` (step 3), not a double-clicked file. |
+| Result page: "Emailing is not switched on" | `mailEndpoint` is still a placeholder. |
+| "Could not email the report (...)" | Press **Email it to me again**. If it keeps failing: Apps Script > **Executions** shows the error. Common causes: `FIREBASE_API_KEY` missing, `setup` never run, deployment is not "Anyone", or you edited Code.gs without a **New version** deploy. |
+| "Your sign-in could not be verified" | Wrong `FIREBASE_API_KEY` in Script properties. |
+| "Verify your email address first" | The account's email is not verified yet. |
+| Scores missing on the home page | Rules not published (1.5), or the account is not verified. Scores still stay in that browser. |
+| "Could not confirm whether the report was sent" | The browser could not read the mailer's reply (some phones, weak network). The email often still arrives. Check inbox and spam before pressing resend. |
