@@ -81,6 +81,7 @@ Every user has a separate record. Finished **tests** are saved to your account (
 ## Files
 
 - `index.html`: public test list; shows your progress after login
+- `about.html`: the About page
 - `SPSC_CCE_Mock_01.html` to `SPSC_CCE_Mock_21.html`: the tests
 - `assets/`: login, PDF report and Firebase config
 - `backend/Code.gs`: the email sender (Google Apps Script)

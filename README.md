@@ -113,6 +113,7 @@ flowchart LR
 ```
 .
 ├── index.html                 # public test list + your progress
+├── about.html                 # About page (what it is, marking, limits, your data, author)
 ├── SPSC_CCE_Mock_01.html      # each test is one file (questions embedded)
 ├── ...
 ├── SPSC_CCE_Mock_21.html

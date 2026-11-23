@@ -81,6 +81,8 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .site-top a.back{white-space:nowrap;flex:none;display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;color:var(--mut);font-size:.9rem}
 .site-top a.back:hover{color:var(--ink)}
 .site-top .right{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.site-top .right a.nav{color:var(--mut);text-decoration:none;font-size:.9rem}
+.site-top .right a.nav:hover{color:var(--ink)}
 .brand{font:var(--hw) 1.35rem/1 var(--serif);letter-spacing:-.01em;display:inline-flex;align-items:center}
 .brand i{display:none}
 
@@ -277,6 +279,8 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
 .sc{overflow-x:auto}
 .foot{color:var(--mut);font:400 .7rem/1.8 var(--mono);letter-spacing:.02em;margin-top:3.2rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.foot a{color:inherit;text-decoration:underline}
+.foot a:hover{color:var(--ink)}
 
 /* ---------- login modal, gate, report card ---------- */
 .spsc-acct{font-size:.86rem;color:var(--mut);display:inline-flex;gap:.7rem;align-items:center;flex-wrap:wrap}
@@ -316,6 +320,17 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .spsc-rep .st.ok{color:var(--ok)}.spsc-rep .st.err{color:var(--bad)}.spsc-rep .st.work{color:var(--mut)}
 .fb,.fbrow,.expl{scroll-margin-bottom:6.5rem}
 @media (max-width:520px){.fin-t{display:none}.tt small{font-size:.62rem;letter-spacing:.03em}h1{font-size:2.1rem}.hero h1{font-size:2.5rem}.big{font-size:4rem}.qtext{font-size:calc(var(--qsz) - .25rem)}.tc .no{font-size:2.7rem}}
+
+/* about page */
+.about h2{margin:2.2rem 0 .7rem}
+.about .card{margin:.6rem 0}
+.about .card p{margin:.5rem 0;line-height:1.7}
+.about .card ul{margin:0;padding-left:1.15rem}
+.about .card li{margin:.55rem 0;line-height:1.65}
+.about .card a{color:var(--ink);text-underline-offset:.2em}
+.about .card a:hover{color:var(--acc)}
+.about .card table{margin:.2rem 0 .4rem}
+.about .stats{margin-bottom:.4rem}
 
 /* =====================================================================
    SKINS. Each block only sets tokens, plus a few small treatment details.
