@@ -19,13 +19,16 @@ Browse the tests freely. Log in to attempt them. Open it on your phone, add it t
 
 ## ✨ What you get
 
-- ⏱️ **Timed exam mode**: 200-minute countdown, question palette, mark for review, auto-submit at zero.
-- 📖 **Study mode**: no timer, right answer and explanation straight after every pick.
+- 🖥️ **Computer-based-test feel**: one question per screen, a question palette, mark for later, skip and go back.
+- ✅ **Instant feedback**: tap an answer and it turns green or red at once, and the right answer is shown. The answer then locks, like a real attempt.
+- 💡 **Optional explanation**: every question has a short note behind a "Show explanation" button. It stays hidden until you ask.
+- ⏳ **Optional 200-minute countdown**: off by default (the clock just counts up). Tick it on the start screen for exam conditions.
+- 🎨 **5 switchable styles** (Aa button): **Swiss** (default), Blueprint, Glassmorphism, Art Deco and Vaporwave, based on the treatments in the Lumenary image studio. Four text sizes. The choice is remembered per browser.
 - 🃏 **Flashcards**: question on the front, answer on the back. After an exam, one tap builds a deck from your **missed and skipped** questions.
 - 📊 **Section-wise report**: net score, pass or fail line, a table per section, and a **guess audit** that shows what wild guessing cost you.
 - 🔁 **No repeats**: every test has its own 200 questions, and no fact is asked twice across all 21 tests, not even re-worded.
 - 👤 **Your own account**: log in with email or Google. Every user has separate tests in progress, scores and history.
-- 📧 **PDF report by email**: after every timed exam you get a detailed PDF (section table, where to focus, guess audit, every wrong and skipped question with the right answer). Download or resend it from the result page.
+- 📧 **PDF report by email**: after every finished test you get a detailed PDF (section table, where to focus, guess audit, every wrong and skipped question with the right answer). Download or resend it from the result page.
 - 🌐 **Open to browse**: anyone can see the test list. Login is needed only to attempt a test.
 
 ## 🧮 Marking (same as the SPSC advertisement)
@@ -62,7 +65,7 @@ A blind guess among four options is worth about **+0.06** on average. Guess only
 
 ```mermaid
 flowchart LR
-    A[Take one test<br/>timed, one sitting] --> B[Read the section table]
+    A[Take one test<br/>one sitting] --> B[Read the section table]
     B --> C[Review every wrong<br/>and skipped question]
     C --> D[Flashcards:<br/>missed + skipped]
     D --> E[Next morning:<br/>15 min on yesterday's misses]
@@ -77,7 +80,7 @@ Aim for a **rising** net score, not one lucky day. Target **90+ net** before 28 
 
 1. Open the site. Pick a test.
 2. Create an account (or use Google). Verify your email once.
-3. Take the timed exam. The PDF report lands in your inbox.
+3. Take the test. Press **Finish** at the end and the PDF report lands in your inbox.
 
 **Running your own copy:** follow [`instructions.md`](instructions.md) (Firebase, the email sender, GitHub Pages). Free, no credit card.
 
@@ -116,7 +119,9 @@ flowchart LR
 ├── assets/
 │   ├── app.js                 # login, per-user records, report + email
 │   ├── report.js              # PDF report builder
-│   ├── auth.css
+│   ├── style.css              # design system: tokens + 5 skins, text sizes
+│   ├── ui.js                  # theme + text-size control, icons
+│   ├── fonts/                 # Bodoni Moda, Hanken Grotesk, JetBrains Mono, Space Grotesk (OFL), self-hosted
 │   ├── firebase-config.js     # your Firebase + mailer settings
 │   └── vendor/                # Firebase SDK, jsPDF (no CDN)
 ├── backend/Code.gs            # Apps Script email sender
@@ -128,9 +133,10 @@ flowchart LR
 
 ## 💾 Your progress
 
-- **Finished timed exams** are saved to your account: score, right, wrong, skipped, section split, time. They follow you across devices.
+- **Finished tests** are saved to your account: score, right, wrong, skipped, section split, time. They follow you across devices.
 - **Answers in progress** are kept in the browser under your account. A second user on the same device sees none of them.
-- **Study mode and flashcards** are not scored or emailed.
+- **Flashcards** are not scored or emailed.
+- **Explanations are short revision notes** for factual questions (the fact in one sentence); Maths and Reasoning show the working.
 
 ## ⚠️ Read this before you trust it blindly
 

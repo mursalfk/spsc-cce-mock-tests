@@ -83,7 +83,7 @@ This sends the PDF from your own Gmail account for free. Each user gets the repo
 |---|---|
 | `FIREBASE_API_KEY` | the same `apiKey` as in step 1.2 |
 | `SITE_URL` | `https://mursalfk.github.io/spsc-cce-mock-tests/` |
-| `SENDER_NAME` | optional, for example `SPSC CCE Mock Tests` |
+| `SENDER_NAME` | optional, for example `Mock Test Practice` (keep "SPSC" out of it) |
 
 4. In the editor, pick the function `setup` and click **Run**. Google asks for permission. If it says "Google hasn't verified this app", click **Advanced > Go to SPSC mailer (unsafe)**. It is your own script. Allow. The log should end with "Permissions granted".
 5. **Deploy > New deployment** > gear > **Web app**:
@@ -124,7 +124,7 @@ git init -b main
 git add .
 git commit -m "Add SPSC CCE-2026 mock test pack with login and emailed PDF reports"
 gh repo create spsc-cce-mock-tests --public --source=. --push \
-  --description "21 timed mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
+  --description "21 mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
 gh repo edit --add-topic spsc --add-topic spsc-cce --add-topic cce-2026 --add-topic sindh --add-topic pakistan --add-topic mock-test --add-topic mcq --add-topic quiz --add-topic flashcards --add-topic exam-prep --add-topic vanilla-javascript --add-topic static-site --add-topic firebase --add-topic firebase-auth --add-topic firestore --add-topic google-apps-script --add-topic pdf-report --add-topic github-pages
 gh api -X POST repos/mursalfk/spsc-cce-mock-tests/pages -f "source[branch]=main" -f "source[path]=/"
 ```
@@ -134,7 +134,7 @@ gh api -X POST repos/mursalfk/spsc-cce-mock-tests/pages -f "source[branch]=main"
 git add -A
 git commit -m "Add login, per-user score history and emailed PDF reports"
 git push
-gh repo edit --description "21 timed mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
+gh repo edit --description "21 mock tests (200 MCQs each) for the SPSC CCE-2026 Screening Test. Firebase login, per-user score history, emailed PDF reports. SPSC marking."
 gh repo edit --remove-topic offline-first
 ```
 
@@ -149,9 +149,9 @@ Without `gh`: create the repo on github.com, upload the files, then Settings > P
 1. Open the site while logged out. You should see all 21 tests with lock icons and a "Browse freely" banner.
 2. Click a test. The login box opens. Choose **Create account**, enter name, email, password.
 3. Open the verification email (check spam), click the link. The page notices by itself within a few seconds and takes you to the test.
-4. Start a **timed exam**, answer 3 questions, **Submit**. The result page says "Report emailed to ...". Check your inbox (and spam) for the PDF.
+4. Start a test, answer 3 questions, press **Finish**. The result page says "Report emailed to ...". Check your inbox (and spam) for the PDF.
 5. Click **Download PDF** and **Email it to me again**.
-6. Go back to the home page. "Your progress" and "Recent timed exams" show the attempt.
+6. Go back to the home page. "Your progress" and "Recent tests" show the attempt.
 7. Sign out. Create a second account (another email). Confirm it starts with no history.
 8. Firebase console > Firestore Database > Data: `users > (user id) > attempts` shows the records. You can see every user's scores here.
 9. Try Google login once.
@@ -161,7 +161,7 @@ Without `gh`: create the repo on github.com, upload the files, then Settings > P
 ## 6. What to know (honest limits)
 
 - **The login gate is a front-end gate.** The questions are inside the page files, so someone who knows how to view page source could read them without an account. The gate controls the normal user experience, scores and emails. It is not DRM. Real protection would need a paid server.
-- **Records and emails are for timed exams only.** Study mode and flashcards are not scored. The result page offers a PDF download for study mode.
+- **Every finished test (at least one question answered) is saved and emailed.** Flashcards are not scored.
 - **Quotas (free):**
   - Gmail from Apps Script: about **100 emails a day in total** across all users. The script also caps each user at 25 per day. When the day's limit is used up, users see a message and can still download the PDF.
   - Firestore Spark: 50,000 reads and 20,000 writes a day. Far above what a study group needs.

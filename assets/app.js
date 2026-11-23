@@ -92,6 +92,8 @@ const ERR = {
   'auth/popup-closed-by-user':'The Google window was closed before finishing.',
   'auth/cancelled-popup-request':'The Google window was closed before finishing.',
   'auth/popup-blocked':'Your browser blocked the Google pop-up. Allow pop-ups for this site and try again.',
+  'auth/unauthorized-domain':'This website address is not authorised in Firebase yet (instructions.md, step 1.6).',
+  'auth/operation-not-allowed':'This sign-in method is not switched on in Firebase yet (instructions.md, step 1.3).',
   'auth/user-disabled':'This account has been disabled.',
   'auth/operation-not-supported-in-this-environment':'Login needs the website address (https:// or localhost), not a file opened from disk.'
 };
@@ -218,21 +220,21 @@ function paintAcct(){
 
 /* ---------------- gate for test pages ---------------- */
 function gateHTML(T){
-  const rows = (T.sec || []).map(s => '<tr><td>' + esc(s.name) + '</td><td class="n">' + s.n + '</td></tr>').join('');
+  const ic = n => (window.UI ? UI.icon(n) : '');
+  const chips = (T.sec || []).map(s => '<span><b>' + s.n + '</b> ' + esc(s.name) + '</span>').join('');
   let card;
   if(!configured || initError){
-    card = '<div class="lock">⚠️</div><h2 style="margin:8px 0 4px">Login is not set up yet</h2><p class="mut">' + esc(initError || 'The site owner still has to add the Firebase configuration (instructions.md).') + '</p>';
+    card = '<div class="lock">' + ic('warn') + '</div><h2>Login is not set up yet</h2><p class="mut">' + esc(initError || 'The site owner still has to add the Firebase configuration (instructions.md).') + '</p>';
   }else if(user && !verified(user)){
-    card = '<div class="lock">✉️</div><h2 style="margin:8px 0 4px">Verify your email to continue</h2><p class="mut">Open the link we sent to ' + esc(user.email) + ', then press the button.</p><button class="pri" data-spsc="login">Verify email</button>';
+    card = '<div class="lock">' + ic('mail') + '</div><h2>Verify your email to continue</h2><p class="mut">Open the link we sent to ' + esc(user.email) + ', then press the button.</p><div class="actions"><button class="b pri" data-spsc="login">Verify email</button></div>';
   }else{
-    card = '<div class="lock">🔒</div><h2 style="margin:8px 0 4px">Log in to attempt this test</h2><p class="mut">The tests are free. An account keeps your progress and scores separate and emails you a PDF report after every exam.</p><div class="actions" style="justify-content:center"><button class="pri" data-spsc="login">Log in</button><button data-spsc="signup">Create account</button></div>';
+    card = '<div class="lock">' + ic('lock') + '</div><h2>Log in to attempt this test</h2><p class="mut">The tests are free. An account keeps your progress and scores separate and emails you a PDF report after every test.</p><div class="actions"><button class="b pri" data-spsc="login">Log in</button><button class="b" data-spsc="signup">Create account</button></div>';
   }
-  return '<div class="wrap"><p class="mut spsc-row"><a href="index.html">← All tests</a><span class="spsc-acct"></span></p>'
-    + '<h1>' + esc(T.title) + '</h1><p class="mut">SPSC CCE-2026 screening test · mock pattern · ' + T.q.length + ' MCQs</p>'
+  return '<div class="wrap"><div class="site-top"><a class="back" href="index.html">' + ic('back') + ' All tests</a><div class="right"><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>'
+    + '<div class="hero"><h1>' + esc(T.title) + '</h1><p>' + T.q.length + ' questions · SPSC CCE-2026 screening pattern</p></div>'
     + '<div class="card spsc-gate">' + card + '</div>'
-    + '<div class="grid2"><div class="card"><h3>Marking (as per Adv. 06/2026)</h3><ul><li>' + T.q.length + ' MCQs, one mark each</li><li>Wrong answer: −0.25</li><li>Unanswered: 0</li><li>Pass mark: <b>66</b> net (33%)</li><li>Time: 200 minutes</li></ul></div>'
-    + '<div class="card"><h3>Sections</h3><table>' + rows + '</table></div></div>'
-    + '</div>';
+    + '<div class="card"><h3>Marking</h3><ul class="rule-list"><li>' + ic('check') + '<span><b>+1</b> right, <b>−0.25</b> wrong, <b>0</b> skipped. Pass mark <b>66</b> net (33%).</span></li></ul>'
+    + '<h3 style="margin-top:1rem">Sections</h3><div class="secs">' + chips + '</div></div></div>';
 }
 function guard(o){
   const mount = $(o.mount || '#app'); let started = false;
@@ -240,7 +242,7 @@ function guard(o){
     if(started){ if(!verified(user)) location.reload(); return; }
     if(!ready){ mount.innerHTML = '<div class="wrap"><p class="mut">Checking sign-in…</p></div>'; return; }
     if(verified(user)){ started = true; o.start(); paintAcct(); return; }
-    mount.innerHTML = gateHTML(o.test); paintAcct();
+    mount.innerHTML = gateHTML(o.test); paintAcct(); if(window.UI) UI.mount();
   };
   onAuth(draw); draw();
 }
@@ -267,7 +269,7 @@ const reportCtx = c => ({T:c.T, ans:c.ans, mode:c.mode, used:c.used, ts:c.ts, na
 function toAttempt(c){
   const r = SECSCORE(c.T, c.ans), sec = {};
   Object.keys(r.sec).forEach(k => { const z = r.sec[k]; sec[k] = {n:z.n, c:z.c, w:z.w, u:z.u}; });
-  return {v:1, test:c.T.id, title:c.T.title, mode:'exam', ts:c.ts, net:r.net, c:r.c, w:r.w, u:r.u, used:c.used || 0, sec, emailed:false};
+  return {v:1, test:c.T.id, title:c.T.title, mode:'exam', ts:c.ts, net:r.net, c:r.c, w:r.w, u:r.u, used:Math.min(20000, Math.max(0, Math.round(c.used || 0))), sec, emailed:false};
 }
 function SECSCORE(T, ans){
   let c = 0, w = 0, u = 0; const sec = {};
@@ -277,7 +279,7 @@ function SECSCORE(T, ans){
 }
 async function emailReport(c){
   const who = user && user.email;
-  if(!mailOn){ setStatus(c.aid, {state:'err', text:'Emailing is not available right now. Your result is saved; download the PDF instead.'}); return false; }
+  if(!mailOn){ setStatus(c.aid, {state:'err', text:'Emailing is not switched on for this site yet (instructions.md, step 2). Your result is saved; download the PDF instead.'}); return false; }
   setStatus(c.aid, {state:'work', text:'Building your PDF report and emailing it to ' + who + '…'});
   try{
     await loadReportLibs();
@@ -317,8 +319,8 @@ function paintReport(c){
   current = c;
   const exam = c.mode === 'exam';
   const st = (exam && lsGet(stKey(c.aid), null)) || {state:exam ? 'err' : 'work', text:exam ? 'Report not emailed yet. Press the button to send it.' : 'Download a PDF copy of this result. Emailed reports and score history are for timed exams.'};
-  slot.innerHTML = '<div class="card spsc-rep"><h3>Your report</h3><div id="spsc-rep-st" class="st"></div><div class="actions"><button class="pri sm" data-spsc="pdf">Download PDF</button>'
-    + (exam ? '<button class="sm" data-spsc="resend-report">Email it to me again</button>' : '') + '</div></div>';
+  slot.innerHTML = '<div class="card spsc-rep"><h3>Your report</h3><div id="spsc-rep-st" class="st"></div><div class="actions"><button class="b pri sm" data-spsc="pdf">Download PDF</button>'
+    + (exam ? '<button class="b sm" data-spsc="resend-report">Email it to me again</button>' : '') + '</div></div>';
   paintStatus(st);
 }
 async function downloadPdf(){

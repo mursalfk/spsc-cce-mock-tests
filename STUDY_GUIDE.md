@@ -15,7 +15,7 @@ The first version of this pack reused the same facts across tests. This version 
 
 1. Open the website: <https://mursalfk.github.io/spsc-cce-mock-tests/>. Anyone can browse the test list.
 2. **Log in or create an account** to attempt a test (email and password, or Google). Verify your email once.
-3. Pick a test. After every timed exam a PDF report is emailed to you.
+3. Pick a test. After every finished test a PDF report is emailed to you.
 
 Site owner: see `instructions.md` for the one-time setup (Firebase, email sender, GitHub Pages).
 
@@ -46,15 +46,20 @@ A blind guess among 4 options is worth +0.06 on average, so guessing pays only a
 | Reasoning | 12 |
 | Digital Literacy and IT | 12 |
 
-## Three modes in every test
+## How a test works
 
-- **Timed exam**: 200-minute countdown, question palette, mark for review, clear answer, auto-submit at zero. The clock keeps running if you close the page. Submit gives the net score, a pass or fail line, a section-wise table, a guess audit, and a full review (wrong, skipped, all). It also saves the result to your account and **emails you a detailed PDF report** (section table, where to focus, every wrong and skipped question with the right answer). You can also download the PDF or email it again from the result page.
-- **Study mode**: no timer. You see the right answer and explanation straight after each pick.
-- **Flashcards**: question on the front, answer and note on the back. After an exam, "Flashcards: missed + skipped" builds a deck from your errors.
+- **One question per screen**, like the computer-based test. Use the question list (grid icon) to jump anywhere, **Mark for later** to flag a question, **Skip** to move on and come back.
+- **Instant feedback**: tap an answer and it shows green (right, +1) or red (wrong, −0.25) at once, with the correct answer. The answer then **locks**, so decide before you tap. Skipped questions score 0.
+- **Explanation button**: optional and hidden until you press it (or press **E**). Factual questions give the fact in one sentence; Maths and Reasoning show the working.
+- **Clock**: counts up by default. Tick "Use the 200-minute countdown" on the start screen for exam conditions; the test then finishes by itself at zero. Time counts only while the page is open and visible.
+- **Finish** any time. You get the net score, a pass or fail line, a section table, a guess audit and a full review (wrong, skipped, marked, right, all). The result is saved to your account and a **detailed PDF report is emailed to you**. You can also download the PDF or email it again from the result page.
+- **Flashcards**: question on the front, answer and note on the back. After a test, "Flashcards: missed + skipped" builds a deck from your errors.
+- **Display**: the **Aa** button picks a style (Swiss, Blueprint, Glass, Deco, Vapor) and the text size. Swiss suits daylight; Glass and Deco are easiest on the eyes at night.
+- **Keyboard**: 1 to 4 or A to D answer, arrows or N / P move, E explanation, M mark.
 
 ## How to use it with the 21-day plan
 
-1. One test per day, as an exam, in one sitting. Treat it as the real thing: no phone, no looking things up.
+1. One test per day, in one sitting. For the real thing, switch on the 200-minute countdown: no phone, no looking things up.
 2. Straight after: read the section table, then review every wrong and skipped item. Run the missed-and-skipped flashcards once.
 3. Next morning: 15 minutes of flashcards on yesterday's misses before the new test.
 4. Watch the guess audit. If wrong answers cost you more than 10 marks, you are guessing too freely.
@@ -62,7 +67,7 @@ A blind guess among 4 options is worth +0.06 on average, so guessing pays only a
 
 ## Your progress
 
-Every user has a separate record. Finished **timed exams** are saved to your account (score, right, wrong, skipped, section split, time used), so they follow you across phone and laptop. The home page shows your attempts, best and average net, and the last score on each test card. Study mode and flashcards are not scored. In-progress answers are kept in the browser under your account, so a second user on the same device does not see yours. "Reset this test" wipes only your copy of that test.
+Every user has a separate record. Finished **tests** are saved to your account (score, right, wrong, skipped, section split, time used), so they follow you across phone and laptop. The home page shows your attempts, best and average net, and the last score on each test card. Flashcards are not scored. In-progress answers are kept in the browser under your account, so a second user on the same device does not see yours. "Reset this test" wipes only your copy of that test.
 
 ## Caveats you should know about
 
