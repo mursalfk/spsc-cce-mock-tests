@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Compile data/questions.csv into the JSON the site loads.
 
-    python tools/build.py            validate + write data/catalog.json, data/topics.json and data/tests/*.json
+    python tools/build.py            validate + write data/catalog.json, data/topics.json, data/tests/*.json and data/pool/*.json
     python tools/build.py --check    validate only (writes nothing)
     python tools/build.py --xlsx     also write data/questions.xlsx (needs: pip install openpyxl)
 
 A test is built only when it has exactly 200 valid questions. Anything else is reported and skipped.
+data/pool/<level>-<SEC>.json holds every question of one subject at one level (from the built tests). The site cuts
+subject sets and custom tests from these at run time, so nothing is stored per set.
 """
 import csv, json, os, re, sys, collections
 
@@ -80,14 +82,30 @@ def build(cfg, rows, write=True):
             if write:
                 with open(os.path.join(DATA, 'tests', key + '.json'), 'w', encoding='utf-8') as fh:
                     json.dump({'id': tid, 'key': key, 'level': lvl, 'title': title, 'sec': sec, 'q': q}, fh, ensure_ascii=False, separators=(',', ':'))
+    pr = cfg['practice']      # attempt ids must stay in 1..99 (Firestore rules): tests, then subject sets, then custom
+    assert max(L['idBase'] + L['tests'] for L in cfg['levels'].values()) < pr['idBase'] and pr['idBase'] + len(cfg['levels']) * len(secs) <= pr['customId'] <= 99, 'attempt id ranges overlap'
+    built = {(c['level'], c['n']) for c in catalog}
+    pools = {l: {k: 0 for k in secs} for l in cfg['levels']}
+    pool = collections.defaultdict(list)
+    for r in rows:
+        if (r['level'], int(r['test'])) in built:
+            pool[(r['level'], r['section'])].append({'s': r['section'], 'q': r['question'], 'o': [r[f'option_{c}'] for c in 'abcd'], 'a': 'ABCD'.index(r['answer']), 'e': r['explanation']})
+    for (l, k), q in pool.items(): pools[l][k] = len(q)
     if write:
+        os.makedirs(os.path.join(DATA, 'pool'), exist_ok=True)
+        for (l, k), q in pool.items():
+            with open(os.path.join(DATA, 'pool', f'{l}-{k}.json'), 'w', encoding='utf-8') as fh:
+                json.dump({'level': l, 'sec': k, 'q': q}, fh, ensure_ascii=False, separators=(',', ':'))
+        keep_p = {f'{l}-{k}.json' for (l, k) in pool}
+        for f in os.listdir(os.path.join(DATA, 'pool')):
+            if f.endswith('.json') and f not in keep_p: os.remove(os.path.join(DATA, 'pool', f))
         keep = {c['key'] + '.json' for c in catalog}
         for f in os.listdir(os.path.join(DATA, 'tests')):
             if f.endswith('.json') and f not in keep: os.remove(os.path.join(DATA, 'tests', f))
-        built = {(c['level'], c['n']) for c in catalog}
         with open(os.path.join(DATA, 'topics.json'), 'w', encoding='utf-8') as fh:
             json.dump(topics(cfg, [r for r in rows if (r['level'], int(r['test'])) in built]), fh, ensure_ascii=False, separators=(',', ':'))
-        out = {'exam': cfg['exam'], 'marking': cfg['marking'], 'levels': cfg['levels'], 'tests': catalog}
+        out = {'exam': cfg['exam'], 'marking': dict(cfg['marking'], n=PER_TEST), 'levels': cfg['levels'], 'sections': cfg['sections'],
+               'practice': cfg['practice'], 'pools': pools, 'tests': catalog}
         with open(os.path.join(DATA, 'catalog.json'), 'w', encoding='utf-8') as fh:
             json.dump(out, fh, ensure_ascii=False, indent=1)
     return catalog, notes

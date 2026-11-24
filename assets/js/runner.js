@@ -1,34 +1,46 @@
-/* assets/js/runner.js : the one test page for every test (test.html?t=easy-07).
-   Loads data/tests/<key>.json and data/catalog.json, then runs the exam screen, result, review and flashcards.
+/* assets/js/runner.js : the one test page for every test.
+     test.html?t=easy-07                      a full test (data/tests/easy-07.json)
+     test.html?t=s-hard-mth-3                 a subject set (cut from data/pool/, see pool.js)
+     test.html?t=custom&l=hard&s=mth,ca&n=50  a custom test (random, but fixed by the seed in &r=)
+   then runs the exam screen, result, review and flashcards.
    No question data lives in code: edit data/questions.csv and run tools/build.py. */
 (function(){
 "use strict";
 const app = document.getElementById('app');
-const KEY = (new URLSearchParams(location.search).get('t') || '').toLowerCase();
+const SP = new URLSearchParams(location.search), KEY = (SP.get('t') || '').toLowerCase();
+const FULL = /^(easy|medium|hard)-\d{2}$/, SUBJ = /^s-(easy|medium|hard)-([a-z]+)-(\d+)$/;
+const BACK = KEY === 'custom' ? 'practice.html#build' : SUBJ.test(KEY) ? 'practice.html' : 'index.html#' + KEY.split('-')[0];
 const getJSON = u => fetch(u).then(r => { if(!r.ok) throw new Error(u + ' ' + r.status); return r.json(); });
 const lost = (h, p) => { app.innerHTML = '<div class="wrap"><div class="site-top"><a class="back" href="index.html">&larr; All tests</a></div><h1>' + h + '</h1><div class="card"><p class="mut" style="margin:0">' + p + '</p></div></div>'; };
 
-if(!/^(easy|medium|hard)-\d{2}$/.test(KEY)){ lost('Pick a test', 'This page opens a test from the list. <a href="index.html">Go to all tests</a>.'); return; }
-if(!window.SPSC){ lost('Could not load the sign-in files', 'Check your connection and reload. If you opened this file from your computer, open the live site instead.'); return; }
-Promise.all([getJSON('data/tests/' + KEY + '.json'), getJSON('data/catalog.json')])
-  .then(([T, CAT]) => boot(T, CAT))
-  .catch(() => lost('Test not found', 'That test is not available (yet). <a href="index.html#' + KEY.split('-')[0] + '">Back to the list</a>.'));
+if(!FULL.test(KEY) && !SUBJ.test(KEY) && KEY !== 'custom'){ lost('Pick a test', 'This page opens a test from the list. <a href="index.html">Go to all tests</a>.'); return; }
+if(!window.SPSC || !window.POOL){ lost('Could not load the sign-in files', 'Check your connection and reload. If you opened this file from your computer, open the live site instead.'); return; }
+getJSON('data/catalog.json').then(CAT => resolve(CAT).then(T => boot(T, CAT)))
+  .catch(() => lost('Test not found', 'That test is not available (yet). <a href="' + BACK + '">Back to the list</a>.'));
+
+function resolve(CAT){
+  if(FULL.test(KEY)) return getJSON('data/tests/' + KEY + '.json').then(T => POOL.fin(CAT, Object.assign(T, {levelName:CAT.levels[T.level].name, back:BACK})));
+  const m = SUBJ.exec(KEY);
+  if(m) return POOL.subjectTest(CAT, m[1], m[2].toUpperCase(), +m[3]);
+  const o = POOL.parse(CAT, SP);
+  return o ? POOL.customTest(CAT, o) : Promise.reject(new Error('bad custom test'));
+}
 
 function boot(T, CAT){
 const N = T.q.length;
 document.title = T.title + ' \u00b7 ' + CAT.exam.name;
 const I = window.UI ? UI.icon : () => '';
 function engine(){
-const R = {limit:CAT.marking.minutes * 60, minus:-CAT.marking.wrong, pass:CAT.marking.pass};
+const R = {limit:T.minutes * 60, minus:-CAT.marking.wrong, pass:T.pass};
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const L = 'ABCD', LCHIP = {easy:'ok', medium:'warn', hard:'bad'};
-const KEY = SPSC.ns('u' + T.id);
+const KEY = SPSC.ns('u' + (T.sk || T.id));
 const secOf = k => T.sec.find(s => s.k === k);
 const f2 = x => (Math.round(x * 100) / 100).toString();
 let S, FS = null, filt = 'wrong', tickT = null, last = 0, ticks = 0, showExp = false, drawer = false;
 
-function fresh(){ return {on:false, ans:Array(N).fill(-1), mk:Array(N).fill(0), cur:0, used:0, limit:0, done:false}; }
+function fresh(){ return {on:false, ans:Array(N).fill(-1), mk:Array(N).fill(0), cur:0, used:0, limit:0, done:false, t:T.title, u:location.search}; }
 function load(){ try{ const x = JSON.parse(localStorage.getItem(KEY)); if(x && x.ans && x.ans.length === N) return Object.assign(fresh(), x); }catch(e){} return null; }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 S = load() || fresh();
@@ -46,7 +58,7 @@ function view(h){
   app.innerHTML = h; window.scrollTo(0, 0);
   SPSC.paintAcct(); if(window.UI) UI.mount();
 }
-const topStrip = (back) => `<div class="site-top">${back || '<a class="back" href="index.html#' + T.level + '">' + I('back') + ' All tests</a>'}<div class="right"><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>`;
+const topStrip = (back) => `<div class="site-top">${back || '<a class="back" href="' + T.back + '">' + I('back') + (T.kind ? ' Practice' : ' All tests') + '</a>'}<div class="right"><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>`;
 
 function ask(title, body, ok, cancel){
   return new Promise(res => {
@@ -73,18 +85,18 @@ function showStart(){
       <div class="actions"><button class="b pri" data-a="resume">Resume test</button><button class="b" data-a="finish">Finish now</button><button class="b ghost" data-a="reset">Start over</button></div></div></div>`;
   }else{
     main = `<div class="card"><h3>Ready?</h3>
-      <label class="opt-row"><input type="checkbox" id="opt-timer"> Use the ${CAT.marking.minutes}-minute countdown (like the real paper)</label>
+      <label class="opt-row"><input type="checkbox" id="opt-timer"> Use the ${T.minutes}-minute countdown${T.kind ? '' : ' (like the real paper)'}</label>
       <p class="mut sm-t" style="margin:.1rem 0 1rem">Off by default: the clock then just counts up, and closing the page never costs you time.</p>
       <div class="actions"><button class="b pri" data-a="start">${S.done ? 'Take it again' : 'Start test'}</button>${S.done ? '<button class="b" data-a="view-result">View last result</button>' : ''}</div></div>`;
   }
   view(`<div class="wrap">${topStrip()}
-   <div class="hero"><h1>${esc(T.title)}</h1><p>${N} questions · SPSC CCE-2026 screening pattern&nbsp;<span class="chip ${LCHIP[T.level]}">${esc(CAT.levels[T.level].name)} level</span></p></div>
+   <div class="hero"><h1>${esc(T.title)}</h1><p>${N} questions · ${T.kind ? 'practice set' : 'SPSC CCE-2026 screening pattern'}&nbsp;<span class="chip ${LCHIP[T.level] || ''}">${esc(T.levelName)} level</span></p></div>
    ${main}
    <div class="card"><h3>How this test works</h3><ul class="rule-list">
      <li>${I('file')}<span>One question per screen, like the computer-based test.</span></li>
      <li>${I('zap')}<span>Tap an answer and you see straight away whether it is right or wrong. The answer then locks.</span></li>
      <li>${I('bulb')}<span>An <b>Explanation</b> button is there when you want it. It stays hidden until you press it.</span></li>
-     <li>${I('check')}<span>Marking: <b>+1</b> right, <b>−${R.minus}</b> wrong, <b>0</b> skipped. Pass mark <b>${R.pass}</b> net (33%).</span></li>
+     <li>${I('check')}<span>Marking: <b>+1</b> right, <b>−${R.minus}</b> wrong, <b>0</b> skipped. Pass mark <b>${f2(R.pass)}</b> net (33%).</span></li>
      <li>${I('mail')}<span>When you finish, your result is saved to your account and a PDF report is emailed to you.</span></li></ul>
      <h3 style="margin-top:1.1rem">Sections</h3><div class="secs">${chips}</div></div>
    <div class="actions"><button class="b" data-a="start-flash">${I('cards')}Flashcards (all ${N})</button></div></div>`);
@@ -224,14 +236,14 @@ function showResult(){
   <div class="hero"><h1>${esc(T.title)} · result</h1></div>
   <div class="card"><div class="big ${pass ? 'pass' : 'fail'}">${f2(r.net)} <small>/ ${N}</small></div>
    <p style="margin:.6rem 0 0"><span class="chip ${pass ? 'ok' : 'bad'}">${pass ? 'Above the pass mark' : 'Below the pass mark'}</span>
-    <span class="mut sm-t"> pass = ${R.pass} net · ${pass ? 'margin +' + f2(r.net - R.pass) : 'short by ' + f2(R.pass - r.net)}</span></p>
+    <span class="mut sm-t"> pass = ${f2(R.pass)} net · ${pass ? 'margin +' + f2(r.net - R.pass) : 'short by ' + f2(R.pass - r.net)}</span></p>
    <div class="meter ${pass ? '' : 'low'}"><i style="width:${fill}%"></i><u style="left:${pm}%"></u></div>
-   <div class="meter-l" style="position:relative;height:1.1rem"><span>0</span><span style="position:absolute;left:${pm}%;transform:translateX(-50%)">Pass ${R.pass}</span><span>${N}</span></div>
+   <div class="meter-l" style="position:relative;height:1.1rem"><span>0</span><span style="position:absolute;left:${pm}%;transform:translateX(-50%)">Pass ${f2(R.pass)}</span><span>${N}</span></div>
    <div class="stats"><div class="stat"><b>${r.c}</b><span>right (+${r.c})</span></div><div class="stat"><b>${r.w}</b><span>wrong (−${f2(r.w * R.minus)})</span></div><div class="stat"><b>${r.u}</b><span>skipped</span></div><div class="stat"><b>${att ? Math.round(100 * r.c / att) : 0}%</b><span>accuracy</span></div><div class="stat"><b>${mm} min</b><span>time used</span></div></div>
    <div class="note">Guess audit: your wrong answers cost ${f2(r.w * R.minus)} marks. Skipping every one of them would have scored ${r.c}. Guess only after eliminating at least one option.</div></div>
   <div id="spsc-report"></div>
   <div class="card sc"><h3>By section</h3><table><tr><th>Section</th><th class="n">Qs</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th class="n">Accuracy</th></tr>${rows}</table></div>
-  <div class="actions" style="margin:1rem 0"><button class="b pri" data-a="flash-missed">${I('cards')}Flashcards: missed + skipped (${r.w + r.u})</button><button class="b" data-a="reset">Take it again</button><button class="b ghost" data-a="home">Test overview</button></div>
+  <div class="actions" style="margin:1rem 0"><button class="b pri" data-a="flash-missed">${I('cards')}Flashcards: missed + skipped (${r.w + r.u})</button><button class="b" data-a="reset">Take it again</button>${T.kind === 'custom' ? '<a class="b" href="practice.html#build">New custom test</a>' : ''}<button class="b ghost" data-a="home">Test overview</button></div>
   <h2 id="rev">Review your answers</h2><div class="tabs" id="tabs"></div><div id="rl"></div></div>`);
   SPSC.paintReport(repCtx());
   renderReview();

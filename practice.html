@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Practise one subject at a time, or build a SPSC CCE-2026 mock test from the subjects you choose.">
+<title>Practice by subject · SPSC CCE-2026 Mock Tests</title>
+<script src="assets/js/theme.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="wrap wide practice">
+<div class="site-top"><a class="back" href="index.html"><i data-ic="back"></i> All tests</a><div class="right"><a class="nav" href="about.html">About</a><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>
+
+<div class="hero lead">
+<h1>Practice by subject.</h1>
+<p>Drill one subject in sets of about 50 questions, or build a test from the subjects you choose.</p>
+</div>
+
+<div id="bn"></div>
+<div class="seg pr-tabs" id="pr-tabs" role="group" aria-label="Practice mode"></div>
+<div id="pr-out"><p class="mut">Loading…</p></div>
+
+<p class="foot">Subject sets cover every question in the pack exactly once per level. Custom tests are a fresh random draw each time.<br>Unofficial practice tests. Not affiliated with, endorsed by or connected to the Sindh Public Service Commission.<br><a href="about.html">About this project</a> · <a href="topics.html">Topics covered</a> · <a href="index.html">All tests</a></p>
+</div>
+<script src="assets/vendor/firebase-app-compat.js"></script>
+<script src="assets/vendor/firebase-auth-compat.js"></script>
+<script src="assets/vendor/firebase-firestore-compat.js"></script>
+<script src="assets/firebase-config.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/pool.js"></script>
+<script src="assets/js/practice.js"></script>
+<script>document.querySelectorAll('[data-ic]').forEach(function(e){e.outerHTML=UI.icon(e.getAttribute('data-ic'))});</script>
+</body>
+</html>

@@ -1,39 +1,41 @@
 <!-- path: instructions.md -->
-# Install: questions update (Easy / Medium / Hard shifted, topics page)
+# Install: subject sets + custom test builder
 
-## What changed
+## What is new
 
-- **Levels shifted one notch up.**
-  - New **Easy** = former Medium content.
-  - New **Medium** = former Hard content.
-  - New **Hard** = about 4,200 newly written, harder questions.
-  - Former Easy content is dropped.
-- **Test ids and keys are unchanged** (easy 1–21, medium 22–42, hard 51–71). Saved attempts and history in Firestore therefore point at the *new* content under the same test number. Old scores stay valid as scores but no longer match the questions they were taken on. Wipe attempts if that matters.
-- **No repeated questions** inside a level (same question, even reworded). Facts may repeat in different questions.
-- **New page `topics.html`**: every topic and subtopic with question counts, per level, all tests or a single test, with a filter. Linked from `about.html` and the home footer.
-- `data/questions.csv` has two new columns, `topic` and `subtopic` (required). `data/topics.json` is generated.
-- 12,600 questions, 63 tests of 200.
+- **Practice page** (`practice.html`, linked from the home page nav, hero and two cards):
+  - **By subject**: every subject (English, Pak Affairs, Islamic Studies, Current Affairs, Science, Geography, Maths, Reasoning, IT) at each level, in sets of about 50 questions. 84 sets per level, every question used once.
+  - **Build your own**: pick the level (or Mixed), the subjects, and the length (5 to 200). Mix is either "like the real paper" or equal per subject. Every start is a fresh random draw. A started custom test can be resumed from the same page.
+- Pass mark is 33% of the length (rounded to 0.5), time is 1 minute a question. Full tests are unchanged (66 net, 200 min).
+- Results, history, PDF and email work the same. The home "Recent tests" table now shows each row's own pass mark. Level progress on the home page still counts full tests only.
+- New generated folder `data/pool/` (27 files). `build.py` writes it.
 
 ## Install
 
 1. Unzip over your repo working copy. **Keep your own `assets/firebase-config.js`** (the zip does not contain it).
-2. Rebuild the data:
+2. Rebuild:
    ```
    python3 tools/build.py
    ```
-   Expect: `12600 questions, easy: 21/21 tests, medium: 21/21 tests, hard: 21/21 tests`.
-3. Commit and push. GitHub Pages redeploys.
+   Expect `12600 questions, easy: 21/21 tests, ...` and a `data/pool/` folder with 27 files.
+3. Commit and push.
+4. **Apps Script mailer (do this or subject and custom reports will not be emailed):**
+   open your script, replace the contents of `Code.gs` with `backend/Code.gs`, then Deploy > Manage deployments > edit (pencil) > Version: **New version** > Deploy. The web app URL stays the same.
+   Until you do, full tests email as before. Subject sets and custom tests show "needs the updated mailer", the result is still saved and the PDF can still be downloaded. The site checks this by itself, so the old script can never send a wrong "/ 200" email.
 
-No Firestore rule, Apps Script, or Firebase change is needed.
+## No change needed
 
-## Editing questions later
+- **Firestore rules**: unchanged. Subject sets save as test ids 72 to 98 and custom tests as 99, inside the existing 1 to 99 rule.
+- `assets/firebase-config.js`, Firebase Auth, GitHub Pages settings.
 
-Edit `data/questions.csv`, run `python3 tools/build.py --check` to validate, then `python3 tools/build.py`. Columns: `qid, level, test, section, question, option_a..option_d, answer, explanation, topic, subtopic`. `test` must equal the number in `qid`.
+## Good to know
+
+- A subject set is the same questions every time (Set 03 of Maths Hard is always the same 49). A custom test is random, but its link keeps the same questions, so reopening it resumes it.
+- Set sizes are 49 to 52, not exactly 50, so every question lands in exactly one set.
+- History for sets and custom tests is listed under "Recent tests" by title. Custom tests cannot be reopened from history (they are random); build a new one.
+- Settings you can change in `data/config.json` (then rerun `build.py`): `practice.setSize`, each section's `short` name and `w` (weight for the "like the real paper" mix).
 
 ## Known limits
 
-- Review was a sampled read plus targeted web checks, not a web search of all 12,600. Maths, reasoning, spelling and calculation families are code-verified.
-- The no-repeat check is heuristic (similarity based), not a proof.
-- Topic tags on the former Easy/Medium rows are rule-assigned; a few may sit under the wrong subtopic.
+- Questions are the same bank as before; the earlier notes about review method, heuristic repeat check and rule-assigned topic tags still apply.
 - Current affairs: re-check anything dated before Sat 28 Nov 2026.
-- Mixed 4/5-option papers are not implemented.

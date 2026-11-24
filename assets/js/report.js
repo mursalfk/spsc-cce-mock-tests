@@ -1,7 +1,7 @@
 /* assets/js/report.js : builds the PDF score report in the browser (jsPDF + autotable, loaded on demand) */
 (function(){
 'use strict';
-const PASS = (window.SPSC_CONFIG && window.SPSC_CONFIG.passMark) || 66;
+const PASS_DEFAULT = (window.SPSC_CONFIG && window.SPSC_CONFIG.passMark) || 66;
 const MINUS = 0.25, L = 'ABCDE';
 const f2 = x => (Math.round(x * 100) / 100).toString();
 
@@ -24,12 +24,12 @@ function build(ctx){
   const jsPDF = window.jspdf && window.jspdf.jsPDF;
   if(!jsPDF) throw new Error('PDF library not loaded');
   const T = ctx.T, ans = ctx.ans, N = T.q.length;
-  const r = score(T, ans), pass = r.net >= PASS, att = r.c + r.w;
+  const PASS = T.pass || PASS_DEFAULT, r = score(T, ans), pass = r.net >= PASS, att = r.c + r.w;
   const doc = new jsPDF({unit:'mm', format:'a4', compress:true});
   const W = 210, M = 14, ACC = [31,78,121], OK = [27,127,75], BAD = [179,38,30], MUT = [102,112,125], INK = [28,34,48];
   const when = new Date(ctx.ts || Date.now());
   const dateStr = t(when.toLocaleString('en-GB', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'}));
-  const modeLabel = ctx.mode === 'exam' ? 'Full mock test' : 'Practice';
+  const modeLabel = T.kind === 'subject' ? 'Subject set' : T.kind === 'custom' ? 'Custom test' : ctx.mode === 'exam' ? 'Full mock test' : 'Practice';
   const mins = Math.floor((ctx.used || 0) / 60), secs = (ctx.used || 0) % 60;
 
   /* ---- header band ---- */
@@ -43,7 +43,7 @@ function build(ctx){
   /* ---- candidate ---- */
   let y = 42;
   doc.setTextColor(...INK); doc.setFontSize(10.5);
-  const cand = [['Candidate', ctx.name || '-'], ['Email', ctx.email || '-'], ['Time used', mins + ' min ' + secs + ' s of 200 min']];
+  const cand = [['Candidate', ctx.name || '-'], ['Email', ctx.email || '-'], ['Time used', mins + ' min ' + secs + ' s of ' + (T.minutes || 200) + ' min']];
   cand.forEach(row => {
     doc.setFont('helvetica', 'bold'); doc.text(row[0], M, y);
     doc.setFont('helvetica', 'normal'); doc.text(t(row[1]), M + 28, y); y += 6;
@@ -60,7 +60,7 @@ function build(ctx){
   doc.setFontSize(12);
   doc.text(pass ? 'ABOVE THE PASS MARK' : 'BELOW THE PASS MARK', bx + 8, y + 25);
   doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(...INK);
-  doc.text('Pass mark ' + PASS + ' net (33%). ' + (pass ? 'Margin +' : 'Short by ') + f2(Math.abs(r.net - PASS)) + ' marks.', bx + 8, y + 31);
+  doc.text('Pass mark ' + f2(PASS) + ' net (33%). ' + (pass ? 'Margin +' : 'Short by ') + f2(Math.abs(r.net - PASS)) + ' marks.', bx + 8, y + 31);
   const stats = [['Correct', r.c], ['Wrong', r.w], ['Skipped', r.u], ['Accuracy*', att ? Math.round(100 * r.c / att) + '%' : '-']];
   stats.forEach((s, k) => {
     const sx = bx + 104 + k * 20;
@@ -152,7 +152,7 @@ function build(ctx){
     doc.text('Unofficial practice report. Not affiliated with the Sindh Public Service Commission.', M, 289);
     doc.text('Page ' + p + ' of ' + pages, W - M, 289, {align:'right'});
   }
-  const file = 'CCE_' + t(T.title).replace(/\s+/g, '_') + '_report.pdf';
+  const file = 'CCE_' + t(T.title).replace(/\s+/g, '_').replace(/[^A-Za-z0-9_.-]/g, '') + '_report.pdf';
   return {doc, file, result:r};
 }
 

@@ -8,7 +8,8 @@
   "right": 1,
   "wrong": -0.25,
   "pass": 66,
-  "minutes": 200
+  "minutes": 200,
+  "n": 200
  },
  "levels": {
   "easy": {
@@ -28,6 +29,104 @@
    "idBase": 50,
    "tests": 21,
    "note": "<b>Harder than the real paper, on purpose.</b> Close distractors, fine distinctions, multi-step maths and reasoning, and about one question in four in a statement, NOT or timeline form. Same marking, same 66 pass mark. If you clear these, the real paper should feel kind."
+  }
+ },
+ "sections": [
+  {
+   "k": "ENG",
+   "name": "English",
+   "short": "English",
+   "w": 40
+  },
+  {
+   "k": "PA",
+   "name": "Pakistan Affairs & Sindh",
+   "short": "Pak Affairs",
+   "w": 26
+  },
+  {
+   "k": "IS",
+   "name": "Islamic Studies",
+   "short": "Islamic Studies",
+   "w": 26
+  },
+  {
+   "k": "CA",
+   "name": "Current Affairs",
+   "short": "Current Affairs",
+   "w": 24
+  },
+  {
+   "k": "ES",
+   "name": "Everyday Science",
+   "short": "Science",
+   "w": 32
+  },
+  {
+   "k": "WG",
+   "name": "World Geography",
+   "short": "Geography",
+   "w": 14
+  },
+  {
+   "k": "MTH",
+   "name": "Mathematics",
+   "short": "Maths",
+   "w": 14
+  },
+  {
+   "k": "RSN",
+   "name": "Reasoning",
+   "short": "Reasoning",
+   "w": 12
+  },
+  {
+   "k": "IT",
+   "name": "Digital Literacy & IT",
+   "short": "IT",
+   "w": 12
+  }
+ ],
+ "practice": {
+  "setSize": 50,
+  "idBase": 72,
+  "customId": 99,
+  "customMin": 5,
+  "customMax": 200
+ },
+ "pools": {
+  "easy": {
+   "ENG": 840,
+   "PA": 546,
+   "IS": 546,
+   "CA": 504,
+   "ES": 672,
+   "WG": 294,
+   "MTH": 294,
+   "RSN": 252,
+   "IT": 252
+  },
+  "medium": {
+   "ENG": 840,
+   "PA": 546,
+   "IS": 546,
+   "CA": 504,
+   "ES": 672,
+   "WG": 294,
+   "MTH": 294,
+   "RSN": 252,
+   "IT": 252
+  },
+  "hard": {
+   "ENG": 840,
+   "PA": 546,
+   "IS": 546,
+   "CA": 504,
+   "ES": 672,
+   "WG": 294,
+   "MTH": 294,
+   "RSN": 252,
+   "IT": 252
   }
  },
  "tests": [

@@ -30,7 +30,7 @@
 ```
 # edit questions.csv in Excel, LibreOffice or a text editor (save as CSV UTF-8)
 python tools/build.py --check     # validate only
-python tools/build.py             # validate and regenerate data/catalog.json, data/topics.json and data/tests/*.json
+python tools/build.py             # validate and regenerate data/catalog.json, data/topics.json, data/tests/*.json and data/pool/*.json
 git add -A
 git commit -m "Fix Hard 07 Q123"
 git push

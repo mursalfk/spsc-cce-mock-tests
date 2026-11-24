@@ -1,29 +1,96 @@
 {
-  "exam": { "name": "SPSC CCE-2026", "date": "2026-11-28T00:00:00+05:00", "dateLabel": "Sat 28 Nov 2026" },
-  "marking": { "right": 1, "wrong": -0.25, "pass": 66, "minutes": 200 },
+  "exam": {
+    "name": "SPSC CCE-2026",
+    "date": "2026-11-28T00:00:00+05:00",
+    "dateLabel": "Sat 28 Nov 2026"
+  },
+  "marking": {
+    "right": 1,
+    "wrong": -0.25,
+    "pass": 66,
+    "minutes": 200
+  },
   "levels": {
     "easy": {
-      "name": "Easy", "idBase": 0, "tests": 21,
+      "name": "Easy",
+      "idBase": 0,
+      "tests": 21,
       "note": "<b>Pitched at the real paper, a little above it in places.</b> Mostly single-step recall with plausible options, plus two-step maths and reasoning. Aim for <b>66 net</b> and keep going until it is steady."
     },
     "medium": {
-      "name": "Medium", "idBase": 21, "tests": 21,
+      "name": "Medium",
+      "idBase": 21,
+      "tests": 21,
       "note": "<b>A clear step above the paper.</b> Finer facts, look-alike options, multi-step maths and reasoning, and statement and sequence questions. Same marking, same 66 pass mark."
     },
     "hard": {
-      "name": "Hard", "idBase": 50, "tests": 21,
+      "name": "Hard",
+      "idBase": 50,
+      "tests": 21,
       "note": "<b>Harder than the real paper, on purpose.</b> Close distractors, fine distinctions, multi-step maths and reasoning, and about one question in four in a statement, NOT or timeline form. Same marking, same 66 pass mark. If you clear these, the real paper should feel kind."
     }
   },
   "sections": [
-    { "k": "ENG", "name": "English" },
-    { "k": "PA",  "name": "Pakistan Affairs & Sindh" },
-    { "k": "IS",  "name": "Islamic Studies" },
-    { "k": "CA",  "name": "Current Affairs" },
-    { "k": "ES",  "name": "Everyday Science" },
-    { "k": "WG",  "name": "World Geography" },
-    { "k": "MTH", "name": "Mathematics" },
-    { "k": "RSN", "name": "Reasoning" },
-    { "k": "IT",  "name": "Digital Literacy & IT" }
-  ]
+    {
+      "k": "ENG",
+      "name": "English",
+      "short": "English",
+      "w": 40
+    },
+    {
+      "k": "PA",
+      "name": "Pakistan Affairs & Sindh",
+      "short": "Pak Affairs",
+      "w": 26
+    },
+    {
+      "k": "IS",
+      "name": "Islamic Studies",
+      "short": "Islamic Studies",
+      "w": 26
+    },
+    {
+      "k": "CA",
+      "name": "Current Affairs",
+      "short": "Current Affairs",
+      "w": 24
+    },
+    {
+      "k": "ES",
+      "name": "Everyday Science",
+      "short": "Science",
+      "w": 32
+    },
+    {
+      "k": "WG",
+      "name": "World Geography",
+      "short": "Geography",
+      "w": 14
+    },
+    {
+      "k": "MTH",
+      "name": "Mathematics",
+      "short": "Maths",
+      "w": 14
+    },
+    {
+      "k": "RSN",
+      "name": "Reasoning",
+      "short": "Reasoning",
+      "w": 12
+    },
+    {
+      "k": "IT",
+      "name": "Digital Literacy & IT",
+      "short": "IT",
+      "w": 12
+    }
+  ],
+  "practice": {
+    "setSize": 50,
+    "idBase": 72,
+    "customId": 99,
+    "customMin": 5,
+    "customMax": 200
+  }
 }

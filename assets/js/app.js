@@ -218,6 +218,17 @@ function paintAcct(){
   });
 }
 
+/* ---------------- login banner for list pages ---------------- */
+function paintBanner(el){
+  const open = (id, view) => { const b = $('#' + id, el); if(b) b.onclick = () => openAuth({view}); };
+  if(!configured) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Login is not set up yet.</b> The site owner still has to add the Firebase configuration (see instructions.md). You can browse the tests but not attempt them.</div></div>';
+  else if(!ready) el.innerHTML = '';
+  else if(user && !verified(user)) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Verify your email to continue.</b> We sent a link to ' + esc(user.email) + '.</div><button class="b pri sm" id="bv">Verify email</button></div>';
+  else if(!user) el.innerHTML = '<div class="banner"><div class="tx"><b>Browse freely.</b> Log in to attempt a test, keep your own scores and get a PDF report by email.</div><button class="b pri sm" id="bl">Log in</button><button class="b sm" id="bs">Create account</button></div>';
+  else el.innerHTML = '';
+  open('bv', 'verify'); open('bl', 'login'); open('bs', 'signup');
+}
+
 /* ---------------- gate for test pages ---------------- */
 function gateHTML(T){
   const ic = n => (window.UI ? UI.icon(n) : '');
@@ -230,10 +241,10 @@ function gateHTML(T){
   }else{
     card = '<div class="lock">' + ic('lock') + '</div><h2>Log in to attempt this test</h2><p class="mut">The tests are free. An account keeps your progress and scores separate and emails you a PDF report after every test.</p><div class="actions"><button class="b pri" data-spsc="login">Log in</button><button class="b" data-spsc="signup">Create account</button></div>';
   }
-  return '<div class="wrap"><div class="site-top"><a class="back" href="index.html#' + esc(T.level || '') + '">' + ic('back') + ' All tests</a><div class="right"><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>'
-    + '<div class="hero"><h1>' + esc(T.title) + '</h1><p>' + T.q.length + ' questions · SPSC CCE-2026 screening pattern</p></div>'
+  return '<div class="wrap"><div class="site-top"><a class="back" href="' + esc(T.back || 'index.html') + '">' + ic('back') + (T.kind ? ' Practice' : ' All tests') + '</a><div class="right"><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>'
+    + '<div class="hero"><h1>' + esc(T.title) + '</h1><p>' + T.q.length + ' questions · ' + (T.kind ? 'practice set' : 'SPSC CCE-2026 screening pattern') + '</p></div>'
     + '<div class="card spsc-gate">' + card + '</div>'
-    + '<div class="card"><h3>Marking</h3><ul class="rule-list"><li>' + ic('check') + '<span><b>+1</b> right, <b>−0.25</b> wrong, <b>0</b> skipped. Pass mark <b>66</b> net (33%).</span></li></ul>'
+    + '<div class="card"><h3>Marking</h3><ul class="rule-list"><li>' + ic('check') + '<span><b>+1</b> right, <b>−0.25</b> wrong, <b>0</b> skipped. Pass mark <b>' + f2(T.pass || 66) + '</b> net (33%).</span></li></ul>'
     + '<h3 style="margin-top:1rem">Sections</h3><div class="secs">' + chips + '</div></div></div>';
 }
 function guard(o){
@@ -277,9 +288,12 @@ function SECSCORE(T, ans){
   T.q.forEach((q, i) => { const z = sec[q.s]; z.n++; if(ans[i] < 0){ u++; z.u++; } else if(ans[i] === q.a){ c++; z.c++; } else { w++; z.w++; } });
   return {c, w, u, net:c - 0.25 * w, sec};
 }
+let mailV2 = null;     /* does the deployed mailer know about tests that are not 200 questions? (Code.gs v2) */
+const mailerV2 = () => mailV2 || (mailV2 = withTimeout(fetch(CFG.mailEndpoint).then(r => r.json()), 15000).then(j => !!(j && j.v >= 2)).catch(() => false));
 async function emailReport(c){
   const who = user && user.email;
   if(!mailOn){ setStatus(c.aid, {state:'err', text:'Emailing is not switched on for this site yet (instructions.md, step 2). Your result is saved; download the PDF instead.'}); return false; }
+  if(c.T.q.length !== 200 && !await mailerV2()){ setStatus(c.aid, {state:'err', text:'Emailing reports for subject and custom tests needs the updated mailer script (see instructions.md). Your result is saved; download the PDF instead.'}); return false; }
   setStatus(c.aid, {state:'work', text:'Building your PDF report and emailing it to ' + who + '…'});
   try{
     await loadReportLibs();
@@ -288,7 +302,7 @@ async function emailReport(c){
     const a = localHist()[c.aid] || toAttempt(c);
     const res = await withTimeout(fetch(CFG.mailEndpoint, {
       method:'POST', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({token, test:a.test, title:a.title, net:a.net, c:a.c, w:a.w, u:a.u, file:rep.file, pdf:rep.base64})
+      body:JSON.stringify({token, test:a.test, title:a.title, n:c.T.q.length, net:a.net, c:a.c, w:a.w, u:a.u, file:rep.file, pdf:rep.base64})
     }), 60000);
     let j = null;
     try{ j = await res.json(); }catch(x){ throw new Error('the mail service sent an unexpected reply (HTTP ' + res.status + ')'); }
@@ -351,6 +365,13 @@ document.addEventListener('click', e => {
   else if(a === 'pdf') downloadPdf();
   else if(a === 'resend-report'){ if(current) emailReport(current); }
 });
+/* links marked data-go (a test to start) ask for a verified login first */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-go]');
+  if(!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button || verified(user)) return;
+  e.preventDefault();
+  openAuth({onSuccess:() => { location.href = a.getAttribute('href'); }});
+});
 document.addEventListener('submit', e => {
   const f = e.target.closest('[data-spsc-form]'); if(!f) return;
   e.preventDefault(); submitForm(f.dataset.spscForm);
@@ -358,7 +379,7 @@ document.addEventListener('submit', e => {
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.open) closeModal(); });
 
 window.SPSC = {
-  configured, mailOn, uid, newId, onAuth, guard, openAuth, signOut, paintAcct, history, cachedHistory,
+  configured, mailOn, uid, newId, onAuth, guard, openAuth, signOut, paintAcct, paintBanner, history, cachedHistory,
   state: () => ({ready, user, verified:verified(user), name:nameOf(user), email:user && user.email}),
   ns: suffix => NS + uid() + '_' + suffix,
   requireLogin: fn => { if(verified(user)) fn(); else openAuth({onSuccess:fn}); },

@@ -32,22 +32,12 @@ function setLevel(v){
 function lead(){
   const n = CAT.tests.length, names = Object.values(CAT.levels).map(l => l.name);
   $('lead').textContent = n + ' full-length mock tests for the ' + CAT.exam.name + ' screening test, at three levels: ' + names.join(', ') + '. 200 questions each, marked +1 right, −'
-    + Math.abs(CAT.marking.wrong) + ' wrong, with a pass mark of ' + CAT.marking.pass + ' net.';
+    + Math.abs(CAT.marking.wrong) + ' wrong, with a pass mark of ' + CAT.marking.pass + ' net. Or drill one subject, or build a test from the subjects you choose.';
   const days = Math.ceil((new Date(CAT.exam.date) - new Date()) / 86400000);
   if(days >= 1) $('cd').innerHTML = '<span class="chip warn countdown">' + ic('clock').replace('<svg', '<svg style="width:.9rem;height:.9rem"') + (days === 1 ? 'Exam is tomorrow' : days + ' days to the exam') + ' · ' + esc(CAT.exam.dateLabel) + '</span>';
 }
 
-function banner(){
-  const s = SPSC.state(), el = $('bn');
-  if(!SPSC.configured) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Login is not set up yet.</b> The site owner still has to add the Firebase configuration (see docs/instructions.md). You can browse the tests but not attempt them.</div></div>';
-  else if(!s.ready) el.innerHTML = '';
-  else if(s.user && !s.verified) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Verify your email to continue.</b> We sent a link to ' + esc(s.email) + '.</div><button class="b pri sm" id="bv">Verify email</button></div>';
-  else if(!s.user) el.innerHTML = '<div class="banner"><div class="tx"><b>Browse freely.</b> Log in to attempt a test, keep your own scores and get a PDF report by email.</div><button class="b pri sm" id="bl">Log in</button><button class="b sm" id="bs">Create account</button></div>';
-  else el.innerHTML = '';
-  if($('bv')) $('bv').onclick = () => SPSC.openAuth({view:'verify'});
-  if($('bl')) $('bl').onclick = () => SPSC.openAuth({view:'login'});
-  if($('bs')) $('bs').onclick = () => SPSC.openAuth({view:'signup'});
-}
+const banner = () => SPSC.paintBanner($('bn'));
 
 function stats(){
   const s = SPSC.state(), el = $('st'), L = CAT.levels[level].name, PASS = CAT.marking.pass;
@@ -105,15 +95,15 @@ function grid(){
 }
 
 function recent(){
-  const s = SPSC.state(), el = $('rc'), PASS = CAT.marking.pass;
+  const s = SPSC.state(), el = $('rc');
   if(!s.verified || !hist.length){ el.innerHTML = ''; return; }
   const rows = hist.slice(0, 10).map(x => {
-    const d = new Date(x.ts), ok = x.net >= PASS, t = byId(x.test);
+    const d = new Date(x.ts), PASS = POOL.passFor(CAT, x.c + x.w + x.u), ok = x.net >= PASS, t = byId(x.test);
     const when = d.toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'}) + ' ' + d.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
     return '<tr><td>' + (t ? '<a href="test.html?t=' + t.key + '">' + esc(t.title) + '</a>' : esc(x.title || 'Test ' + x.test)) + '</td><td>' + esc(when) + '</td>'
-      + '<td class="n">' + x.c + '</td><td class="n">' + x.w + '</td><td class="n">' + x.u + '</td><td class="n"><b class="' + (ok ? 'pass' : 'fail') + '">' + f2(Number(x.net)) + '</b></td><td>' + (ok ? 'Pass' : 'Below') + '</td></tr>';
+      + '<td class="n">' + x.c + '</td><td class="n">' + x.w + '</td><td class="n">' + x.u + '</td><td class="n"><b class="' + (ok ? 'pass' : 'fail') + '">' + f2(Number(x.net)) + '</b></td><td>' + (ok ? 'Pass' : 'Below') + ' <span class="mut">(' + PASS + ')</span></td></tr>';
   }).join('');
-  el.innerHTML = '<h2>Recent tests</h2><div class="card sc"><table><tr><th>Test</th><th>When</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th>vs ' + PASS + '</th></tr>' + rows + '</table></div>';
+  el.innerHTML = '<h2>Recent tests</h2><div class="card sc"><table><tr><th>Test</th><th>When</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th>vs pass mark</th></tr>' + rows + '</table></div>';
 }
 
 function paint(){ banner(); stats(); grid(); recent(); SPSC.paintAcct(); }
@@ -128,13 +118,6 @@ async function refresh(){
   }
 }
 
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[data-go]');
-  if(!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-  if(SPSC.state().verified) return;
-  e.preventDefault();
-  SPSC.requireLogin(() => { location.href = a.getAttribute('href'); });
-});
 window.addEventListener('hashchange', () => { const v = lvlOfHash(); if(CAT && v) setLevel(v); });
 
 if(window.SPSC){

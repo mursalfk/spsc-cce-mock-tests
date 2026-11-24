@@ -21,7 +21,7 @@ var TOTAL_Q = 200;
 var PASS_MARK = 66;
 
 function doGet() {
-  return json_({ ok: true, service: 'Mock test mailer' });
+  return json_({ ok: true, service: 'Mock test mailer', v: 2 });   // v2: tests of any length (subject sets, custom tests)
 }
 
 /** Run this once from the editor (Run > setup) to grant the permissions. */
@@ -92,8 +92,10 @@ function verifyToken_(token) {
 
 function validate_(b) {
   var test = Number(b.test), c = Number(b.c), w = Number(b.w), u = Number(b.u), net = Number(b.net);
+  var n = b.n === undefined ? TOTAL_Q : Number(b.n);                       // questions in this test (200 for a full test)
   if (!isInt_(test) || test < 1 || test > 99) return { error: 'Invalid test number.' };
-  if (!isInt_(c) || !isInt_(w) || !isInt_(u) || c < 0 || w < 0 || u < 0 || c + w + u > TOTAL_Q) return { error: 'Invalid score counts.' };
+  if (!isInt_(n) || n < 1 || n > TOTAL_Q) return { error: 'Invalid test length.' };
+  if (!isInt_(c) || !isInt_(w) || !isInt_(u) || c < 0 || w < 0 || u < 0 || c + w + u > n) return { error: 'Invalid score counts.' };
   if (!isFinite(net) || Math.abs(net - (c - 0.25 * w)) > 0.01) return { error: 'Score does not add up.' };
   var file = String(b.file || '');
   if (!/^[A-Za-z0-9_\-.]{1,80}\.pdf$/.test(file)) return { error: 'Invalid file name.' };
@@ -102,7 +104,8 @@ function validate_(b) {
   var bytes = Utilities.base64Decode(b64);
   if (bytes.length < 200 || bytes.length > MAX_PDF_BYTES) return { error: 'PDF size not accepted.' };
   if (!(bytes[0] === 37 && bytes[1] === 80 && bytes[2] === 68 && bytes[3] === 70)) return { error: 'That file is not a PDF.' };
-  return { test: test, c: c, w: w, u: u, net: net, file: file, bytes: bytes };
+  var title = String(b.title || '').replace(/[^A-Za-z0-9 .,:&+()\/\u00b7-]/g, '').slice(0, 60).trim() || ('Mock Test ' + ('0' + test).slice(-2));
+  return { test: test, n: n, title: title, c: c, w: w, u: u, net: net, file: file, bytes: bytes };
 }
 function isInt_(n) { return isFinite(n) && Math.floor(n) === n; }
 
@@ -127,19 +130,19 @@ function esc_(s) {
 function send_(user, r) {
   var sender = props_().getProperty('SENDER_NAME') || 'Mock Test Practice';
   var site = props_().getProperty('SITE_URL') || '';
-  var title = 'Mock Test ' + ('0' + r.test).slice(-2);
+  var title = r.title, total = r.n, passMark = Math.round(2 * total * PASS_MARK / TOTAL_Q) / 2;
   var first = (user.name || user.email.split('@')[0]).split(/\s+/)[0].replace(/[\r\n]/g, '').slice(0, 40);
-  var pass = r.net >= PASS_MARK;
+  var pass = r.net >= passMark;
   var net = (Math.round(r.net * 100) / 100).toFixed(2);
-  var verdict = pass ? 'above the pass mark of ' + PASS_MARK : 'below the pass mark of ' + PASS_MARK + ' (short by ' + (Math.round((PASS_MARK - r.net) * 100) / 100).toFixed(2) + ')';
-  var subject = title + ' practice report: ' + net + ' / ' + TOTAL_Q;
+  var verdict = pass ? 'above the pass mark of ' + passMark : 'below the pass mark of ' + passMark + ' (short by ' + (Math.round((passMark - r.net) * 100) / 100).toFixed(2) + ')';
+  var subject = title + ' practice report: ' + net + ' / ' + total;
 
   var text = [
     'Hello ' + first + ',',
     '',
     'Thank you for taking ' + title + '. Your detailed report is attached as a PDF.',
     '',
-    'Net score: ' + net + ' / ' + TOTAL_Q + ' (' + verdict + ')',
+    'Net score: ' + net + ' / ' + total + ' (' + verdict + ')',
     'Correct: ' + r.c + '   Wrong: ' + r.w + '   Skipped: ' + r.u,
     '',
     'The report shows your section-wise performance, where to focus next, a guess audit, and every wrong or skipped question with the correct answer.',
@@ -156,7 +159,7 @@ function send_(user, r) {
     + '<p>Hello ' + esc_(first) + ',</p>'
     + '<p>Thank you for taking <b>' + esc_(title) + '</b>. Your detailed report is attached as a PDF.</p>'
     + '<table style="border-collapse:collapse;margin:12px 0"><tr><td style="padding:8px 14px;background:#e7eef6;border-radius:8px">'
-    + '<div style="font-size:26px;font-weight:bold;color:' + (pass ? '#1b7f4b' : '#b3261e') + '">' + net + ' <span style="font-size:14px;color:#667085">/ ' + TOTAL_Q + '</span></div>'
+    + '<div style="font-size:26px;font-weight:bold;color:' + (pass ? '#1b7f4b' : '#b3261e') + '">' + net + ' <span style="font-size:14px;color:#667085">/ ' + total + '</span></div>'
     + '<div style="color:#667085;font-size:13px">' + esc_(verdict.charAt(0).toUpperCase() + verdict.slice(1)) + '</div></td></tr></table>'
     + '<p>Correct <b>' + r.c + '</b> &middot; Wrong <b>' + r.w + '</b> &middot; Skipped <b>' + r.u + '</b></p>'
     + '<p>The report shows your section-wise performance, where to focus next, a guess audit, and every wrong or skipped question with the correct answer.</p>'
