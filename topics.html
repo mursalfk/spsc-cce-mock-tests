@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Every topic and subtopic covered in every SPSC CCE-2026 mock test, by level and by test, with question counts.">
+<title>Topics covered · SPSC CCE-2026 Mock Tests</title>
+<script src="assets/js/theme.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="wrap wide topics">
+<div class="site-top"><a class="back" href="about.html"><i data-ic="back"></i> About</a><div class="right"><a class="nav" href="index.html">All tests</a><span data-ui="ctl"></span></div></div>
+
+<div class="hero lead">
+<h1>Topics covered.</h1>
+<p>Every topic and subtopic in the pack, with the number of questions on it. Pick a level, then either the whole level or a single test.</p>
+</div>
+
+<div class="tp-ctl">
+<div class="seg" id="tp-lv" role="group" aria-label="Level"></div>
+<label class="tp-sel">Scope <select id="tp-test" aria-label="Test"></select></label>
+<label class="tp-sel grow">Find <input id="tp-q" type="search" placeholder="e.g. Nobel, Article, spelling" aria-label="Filter subtopics"></label>
+</div>
+<div class="stats" id="tp-stats"></div>
+<div id="tp-out"></div>
+
+<p class="foot">Topics are grouped the way the syllabus is usually described. Subtopic names are this pack's own labels.<br>Unofficial practice tests. Not affiliated with, endorsed by or connected to the Sindh Public Service Commission.<br><a href="about.html">About this project</a> · <a href="index.html">Back to all tests</a></p>
+</div>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/topics.js"></script>
+<script>document.querySelectorAll('[data-ic]').forEach(function(e){e.outerHTML=UI.icon(e.getAttribute('data-ic'))});</script>
+</body>
+</html>

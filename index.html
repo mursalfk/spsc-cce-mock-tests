@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>SPSC CCE-2026 · 21 Mock Screening Tests</title>
-<script>try{var d=document.documentElement,t=localStorage.getItem('spsc_theme'),s=localStorage.getItem('spsc_fs');if(['swiss','blueprint','glass','deco','vapor'].indexOf(t)<0)t='swiss';d.setAttribute('data-theme',t);if(s)d.style.fontSize=s+'px'}catch(e){}</script>
-<link rel="stylesheet" href="assets/style.css">
+<title>SPSC CCE-2026 · Mock Screening Tests</title>
+<script src="assets/js/theme.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="wrap wide">
 <div class="site-top"><span class="brand"><i></i>CCE Mock Tests</span><div class="right"><a class="nav" href="about.html">About</a><span class="spsc-acct"></span><span data-ui="ctl"></span></div></div>
 <div class="hero lead">
 <div class="mark" aria-hidden="true">CCE 2026</div>
-<h1>Twenty-one ways to rehearse the paper.</h1>
-<p>Full-length mock tests for the SPSC CCE-2026 screening test. 200 questions each, marked +1 right, −0.25 wrong, with a pass mark of 66 net. Tap an answer and see at once if it is right.</p>
+<h1>Rehearse the paper, at three levels.</h1>
+<p id="lead"></p>
 <div class="cta"><a class="b pri" href="#g">Choose a test</a><a class="lnk" href="#how">How it works</a></div>
 <span id="cd"></span>
 </div>
@@ -23,132 +23,17 @@
 <div class="tile" id="t1"></div><div class="tile" id="t2"></div><div class="tile" id="t3"></div>
 </div>
 <div id="st"></div>
+<div id="lv"></div>
 <div id="g"></div>
 <div id="rc"></div>
-<p class="foot">Questions are original, written to the SPSC syllabus and the pattern of recent papers. Current-affairs answers are as of 7 Nov 2026.<br>Unofficial practice tests. Not affiliated with, endorsed by or connected to the Sindh Public Service Commission.<br><a href="about.html">About this project</a></p>
+<p class="foot">Questions are original, written to the SPSC syllabus and the pattern of recent papers. Current-affairs answers are as of 7 Nov 2026.<br>Unofficial practice tests. Not affiliated with, endorsed by or connected to the Sindh Public Service Commission.<br><a href="about.html">About this project</a> · <a href="topics.html">Topics covered</a></p>
 </div>
 <script src="assets/vendor/firebase-app-compat.js"></script>
 <script src="assets/vendor/firebase-auth-compat.js"></script>
 <script src="assets/vendor/firebase-firestore-compat.js"></script>
 <script src="assets/firebase-config.js"></script>
-<script src="assets/ui.js"></script>
-<script src="assets/app.js"></script>
-<script>
-const TESTS = [{"id": 1, "file": "SPSC_CCE_Mock_01.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 2, "file": "SPSC_CCE_Mock_02.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 3, "file": "SPSC_CCE_Mock_03.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 4, "file": "SPSC_CCE_Mock_04.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 5, "file": "SPSC_CCE_Mock_05.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 6, "file": "SPSC_CCE_Mock_06.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 7, "file": "SPSC_CCE_Mock_07.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 8, "file": "SPSC_CCE_Mock_08.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 9, "file": "SPSC_CCE_Mock_09.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 10, "file": "SPSC_CCE_Mock_10.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 11, "file": "SPSC_CCE_Mock_11.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 12, "file": "SPSC_CCE_Mock_12.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 13, "file": "SPSC_CCE_Mock_13.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 14, "file": "SPSC_CCE_Mock_14.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 15, "file": "SPSC_CCE_Mock_15.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 16, "file": "SPSC_CCE_Mock_16.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 17, "file": "SPSC_CCE_Mock_17.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 18, "file": "SPSC_CCE_Mock_18.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 19, "file": "SPSC_CCE_Mock_19.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 20, "file": "SPSC_CCE_Mock_20.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}, {"id": 21, "file": "SPSC_CCE_Mock_21.html", "n": 200, "note": "English \u00b7 Pakistan Affairs \u00b7 Islamic Studies \u00b7 Current Affairs \u00b7 Science \u00b7 Geography \u00b7 Maths \u00b7 Reasoning \u00b7 IT"}];
-(function(){
-const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const $ = id => document.getElementById(id);
-const PASS = 66, N = 200;
-const pad = n => String(n).padStart(2, '0');
-const ic = n => (window.UI ? UI.icon(n) : '');
-const f2 = x => (Math.round(x * 100) / 100).toFixed(2);
-
-/* static bits */
-$('t1').innerHTML = '<i>01</i><b>One question at a time</b><span>A clean screen per question, like the real computer-based test.</span>';
-$('t2').innerHTML = '<i>02</i><b>Instant feedback</b><span>Tap an answer and see at once if it is right. Explanations are optional.</span>';
-$('t3').innerHTML = '<i>03</i><b>PDF report by email</b><span>Every finished test is saved to your account and mailed to you.</span>';
-(function(){
-  const days = Math.ceil((new Date('2026-11-28T00:00:00+05:00') - new Date()) / 86400000);
-  if(days >= 1) $('cd').innerHTML = '<span class="chip warn countdown">' + ic('clock').replace('<svg', '<svg style="width:.9rem;height:.9rem"') + (days === 1 ? 'Exam is tomorrow' : days + ' days to the exam') + ' · Sat 28 Nov 2026</span>';
-})();
-
-if(!window.SPSC){
-  $('bn').innerHTML = '<div class="banner warn"><div class="tx">Could not load the sign-in files. Check your connection and reload.</div></div>';
-}
-let hist = [], live = 0;
-
-function banner(){
-  const s = SPSC.state(), el = $('bn');
-  if(!SPSC.configured) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Login is not set up yet.</b> The site owner still has to add the Firebase configuration (see instructions.md). You can browse the tests but not attempt them.</div></div>';
-  else if(!s.ready) el.innerHTML = '';
-  else if(s.user && !s.verified) el.innerHTML = '<div class="banner warn"><div class="tx"><b>Verify your email to continue.</b> We sent a link to ' + esc(s.email) + '.</div><button class="b pri sm" id="bv">Verify email</button></div>';
-  else if(!s.user) el.innerHTML = '<div class="banner"><div class="tx"><b>Browse freely.</b> Log in to attempt a test, keep your own scores and get a PDF report by email.</div><button class="b pri sm" id="bl">Log in</button><button class="b sm" id="bs">Create account</button></div>';
-  else el.innerHTML = '';
-  const b = id => $(id);
-  if(b('bv')) b('bv').onclick = () => SPSC.openAuth({view:'verify'});
-  if(b('bl')) b('bl').onclick = () => SPSC.openAuth({view:'login'});
-  if(b('bs')) b('bs').onclick = () => SPSC.openAuth({view:'signup'});
-}
-
-function stats(){
-  const s = SPSC.state(), el = $('st');
-  if(!s.verified){ el.innerHTML = ''; return; }
-  if(!hist.length){ el.innerHTML = '<div class="card"><h3>Your progress</h3><p class="mut" style="margin:0">No finished tests yet. Finish one and your score, history and report will show up here.</p></div>'; return; }
-  const nets = hist.map(x => x.net), best = Math.max.apply(null, nets), avg = nets.reduce((a, b) => a + b, 0) / nets.length;
-  const passes = nets.filter(n => n >= PASS).length, done = new Set(hist.map(x => x.test)).size;
-  el.innerHTML = '<div class="card"><h3>Your progress</h3><div class="spsc-stats">'
-    + '<div><b>' + hist.length + '</b><span>finished tests</span></div>'
-    + '<div><b>' + done + '/' + TESTS.length + '</b><span>different tests</span></div>'
-    + '<div><b>' + f2(best) + '</b><span>best net score</span></div>'
-    + '<div><b>' + f2(avg) + '</b><span>average net</span></div>'
-    + '<div><b>' + passes + '</b><span>at or above ' + PASS + '</span></div></div></div>';
-}
-
-function progressOf(id){
-  try{ const x = JSON.parse(localStorage.getItem(SPSC.ns('u' + id))); if(x && x.ans && x.on && !x.done) return x.ans.filter(v => v >= 0).length; }catch(e){}
-  return 0;
-}
-function card(t, locked, pre){
-  const h = hist.filter(x => x.test === t.id).sort((a, b) => a.ts - b.ts);
-  const prog = locked ? 0 : progressOf(t.id);
-  let st = '', bar = '';
-  if(pre) st = '&nbsp;';
-  else if(locked) st = 'Log in to attempt';
-  else if(prog){ st = '<b>' + prog + '</b> / ' + N + ' answered'; bar = '<div class="pbar"><i style="width:' + (100 * prog / N) + '%"></i></div>'; }
-  else if(h.length){
-    const last = h[h.length - 1], best = Math.max.apply(null, h.map(x => x.net));
-    st = '<span class="dot ' + (last.net >= PASS ? 'ok' : 'bad') + '"></span>Last <b>' + f2(last.net) + '</b> · best ' + f2(best) + ' · ' + h.length + (h.length > 1 ? ' tries' : ' try');
-  }else st = 'Not started';
-  return '<a class="tc" href="' + esc(t.file) + '" data-go="1">' + (locked && !pre ? '<span class="lk" title="Login required">' + ic('lock') + '</span>' : '')
-    + '<span class="no">' + pad(t.id) + '</span><span class="nm">Mock Test ' + pad(t.id) + '</span><span class="me">' + t.n + ' questions · 200 min</span>'
-    + '<span class="st">' + st + '</span>' + bar + '</a>';
-}
-function grid(){
-  const s0 = SPSC.state(), pre = !!SPSC.configured && !s0.ready, locked = !s0.verified;
-  let out = '';
-  for(let w = 0; w < 3; w++){
-    const part = TESTS.slice(w * 7, w * 7 + 7); if(!part.length) break;
-    out += '<div class="week"><h2>Week ' + (w + 1) + '</h2><span>Tests ' + part[0].id + ' to ' + part[part.length - 1].id + '</span></div><div class="grid">' + part.map(t => card(t, locked, pre)).join('') + '</div>';
-  }
-  $('g').innerHTML = out;
-}
-
-function recent(){
-  const s = SPSC.state(), el = $('rc');
-  if(!s.verified || !hist.length){ el.innerHTML = ''; return; }
-  const rows = hist.slice(0, 10).map(x => {
-    const d = new Date(x.ts), ok = x.net >= PASS;
-    const when = d.toLocaleDateString(undefined, {day:'numeric', month:'short', year:'numeric'}) + ' ' + d.toLocaleTimeString(undefined, {hour:'2-digit', minute:'2-digit'});
-    const t = TESTS.find(z => z.id === x.test);
-    return '<tr><td>' + (t ? '<a href="' + esc(t.file) + '">Mock Test ' + pad(x.test) + '</a>' : 'Test ' + esc(x.test)) + '</td><td>' + esc(when) + '</td>'
-      + '<td class="n">' + x.c + '</td><td class="n">' + x.w + '</td><td class="n">' + x.u + '</td><td class="n"><b class="' + (ok ? 'pass' : 'fail') + '">' + f2(Number(x.net)) + '</b></td><td>' + (ok ? 'Pass' : 'Below') + '</td></tr>';
-  }).join('');
-  el.innerHTML = '<h2>Recent tests</h2><div class="card sc"><table><tr><th>Test</th><th>When</th><th class="n">Right</th><th class="n">Wrong</th><th class="n">Skipped</th><th class="n">Net</th><th>vs ' + PASS + '</th></tr>' + rows + '</table></div>';
-}
-
-function paint(){ banner(); stats(); grid(); recent(); SPSC.paintAcct(); }
-
-async function refresh(){
-  const my = ++live, s = SPSC.state();
-  hist = s.verified ? SPSC.cachedHistory() : [];
-  paint();
-  if(s.verified){
-    const h = await SPSC.history();
-    if(my === live){ hist = h; paint(); }
-  }
-}
-
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[data-go]');
-  if(!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-  const s = SPSC.state();
-  if(s.verified) return;
-  e.preventDefault();
-  SPSC.requireLogin(() => { location.href = a.getAttribute('href'); });
-});
-
-if(window.SPSC){ paint(); SPSC.onAuth(refresh); }
-})();
-</script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/catalog.js"></script>
 </body>
 </html>

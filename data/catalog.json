@@ -1,0 +1,539 @@
+{
+ "exam": {
+  "name": "SPSC CCE-2026",
+  "date": "2026-11-28T00:00:00+05:00",
+  "dateLabel": "Sat 28 Nov 2026"
+ },
+ "marking": {
+  "right": 1,
+  "wrong": -0.25,
+  "pass": 66,
+  "minutes": 200
+ },
+ "levels": {
+  "easy": {
+   "name": "Easy",
+   "idBase": 0,
+   "tests": 21,
+   "note": "<b>Pitched at the real paper, a little above it in places.</b> Mostly single-step recall with plausible options, plus two-step maths and reasoning. Aim for <b>66 net</b> and keep going until it is steady."
+  },
+  "medium": {
+   "name": "Medium",
+   "idBase": 21,
+   "tests": 21,
+   "note": "<b>A clear step above the paper.</b> Finer facts, look-alike options, multi-step maths and reasoning, and statement and sequence questions. Same marking, same 66 pass mark."
+  },
+  "hard": {
+   "name": "Hard",
+   "idBase": 50,
+   "tests": 21,
+   "note": "<b>Harder than the real paper, on purpose.</b> Close distractors, fine distinctions, multi-step maths and reasoning, and about one question in four in a statement, NOT or timeline form. Same marking, same 66 pass mark. If you clear these, the real paper should feel kind."
+  }
+ },
+ "tests": [
+  {
+   "id": 1,
+   "key": "easy-01",
+   "level": "easy",
+   "n": 1,
+   "title": "Easy Test 01",
+   "count": 200
+  },
+  {
+   "id": 2,
+   "key": "easy-02",
+   "level": "easy",
+   "n": 2,
+   "title": "Easy Test 02",
+   "count": 200
+  },
+  {
+   "id": 3,
+   "key": "easy-03",
+   "level": "easy",
+   "n": 3,
+   "title": "Easy Test 03",
+   "count": 200
+  },
+  {
+   "id": 4,
+   "key": "easy-04",
+   "level": "easy",
+   "n": 4,
+   "title": "Easy Test 04",
+   "count": 200
+  },
+  {
+   "id": 5,
+   "key": "easy-05",
+   "level": "easy",
+   "n": 5,
+   "title": "Easy Test 05",
+   "count": 200
+  },
+  {
+   "id": 6,
+   "key": "easy-06",
+   "level": "easy",
+   "n": 6,
+   "title": "Easy Test 06",
+   "count": 200
+  },
+  {
+   "id": 7,
+   "key": "easy-07",
+   "level": "easy",
+   "n": 7,
+   "title": "Easy Test 07",
+   "count": 200
+  },
+  {
+   "id": 8,
+   "key": "easy-08",
+   "level": "easy",
+   "n": 8,
+   "title": "Easy Test 08",
+   "count": 200
+  },
+  {
+   "id": 9,
+   "key": "easy-09",
+   "level": "easy",
+   "n": 9,
+   "title": "Easy Test 09",
+   "count": 200
+  },
+  {
+   "id": 10,
+   "key": "easy-10",
+   "level": "easy",
+   "n": 10,
+   "title": "Easy Test 10",
+   "count": 200
+  },
+  {
+   "id": 11,
+   "key": "easy-11",
+   "level": "easy",
+   "n": 11,
+   "title": "Easy Test 11",
+   "count": 200
+  },
+  {
+   "id": 12,
+   "key": "easy-12",
+   "level": "easy",
+   "n": 12,
+   "title": "Easy Test 12",
+   "count": 200
+  },
+  {
+   "id": 13,
+   "key": "easy-13",
+   "level": "easy",
+   "n": 13,
+   "title": "Easy Test 13",
+   "count": 200
+  },
+  {
+   "id": 14,
+   "key": "easy-14",
+   "level": "easy",
+   "n": 14,
+   "title": "Easy Test 14",
+   "count": 200
+  },
+  {
+   "id": 15,
+   "key": "easy-15",
+   "level": "easy",
+   "n": 15,
+   "title": "Easy Test 15",
+   "count": 200
+  },
+  {
+   "id": 16,
+   "key": "easy-16",
+   "level": "easy",
+   "n": 16,
+   "title": "Easy Test 16",
+   "count": 200
+  },
+  {
+   "id": 17,
+   "key": "easy-17",
+   "level": "easy",
+   "n": 17,
+   "title": "Easy Test 17",
+   "count": 200
+  },
+  {
+   "id": 18,
+   "key": "easy-18",
+   "level": "easy",
+   "n": 18,
+   "title": "Easy Test 18",
+   "count": 200
+  },
+  {
+   "id": 19,
+   "key": "easy-19",
+   "level": "easy",
+   "n": 19,
+   "title": "Easy Test 19",
+   "count": 200
+  },
+  {
+   "id": 20,
+   "key": "easy-20",
+   "level": "easy",
+   "n": 20,
+   "title": "Easy Test 20",
+   "count": 200
+  },
+  {
+   "id": 21,
+   "key": "easy-21",
+   "level": "easy",
+   "n": 21,
+   "title": "Easy Test 21",
+   "count": 200
+  },
+  {
+   "id": 22,
+   "key": "medium-01",
+   "level": "medium",
+   "n": 1,
+   "title": "Medium Test 01",
+   "count": 200
+  },
+  {
+   "id": 23,
+   "key": "medium-02",
+   "level": "medium",
+   "n": 2,
+   "title": "Medium Test 02",
+   "count": 200
+  },
+  {
+   "id": 24,
+   "key": "medium-03",
+   "level": "medium",
+   "n": 3,
+   "title": "Medium Test 03",
+   "count": 200
+  },
+  {
+   "id": 25,
+   "key": "medium-04",
+   "level": "medium",
+   "n": 4,
+   "title": "Medium Test 04",
+   "count": 200
+  },
+  {
+   "id": 26,
+   "key": "medium-05",
+   "level": "medium",
+   "n": 5,
+   "title": "Medium Test 05",
+   "count": 200
+  },
+  {
+   "id": 27,
+   "key": "medium-06",
+   "level": "medium",
+   "n": 6,
+   "title": "Medium Test 06",
+   "count": 200
+  },
+  {
+   "id": 28,
+   "key": "medium-07",
+   "level": "medium",
+   "n": 7,
+   "title": "Medium Test 07",
+   "count": 200
+  },
+  {
+   "id": 29,
+   "key": "medium-08",
+   "level": "medium",
+   "n": 8,
+   "title": "Medium Test 08",
+   "count": 200
+  },
+  {
+   "id": 30,
+   "key": "medium-09",
+   "level": "medium",
+   "n": 9,
+   "title": "Medium Test 09",
+   "count": 200
+  },
+  {
+   "id": 31,
+   "key": "medium-10",
+   "level": "medium",
+   "n": 10,
+   "title": "Medium Test 10",
+   "count": 200
+  },
+  {
+   "id": 32,
+   "key": "medium-11",
+   "level": "medium",
+   "n": 11,
+   "title": "Medium Test 11",
+   "count": 200
+  },
+  {
+   "id": 33,
+   "key": "medium-12",
+   "level": "medium",
+   "n": 12,
+   "title": "Medium Test 12",
+   "count": 200
+  },
+  {
+   "id": 34,
+   "key": "medium-13",
+   "level": "medium",
+   "n": 13,
+   "title": "Medium Test 13",
+   "count": 200
+  },
+  {
+   "id": 35,
+   "key": "medium-14",
+   "level": "medium",
+   "n": 14,
+   "title": "Medium Test 14",
+   "count": 200
+  },
+  {
+   "id": 36,
+   "key": "medium-15",
+   "level": "medium",
+   "n": 15,
+   "title": "Medium Test 15",
+   "count": 200
+  },
+  {
+   "id": 37,
+   "key": "medium-16",
+   "level": "medium",
+   "n": 16,
+   "title": "Medium Test 16",
+   "count": 200
+  },
+  {
+   "id": 38,
+   "key": "medium-17",
+   "level": "medium",
+   "n": 17,
+   "title": "Medium Test 17",
+   "count": 200
+  },
+  {
+   "id": 39,
+   "key": "medium-18",
+   "level": "medium",
+   "n": 18,
+   "title": "Medium Test 18",
+   "count": 200
+  },
+  {
+   "id": 40,
+   "key": "medium-19",
+   "level": "medium",
+   "n": 19,
+   "title": "Medium Test 19",
+   "count": 200
+  },
+  {
+   "id": 41,
+   "key": "medium-20",
+   "level": "medium",
+   "n": 20,
+   "title": "Medium Test 20",
+   "count": 200
+  },
+  {
+   "id": 42,
+   "key": "medium-21",
+   "level": "medium",
+   "n": 21,
+   "title": "Medium Test 21",
+   "count": 200
+  },
+  {
+   "id": 51,
+   "key": "hard-01",
+   "level": "hard",
+   "n": 1,
+   "title": "Hard Test 01",
+   "count": 200
+  },
+  {
+   "id": 52,
+   "key": "hard-02",
+   "level": "hard",
+   "n": 2,
+   "title": "Hard Test 02",
+   "count": 200
+  },
+  {
+   "id": 53,
+   "key": "hard-03",
+   "level": "hard",
+   "n": 3,
+   "title": "Hard Test 03",
+   "count": 200
+  },
+  {
+   "id": 54,
+   "key": "hard-04",
+   "level": "hard",
+   "n": 4,
+   "title": "Hard Test 04",
+   "count": 200
+  },
+  {
+   "id": 55,
+   "key": "hard-05",
+   "level": "hard",
+   "n": 5,
+   "title": "Hard Test 05",
+   "count": 200
+  },
+  {
+   "id": 56,
+   "key": "hard-06",
+   "level": "hard",
+   "n": 6,
+   "title": "Hard Test 06",
+   "count": 200
+  },
+  {
+   "id": 57,
+   "key": "hard-07",
+   "level": "hard",
+   "n": 7,
+   "title": "Hard Test 07",
+   "count": 200
+  },
+  {
+   "id": 58,
+   "key": "hard-08",
+   "level": "hard",
+   "n": 8,
+   "title": "Hard Test 08",
+   "count": 200
+  },
+  {
+   "id": 59,
+   "key": "hard-09",
+   "level": "hard",
+   "n": 9,
+   "title": "Hard Test 09",
+   "count": 200
+  },
+  {
+   "id": 60,
+   "key": "hard-10",
+   "level": "hard",
+   "n": 10,
+   "title": "Hard Test 10",
+   "count": 200
+  },
+  {
+   "id": 61,
+   "key": "hard-11",
+   "level": "hard",
+   "n": 11,
+   "title": "Hard Test 11",
+   "count": 200
+  },
+  {
+   "id": 62,
+   "key": "hard-12",
+   "level": "hard",
+   "n": 12,
+   "title": "Hard Test 12",
+   "count": 200
+  },
+  {
+   "id": 63,
+   "key": "hard-13",
+   "level": "hard",
+   "n": 13,
+   "title": "Hard Test 13",
+   "count": 200
+  },
+  {
+   "id": 64,
+   "key": "hard-14",
+   "level": "hard",
+   "n": 14,
+   "title": "Hard Test 14",
+   "count": 200
+  },
+  {
+   "id": 65,
+   "key": "hard-15",
+   "level": "hard",
+   "n": 15,
+   "title": "Hard Test 15",
+   "count": 200
+  },
+  {
+   "id": 66,
+   "key": "hard-16",
+   "level": "hard",
+   "n": 16,
+   "title": "Hard Test 16",
+   "count": 200
+  },
+  {
+   "id": 67,
+   "key": "hard-17",
+   "level": "hard",
+   "n": 17,
+   "title": "Hard Test 17",
+   "count": 200
+  },
+  {
+   "id": 68,
+   "key": "hard-18",
+   "level": "hard",
+   "n": 18,
+   "title": "Hard Test 18",
+   "count": 200
+  },
+  {
+   "id": 69,
+   "key": "hard-19",
+   "level": "hard",
+   "n": 19,
+   "title": "Hard Test 19",
+   "count": 200
+  },
+  {
+   "id": 70,
+   "key": "hard-20",
+   "level": "hard",
+   "n": 20,
+   "title": "Hard Test 20",
+   "count": 200
+  },
+  {
+   "id": 71,
+   "key": "hard-21",
+   "level": "hard",
+   "n": 21,
+   "title": "Hard Test 21",
+   "count": 200
+  }
+ ]
+}

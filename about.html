@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="About the free, unofficial SPSC CCE-2026 mock test pack: what it is, how marking works, its limits, and how your data is handled.">
 <title>About · SPSC CCE-2026 Mock Tests</title>
-<script>try{var d=document.documentElement,t=localStorage.getItem('spsc_theme'),s=localStorage.getItem('spsc_fs');if(['swiss','blueprint','glass','deco','vapor'].indexOf(t)<0)t='swiss';d.setAttribute('data-theme',t);if(s)d.style.fontSize=s+'px'}catch(e){}</script>
-<link rel="stylesheet" href="assets/style.css">
+<script src="assets/js/theme.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="wrap about">
@@ -14,19 +14,20 @@
 
 <div class="hero lead">
 <h1>About this pack.</h1>
-<p>A free, unofficial set of 21 full-length mock tests for the SPSC CCE-2026 screening test, made for candidates who want to rehearse the paper under exam rules before Saturday 28 November 2026.</p>
+<p>A free, unofficial set of <span data-n="tests">…</span> full-length mock tests for the SPSC CCE-2026 screening test, at three levels, made for candidates who want to rehearse the paper under exam rules before Saturday 28 November 2026.</p>
 </div>
 
 <div class="stats">
-<div class="stat"><b>21</b><span>mock tests</span></div>
+<div class="stat"><b data-n="tests">…</b><span>mock tests</span></div>
 <div class="stat"><b>200</b><span>questions each</span></div>
-<div class="stat"><b>4,200</b><span>questions in all</span></div>
+<div class="stat"><b data-n="questions">…</b><span>questions in all</span></div>
 <div class="stat"><b>Free</b><span>no ads</span></div>
 </div>
 
 <h2>What you get</h2>
 <div class="card">
 <ul>
+<li><b>Three levels.</b> <b>Easy</b> tests are pitched at the real paper, a little above it in places. <b>Medium</b> tests sit a clear step above it: finer facts, look-alike options, multi-step maths and reasoning. <b>Hard</b> tests are deliberately tougher than the real thing: close distractors, fine distinctions, and about one question in four in a statement, NOT or timeline form. Pick a level on the home page.</li>
 <li><b>One question per screen</b>, like the computer-based test. Previous, skip and mark for later all work, and a question list shows where you stand.</li>
 <li><b>Instant feedback.</b> Tap an answer and it tells you at once if it is right or wrong, then locks. An explanation is one tap away and entirely optional.</li>
 <li><b>Exam rules.</b> +1 for a right answer, −0.25 for a wrong one, 0 for a skipped one. An optional 200-minute countdown keeps you honest.</li>
@@ -34,6 +35,7 @@
 <li><b>A PDF report</b> emailed to you every time you finish a test. The download button always works, even if email does not.</li>
 <li><b>Keyboard friendly.</b> 1 to 4 or A to D to answer, E for the explanation, the arrow keys to move, M to mark.</li>
 <li><b>Five looks and four text sizes.</b> Tap <b>Aa</b> at the top right of any page.</li>
+<li><b>A full topic list.</b> See every topic and subtopic in every test, with question counts, on the <a href="topics.html">topics page</a>.</li>
 </ul>
 </div>
 
@@ -70,14 +72,19 @@
 <p>This split is an estimate from recalled past papers and third-party reports. It is not an official SPSC blueprint.</p>
 </div>
 
+<h2>What is in each test</h2>
+<div class="card">
+<p>Every topic and subtopic, in every test of every level, is listed on the <a href="topics.html">topics page</a>. Use it to see which parts of the syllabus a test touches, or to find a gap in your revision.</p>
+</div>
+
 <h2>Please read this</h2>
 <div class="card">
 <ul>
 <li><b>Unofficial.</b> This project is not affiliated with, endorsed by or connected to the Sindh Public Service Commission.</li>
-<li><b>Original questions.</b> They were written for this project. None are copied from past papers or books.</li>
+<li><b>Original questions.</b> They were written for this project. None are copied from past papers or books. Each question appears once in a level; the same fact may come up again in a different question.</li>
 <li><b>Four options (A to D) are assumed.</b> The exact layout of the 2026 paper is not confirmed.</li>
 <li><b>Current Affairs is dated</b> to about 7 November 2026. In the last week before the exam, re-check office-holders, results and anything with "currently" in the question.</li>
-<li><b>With 4,200 questions, a few will be wrong or arguable.</b> If you find one, please report it (see below).</li>
+<li><b>With <span data-n="questions">…</span> questions, a few will be wrong or arguable. The Medium and Hard tests lean on finer facts, so check a surprising answer before trusting it.</b> If you find one, please report it (see below).</li>
 </ul>
 </div>
 
@@ -95,7 +102,7 @@
 
 <h2>Found a mistake?</h2>
 <div class="card">
-<p>Open an <a href="https://github.com/mursalfk/spsc-cce-mock-tests/issues">issue on GitHub</a> with the <b>test number</b> and <b>question number</b>, plus what you think is right. A source link helps.</p>
+<p>Open an <a href="https://github.com/mursalfk/spsc-cce-mock-tests/issues">issue on GitHub</a> with the <b>level</b> (Easy, Medium or Hard), the <b>test number</b> and the <b>question number</b>, plus what you think is right. A source link helps.</p>
 </div>
 
 <h2>The author</h2>
@@ -107,7 +114,8 @@
 
 <p class="foot">Good luck on 28 November... and may your net score be well above 66.<br>Unofficial practice tests. Not affiliated with, endorsed by or connected to the Sindh Public Service Commission.<br><a href="index.html">Back to all tests</a></p>
 </div>
-<script src="assets/ui.js"></script>
+<script src="assets/js/ui.js"></script>
 <script>document.querySelectorAll('[data-ic]').forEach(function(e){e.outerHTML=UI.icon(e.getAttribute('data-ic'))});</script>
+<script>fetch('data/catalog.json').then(function(r){return r.json()}).then(function(c){var n=c.tests.length,q=c.tests.reduce(function(a,x){return a+x.count},0);document.querySelectorAll('[data-n]').forEach(function(e){e.textContent=e.getAttribute('data-n')==='tests'?n:q.toLocaleString('en-US')})}).catch(function(){});</script>
 </body>
 </html>
